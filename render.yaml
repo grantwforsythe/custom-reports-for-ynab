@@ -5,7 +5,7 @@ services:
     repo: https://github.com/grantwforsythe/ynab-custom-reports
     branch: main
     buildCommand: npm run build
-    staticPublishPath: ./dist/ynab-custom-reports
+    staticPublishPath: dist/ynab-custom-reports/browser
     buildFilter:
       paths:
         - src/**/*.ts
