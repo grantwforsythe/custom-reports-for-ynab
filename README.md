@@ -1,4 +1,6 @@
-# YnabCustomReports
+# Ynab Custom Reports
+
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/facebook/grantwforsythe/blob/main/LICENSE)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.6.
 

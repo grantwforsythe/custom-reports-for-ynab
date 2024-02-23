@@ -2,6 +2,7 @@
   "name": "ynab-custom-reports",
   "version": "0.0.0",
   "private": true,
+  "license": "MIT",
   "author": {
     "name": "Grant Forsythe",
     "email": "grantwforsythe@gmail.com"
