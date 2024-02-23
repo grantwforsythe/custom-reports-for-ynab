@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: YNAB Custom Reports
+    runtime: static
+    repo: https://github.com/grantwforsythe/ynab-custom-reports
+    branch: main
+    buildCommand: npm run build
+    staticPublishPath: ./dist/ynab-custom-reports
+    buildFilter:
+      paths:
+        - src/**/*.ts
+      ignoredPaths:
+        - src/**/*.spec.ts
+    envVars:
+      - key: HUSKY
+        value: 0
