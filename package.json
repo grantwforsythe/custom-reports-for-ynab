@@ -2,7 +2,9 @@
   "name": "ynab-custom-reports",
   "version": "0.0.0",
   "private": true,
+  "description": "A web app to help you explore your YNAB transactions further",
   "license": "MIT",
+  "homepage": "https://ynab-custom-reports.onrender.com",
   "author": {
     "name": "Grant Forsythe",
     "email": "grantwforsythe@gmail.com"
@@ -11,6 +13,7 @@
     "type": "git",
     "url": "https://github.com/grantwforsythe/ynab-custom-reports.git"
   },
+  "bugs": "https://github.com/grantwforsythe/ynab-custom-reports/issues",
   "scripts": {
     "prepare": "husky || true",
     "ng": "ng",
