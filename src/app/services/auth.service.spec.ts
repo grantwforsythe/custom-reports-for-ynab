@@ -1,15 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment as env } from '../../environments/environment';
 
 import { AuthService } from './auth.service';
-import { BehaviorSubject } from 'rxjs';
+import { of } from 'rxjs';
 
 describe('AuthService', () => {
   let authService: AuthService;
-  let router: Router;
-  let route: ActivatedRoute;
+  let routerSpy: jasmine.SpyObj<Router>;
+  let routeSpy: jasmine.SpyObj<ActivatedRoute>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -17,31 +16,64 @@ describe('AuthService', () => {
       providers: [
         AuthService,
         {
+          provide: Router,
+          useValue: jasmine.createSpyObj('Router', ['navigateByUrl']),
+        },
+        {
           provide: ActivatedRoute,
-          useValue: {
-            fragment: new BehaviorSubject<string | null>('access_token=token&expires_in=7200'),
-          },
+          useValue: { fragment: of('access_token=Test&expires_in=7200') },
         },
       ],
     });
 
     authService = TestBed.inject(AuthService);
-    router = TestBed.inject(Router);
-    route = TestBed.inject(ActivatedRoute);
+    routerSpy = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    routeSpy = TestBed.inject(ActivatedRoute) as jasmine.SpyObj<ActivatedRoute>;
+  });
+
+  afterEach(() => {
+    authService.logout();
   });
 
   it('should be created', () => {
-    expect(authService).toBeTruthy();
+    expect(authService).toBeDefined();
   });
 
-  // describe('handleAuthentication', () => {
-  //   it('should handle authentication', () => {
-  //     const spyNavigateByUrl = spyOn(router, 'navigateByUrl');
-  //     const fragments = 'access_token=token&expires_in=7200';
-  //     authService.handleAuthentication();
-  //     expect(spyNavigateByUrl).toHaveBeenCalledWith('/');
-  //     expect(localStorage.getItem('accessToken')).toBe('token');
-  //     expect(localStorage.getItem('expiresAt')).toBeDefined();
-  //   });
-  // });
+  it('should handle authentication', () => {
+    authService.handleAuthentication();
+    expect(routerSpy.navigateByUrl).toHaveBeenCalledWith('/');
+    expect(localStorage.getItem('accessToken')).toBe('Test');
+    expect(authService.token$.value).toBe('Test');
+    expect(Number(localStorage.getItem('expiresAt'))).toBeGreaterThan(7200);
+  });
+
+  it('should logout', () => {
+    authService.logout();
+    expect(localStorage.getItem('accessToken')).toBeNull();
+    expect(localStorage.getItem('expiresAt')).toBeNull();
+    expect(authService.token$.value).toBeNull();
+    expect(routerSpy.navigateByUrl).toHaveBeenCalledWith('/');
+  });
+
+  describe('#isAuthenticated()', () => {
+    it('should be true if authenticated', () => {
+      authService.handleAuthentication();
+      expect(authService.isAuthenticated()).toBeTrue();
+    });
+
+    it('should be false if unauthenticated', () => {
+      expect(localStorage.getItem('accessToken')).toBeNull();
+      expect(localStorage.getItem('expiresAt')).toBeNull();
+      expect(authService.isAuthenticated()).toBeFalse();
+    });
+
+    it('should be false if token has expired', () => {
+      authService.handleAuthentication();
+
+      const expiresAt: number = new Date().getTime() - 1;
+      localStorage.setItem('expiresAt', expiresAt.toString());
+
+      expect(authService.isAuthenticated()).toBeFalse();
+    });
+  });
 });
