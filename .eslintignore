@@ -4,3 +4,4 @@ package.json
 package-lock.json
 karma.conf.js
 commitlint.config.js
+cypress.config.ts

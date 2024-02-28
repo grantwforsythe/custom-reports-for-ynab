@@ -8,7 +8,6 @@ import { of } from 'rxjs';
 describe('AuthService', () => {
   let authService: AuthService;
   let routerSpy: jasmine.SpyObj<Router>;
-  let routeSpy: jasmine.SpyObj<ActivatedRoute>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -28,7 +27,6 @@ describe('AuthService', () => {
 
     authService = TestBed.inject(AuthService);
     routerSpy = TestBed.inject(Router) as jasmine.SpyObj<Router>;
-    routeSpy = TestBed.inject(ActivatedRoute) as jasmine.SpyObj<ActivatedRoute>;
   });
 
   afterEach(() => {

@@ -7,13 +7,5 @@
   "bracketSpacing": true,
   "trailingComma": "all",
   "quoteProps": "preserve",
-  "arrowParens": "always",
-  "overrides": [
-    {
-      "files": "*.html",
-      "options": {
-        "parser": "angular"
-      }
-    }
-  ]
+  "arrowParens": "always"
 }
