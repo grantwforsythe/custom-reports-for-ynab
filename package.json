@@ -23,7 +23,10 @@
     "test": "ng test --code-coverage",
     "test:ci": "ng test --configuration production",
     "lint": "ng lint",
-    "release": "release-it"
+    "release": "release-it",
+    "e2e": "ng e2e",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
   },
   "dependencies": {
     "@angular/animations": "^17.0.0",
@@ -49,6 +52,7 @@
     "@angular/compiler-cli": "^17.0.0",
     "@commitlint/cli": "^18.6.1",
     "@commitlint/config-conventional": "^18.6.2",
+    "@cypress/schematic": "^2.5.1",
     "@release-it/conventional-changelog": "^8.0.1",
     "@types/jasmine": "~5.1.0",
     "@typescript-eslint/eslint-plugin": "6.19.0",
@@ -68,7 +72,8 @@
     "lint-staged": "^15.2.2",
     "prettier": "3.2.5",
     "release-it": "^17.1.1",
-    "typescript": "~5.2.2"
+    "typescript": "~5.2.2",
+    "cypress": "latest"
   },
   "lint-staged": {
     "src/**/*.{ts,html,scss}": [

@@ -20,7 +20,7 @@
     "useDefineForClassFields": false,
     "lib": ["ES2022", "dom"]
   },
-  "exclude": ["node_modules", "dist", "karma.conf.js"],
+  "exclude": ["node_modules", "dist", "karma.conf.js", "cypress.config.ts"],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
