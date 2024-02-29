@@ -14,7 +14,8 @@ export class AuthService implements OnDestroy {
   private fragmentSubscription: Subscription | undefined;
 
   authenticate(): void {
-    window.location.href = `https://app.ynab.com/oauth/authorize?client_id=${env.auth.clientId}&redirect_uri=${window.location.origin}&response_type=token`;
+    // TODO: Add read-only access to uri
+    window.location.href = `https://app.ynab.com/oauth/authorize?client_id=${env.auth.clientId}&redirect_uri=${window.location.origin}&response_type=token&scope=read-only`;
   }
 
   handleAuthentication(): void {
