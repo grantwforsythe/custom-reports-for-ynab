@@ -27,7 +27,7 @@ export class AuthService implements OnDestroy {
       // Time in seconds
       const expiresIn = urlParams.get('expires_in');
 
-      this.router.navigateByUrl('/budgets');
+      this.router.navigateByUrl('/');
 
       if (accessToken && expiresIn) {
         // Time in miliseconds
