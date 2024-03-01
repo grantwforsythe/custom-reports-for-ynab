@@ -39,7 +39,7 @@ describe('AuthService', () => {
 
   it('should handle authentication', () => {
     authService.handleAuthentication();
-    expect(routerSpy.navigateByUrl).toHaveBeenCalledWith('/');
+    expect(routerSpy.navigateByUrl).toHaveBeenCalledWith('/budgets');
     expect(localStorage.getItem('accessToken')).toBe('Test');
     expect(authService.token$.value).toBe('Test');
     expect(Number(localStorage.getItem('expiresAt'))).toBeGreaterThan(7200);
