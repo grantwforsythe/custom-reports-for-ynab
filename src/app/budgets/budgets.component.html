@@ -1,1 +1,16 @@
-<p>budgets works!</p>
+<!-- TODO: Order budgets by last modified -->
+<div style="display: flex; flex-direction: row; justify-content: space-around">
+  @for (budget of budgets$ | async; track budget.id) {
+    <mat-card matRipple>
+      <mat-card-header>
+        <mat-card-title>{{ budget.name }}</mat-card-title>
+        <mat-card-subtitle
+          >Last Modified: {{ budget?.last_modified_on | date: 'longDate' }}</mat-card-subtitle
+        >
+      </mat-card-header>
+      <mat-card-content>
+        <p>Number of accounts: {{ budget.accounts?.length }}</p>
+      </mat-card-content>
+    </mat-card>
+  }
+</div>
