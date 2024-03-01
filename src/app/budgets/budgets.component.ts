@@ -3,11 +3,12 @@ import { YnabService } from '../services/ynab/ynab.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatRippleModule } from '@angular/material/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-budgets',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatRippleModule, DatePipe],
+  imports: [CommonModule, MatCardModule, MatRippleModule, DatePipe, RouterModule],
   templateUrl: './budgets.component.html',
 })
 export class BudgetsComponent {
