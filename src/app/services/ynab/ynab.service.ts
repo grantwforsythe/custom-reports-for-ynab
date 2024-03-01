@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { EMPTY, Observable, catchError, map, tap, throwError } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { BudgetSummary } from './interfaces/budgets/summary/budgetSummary';
 import { BudgetSummaryResponseData } from './interfaces/budgets/summary/budgetSummaryResponseData';
+import { BudgetDetailResponse } from './interfaces/budgets/detail/budgetDetailResponseData';
+import { BudgetDetail } from './interfaces/budgets/detail/budgetDetail';
 
 @Injectable({
   providedIn: 'root',
@@ -12,20 +14,33 @@ export class YnabService {
 
   constructor() {}
 
-  // TODO: Add error handling
-  getBudgets(includeAccounts: boolean = true): Observable<BudgetSummary[]> {
+  // TODO: Improve error handling
+  private handleError(error: HttpErrorResponse) {
+    return throwError(() => {
+      console.log(error);
+      return error.error;
+    });
+  }
+
+  getBudgets(includeAccounts: boolean = false): Observable<BudgetSummary[]> {
     return this.http
       .get<{ data: BudgetSummaryResponseData }>('https://api.ynab.com/v1/budgets', {
-        params: { 'include_accounts': includeAccounts },
+        params: { include_accounts: includeAccounts },
       })
       .pipe(
-        tap((event) => console.log('error:', event)),
         map(({ data }) => data.budgets),
-        catchError((error) => {
-          console.log(error);
-          throwError(() => error);
-          return EMPTY;
-        }),
+        catchError(this.handleError),
+      );
+  }
+
+  getBudgetById(budgetId: string): Observable<BudgetDetail> {
+    return this.http
+      .get<{
+        data: BudgetDetailResponse;
+      }>(`https://api.ynab.com/v1/budgets/${budgetId}`)
+      .pipe(
+        map(({ data }) => data.budget),
+        catchError(this.handleError),
       );
   }
 }

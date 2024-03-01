@@ -8,7 +8,7 @@ export interface BudgetSummary {
   /**
    * The last time any changes were made to the budget from either a web or mobile client
    */
-  last_modified_on?: Date;
+  last_modified_on?: string;
   /**
    * The earliest budget month
    */
