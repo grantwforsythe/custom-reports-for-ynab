@@ -22,5 +22,5 @@ export interface BudgetSummary {
   /**
    * The budget accounts (only included if `include_accounts=true` specified as query parameter)
    */
-  accounts?: Array<Account>;
+  accounts?: Account[];
 }

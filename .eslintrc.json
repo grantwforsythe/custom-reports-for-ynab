@@ -24,6 +24,7 @@
           "error",
           { "type": "element", "prefix": "app", "style": "kebab-case" }
         ],
+        "@typescript-eslint/array-type": "error",
         "@typescript-eslint/consistent-type-assertions": [
           "error",
           {
