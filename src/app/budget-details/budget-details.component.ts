@@ -1,6 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { YnabService } from '../services/ynab/ynab.service';
 import { CommonModule } from '@angular/common';
 
@@ -10,13 +10,21 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './budget-details.component.html',
 })
-export class BudgetDetailsComponent implements OnInit {
+export class BudgetDetailsComponent implements OnInit, OnDestroy {
   ynab = inject(YnabService);
   route = inject(ActivatedRoute);
+
+  private destroy$ = new Subject<void>();
 
   budget$: Observable<unknown> | undefined;
 
   ngOnInit(): void {
-    this.budget$ = this.ynab.getBudgetById(this.route.snapshot.params['id']);
+    this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
+      this.budget$ = this.ynab.getBudgetById(params['id']);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
   }
 }
