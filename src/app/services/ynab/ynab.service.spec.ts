@@ -3,8 +3,8 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { YnabService } from './ynab.service';
 import { YnabError } from './interfaces/ynabError';
-import { BudgetDetailResponse } from './interfaces/budgets/detail/budgetDetailResponseData';
-import { BudgetSummaryResponseData } from './interfaces/budgets/summary/budgetSummaryResponseData';
+import { BudgetDetail } from './interfaces/budgets/detail/budgetDetail';
+import { BudgetSummary } from './interfaces/budgets/summary/budgetSummary';
 
 describe('YnabService', () => {
   let controller: HttpTestingController;
@@ -29,7 +29,7 @@ describe('YnabService', () => {
 
   describe('#getBudgets()', () => {
     it('should fetch budgets without accounts', () => {
-      const mockBudgets: { data: BudgetSummaryResponseData } = {
+      const mockBudgets: { data: { budgets: BudgetSummary[]; default_budget?: BudgetSummary } } = {
         data: {
           budgets: [
             {
@@ -104,7 +104,7 @@ describe('YnabService', () => {
   describe('#getBudgetById()', () => {
     it('should fetch a budget', () => {
       const id = 'f7ebaf33-92c7-452e-ad67-a870f4944af2';
-      const mockBudget: { data: BudgetDetailResponse } = {
+      const mockBudget: { data: { budget: BudgetDetail; server_knowledge: number } } = {
         data: {
           budget: {
             id,

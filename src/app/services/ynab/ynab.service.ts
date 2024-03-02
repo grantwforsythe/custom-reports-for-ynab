@@ -2,8 +2,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { BudgetSummary } from './interfaces/budgets/summary/budgetSummary';
-import { BudgetSummaryResponseData } from './interfaces/budgets/summary/budgetSummaryResponseData';
-import { BudgetDetailResponse } from './interfaces/budgets/detail/budgetDetailResponseData';
 import { BudgetDetail } from './interfaces/budgets/detail/budgetDetail';
 
 @Injectable({
@@ -24,9 +22,12 @@ export class YnabService {
 
   getBudgets(includeAccounts: boolean = false): Observable<BudgetSummary[]> {
     return this.http
-      .get<{ data: BudgetSummaryResponseData }>('https://api.ynab.com/v1/budgets', {
-        params: { include_accounts: includeAccounts },
-      })
+      .get<{ data: { budgets: BudgetSummary[]; default_budget?: BudgetSummary } }>(
+        'https://api.ynab.com/v1/budgets',
+        {
+          params: { include_accounts: includeAccounts },
+        },
+      )
       .pipe(
         map(({ data }) => data.budgets),
         catchError(this.handleError),
@@ -36,7 +37,7 @@ export class YnabService {
   getBudgetById(budgetId: string): Observable<BudgetDetail> {
     return this.http
       .get<{
-        data: BudgetDetailResponse;
+        data: { budget: BudgetDetail; server_knowledge: number };
       }>(`https://api.ynab.com/v1/budgets/${budgetId}`)
       .pipe(
         map(({ data }) => data.budget),
