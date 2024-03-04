@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse } from '@angular/common/http';
 import { CachedValue } from './interfaces/cache';
 
-const maxAge = 30000;
+// 2 hours in milliseconds
+const maxAge = 7200 * 1000;
+
 @Injectable({
   providedIn: 'root',
 })
