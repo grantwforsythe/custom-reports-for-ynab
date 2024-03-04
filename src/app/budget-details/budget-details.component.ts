@@ -1,28 +1,29 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { YnabService } from '../services/ynab/ynab.service';
 import { CommonModule } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-budget-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatProgressSpinnerModule],
   templateUrl: './budget-details.component.html',
 })
-export class BudgetDetailsComponent implements OnInit, OnDestroy {
+export class BudgetDetailsComponent implements OnDestroy {
   ynab = inject(YnabService);
   route = inject(ActivatedRoute);
+  isLoaded = true;
 
   private destroy$ = new Subject<void>();
 
-  budget$: Observable<unknown> | undefined;
-
-  ngOnInit(): void {
-    this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
-      this.budget$ = this.ynab.getBudgetById(params['id']);
-    });
-  }
+  budget$ = this.route.params.pipe(
+    takeUntil(this.destroy$),
+    switchMap((params) =>
+      this.ynab.getBudgetById(params['id']).pipe(tap(() => (this.isLoaded = true))),
+    ),
+  );
 
   ngOnDestroy(): void {
     this.destroy$.next();

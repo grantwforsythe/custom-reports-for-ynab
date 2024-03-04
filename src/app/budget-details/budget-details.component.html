@@ -1,1 +1,5 @@
-<p>{{ budget$ | async | json }}</p>
+@if (isLoaded) {
+  <p>{{ budget$ | async | json }}</p>
+} @else {
+  <mat-spinner></mat-spinner>
+}
