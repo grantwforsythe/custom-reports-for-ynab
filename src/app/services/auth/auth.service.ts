@@ -1,6 +1,6 @@
 import { Injectable, inject, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { environment as env } from '../../../environments/environment';
 
 @Injectable({
@@ -11,15 +11,14 @@ export class AuthService implements OnDestroy {
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private fragmentSubscription: Subscription | undefined;
+  private destroy$ = new Subject<void>();
 
   authenticate(): void {
-    // TODO: Add read-only access to uri
     window.location.href = `https://app.ynab.com/oauth/authorize?client_id=${env.auth.clientId}&redirect_uri=${window.location.origin}&response_type=token&scope=read-only`;
   }
 
   handleAuthentication(): void {
-    this.fragmentSubscription = this.route.fragment.subscribe((fragments: string | null) => {
+    this.route.fragment.pipe(takeUntil(this.destroy$)).subscribe((fragments: string | null) => {
       if (!fragments) return;
 
       const urlParams = new URLSearchParams(fragments);
@@ -53,6 +52,6 @@ export class AuthService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.fragmentSubscription?.unsubscribe();
+    this.destroy$.next();
   }
 }
