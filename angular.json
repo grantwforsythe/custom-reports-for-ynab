@@ -82,6 +82,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "configurations": {
             "production": {
+              "progress": false,
               "sourceMap": false,
               "codeCoverage": true,
               "browsers": "ChromeHeadless",
