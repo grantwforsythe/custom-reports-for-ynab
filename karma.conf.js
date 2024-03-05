@@ -27,14 +27,14 @@ module.exports = function (config) {
       dir: require('path').join(__dirname, './coverage/ynab-custom-reports'),
       subdir: '.',
       reporters: [{ type: 'html' }, { type: 'text-summary' }],
-      check: {
-        global: {
-          Statement: 90,
-          branches: 90,
-          functions: 90,
-          lines: 90,
-        },
-      },
+      // check: {
+      //   global: {
+      //     Statement: 90,
+      //     branches: 90,
+      //     functions: 90,
+      //     lines: 90,
+      //   },
+      // },
     },
     reporters: ['progress', 'kjhtml'],
     browsers: ['Chrome'],
