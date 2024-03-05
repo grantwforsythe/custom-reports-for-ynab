@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install node, npm, and dependencies
+        uses: ./.github/actions/install-dependencies
+
+      - name: Build Packages
+        run: npm run build
+        shell: bash
+
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install node, npm, and dependencies
+        uses: ./.github/actions/install-dependencies
+
+      - name: Run unit tests
+        run: npm run test:ci
+        shell: bash
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          start: npm start
+        env:
+          CYPRESS_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install node, npm, and dependencies
+        uses: ./.github/actions/install-dependencies
+
+      - name: Lint Packages
+        run: npm run lint
+        shell: bash
