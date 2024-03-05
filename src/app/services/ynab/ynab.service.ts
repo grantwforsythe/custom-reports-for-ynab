@@ -1,8 +1,12 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
-import { BudgetSummary } from './interfaces/budgets/summary/budgetSummary';
+
 import { BudgetDetail } from './interfaces/budgets/detail/budgetDetail';
+import { BudgetSummary } from './interfaces/budgets/summary/budgetSummary';
+import { PayeeLocation } from './interfaces/payees/payeeLocation';
+import { Transaction } from './interfaces/transactions/transaction';
+import { CategoryGroup } from './interfaces/categories/categoryGroup';
 
 @Injectable({
   providedIn: 'root',
@@ -41,6 +45,39 @@ export class YnabService {
       }>(`https://api.ynab.com/v1/budgets/${budgetId}`)
       .pipe(
         map(({ data }) => data.budget),
+        catchError(this.handleError),
+      );
+  }
+
+  getCategories(budgetId: string) {
+    return this.http
+      .get<{
+        data: { categories: CategoryGroup[]; server_knowledge: number };
+      }>(`https://api.ynab/com/v1/budgets/${budgetId}/categories`)
+      .pipe(
+        map(({ data }) => data.categories),
+        catchError(this.handleError),
+      );
+  }
+
+  getPayees(budgetId: string): Observable<PayeeLocation[]> {
+    return this.http
+      .get<{
+        data: { payees: PayeeLocation[]; server_knowledge: number };
+      }>(`https://api.ynab.com/v1/budgets/${budgetId}/payees`)
+      .pipe(
+        map(({ data }) => data.payees),
+        catchError(this.handleError),
+      );
+  }
+
+  getTransactions(budgetId: string): Observable<Transaction[]> {
+    return this.http
+      .get<{
+        data: { transactions: Transaction[]; server_knowledge: number };
+      }>(`https://api.ynab.com/v1/budgets/${budgetId}/transactions`)
+      .pipe(
+        map(({ data }) => data.transactions),
         catchError(this.handleError),
       );
   }

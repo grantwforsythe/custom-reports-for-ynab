@@ -12,7 +12,7 @@ import { MonthSummary } from './monthSummary';
 export interface BudgetDetail extends BudgetSummary {
   payees?: Payee[];
   payeeLocations?: PayeeLocation[];
-  categoryGroupss?: CategoryGroup[];
+  categoryGroupss?: Omit<CategoryGroup[], 'categories'>;
   categories?: Category[];
   months?: MonthSummary[];
   transactions?: TransactionSummary[];

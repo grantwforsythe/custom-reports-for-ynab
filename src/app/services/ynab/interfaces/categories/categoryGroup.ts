@@ -1,3 +1,5 @@
+import { Category } from './category';
+
 export interface CategoryGroup {
   id: string;
   name: string;
@@ -9,4 +11,5 @@ export interface CategoryGroup {
    * Whether or not the category group has been deleted. Deleted category groups will only be included in delta requests.
    */
   deleted: boolean;
+  categories?: Category[];
 }
