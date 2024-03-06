@@ -71,11 +71,16 @@ jobs:
       - name: Install node, npm, and dependencies
         uses: ./.github/actions/install-dependencies
 
+      - name: Initialize Git User
+        run: |
+          git config --global user.email "grantwforsythe@gmail.com"
+          git config --global user.name "Release Workflow"
+
+      - name: Release
+        run: npm run release --ci
+
       - name: Deploy to Render
         env:
           DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL}}
         run: curl "$DEPLOY_HOOK_URL"
         shell: bash
-
-      - name: Release
-        run: npm run release --ci
