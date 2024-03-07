@@ -1,9 +1,9 @@
 import { Component, OnDestroy, inject } from '@angular/core';
+import { Subject, switchMap, takeUntil } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { Subject, switchMap, takeUntil, tap } from 'rxjs';
-import { YnabService } from '../services/ynab/ynab.service';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { YnabService } from '../services/ynab/ynab.service';
 
 @Component({
   selector: 'app-budget-details',
@@ -14,15 +14,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 export class BudgetDetailsComponent implements OnDestroy {
   ynab = inject(YnabService);
   route = inject(ActivatedRoute);
-  isLoaded = true;
 
   private destroy$ = new Subject<void>();
 
   budget$ = this.route.params.pipe(
     takeUntil(this.destroy$),
-    switchMap((params) =>
-      this.ynab.getBudgetById(params['id']).pipe(tap(() => (this.isLoaded = true))),
-    ),
+    switchMap((params) => this.ynab.getBudgetById(params['id'])),
   );
 
   ngOnDestroy(): void {
