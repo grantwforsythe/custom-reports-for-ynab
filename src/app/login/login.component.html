@@ -1,5 +1,7 @@
-@if (!authService.isAuthenticated()) {
-  <button (click)="login()">Authenticate</button>
-} @else {
-  <button (click)="logout()">Logout</button>
-}
+<div class="container">
+  @if (!authService.isAuthenticated()) {
+    <button (click)="login()">Authenticate</button>
+  } @else {
+    <button (click)="logout()">Logout</button>
+  }
+</div>
