@@ -1,11 +1,22 @@
-#header--link {
+#header__link {
   color: black;
   padding-left: 100px;
   box-sizing: border-box;
   padding-right: 25px;
 }
 
+#header__link > img {
+  height: 45px;
+  width: 45px;
+}
+
 .container {
+  width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+}
+
+.container > a {
+  margin-left: auto;
+  align-self: flex-end;
 }
