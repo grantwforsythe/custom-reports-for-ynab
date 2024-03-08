@@ -143,6 +143,7 @@ describe('YnabService', () => {
       req.flush(mockBudget);
     });
 
+    // https://angular.io/guide/http-handle-request-errors
     it('should handle error', () => {
       const id = 'f7ebaf33-92c7-452e-ad67-a870f4944af2';
       const mockError: YnabError = {

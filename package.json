@@ -39,6 +39,7 @@
     "@angular/platform-browser": "^17.0.0",
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/router": "^17.0.0",
+    "@swimlane/ngx-charts": "^20.5.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
@@ -60,6 +61,7 @@
     "@typescript-eslint/eslint-plugin": "6.19.0",
     "@typescript-eslint/parser": "6.19.0",
     "conventional-changelog-cli": "^4.1.0",
+    "cypress": "latest",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-json": "^3.1.0",
@@ -74,8 +76,7 @@
     "lint-staged": "^15.2.2",
     "prettier": "3.2.5",
     "release-it": "^17.1.1",
-    "typescript": "~5.2.2",
-    "cypress": "latest"
+    "typescript": "~5.2.2"
   },
   "lint-staged": {
     "src/**/*.{ts,html,scss}": [

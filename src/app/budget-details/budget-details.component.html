@@ -1,5 +1,7 @@
 @if (budget$ | async) {
-  <p>{{ budget$ | async | json }}</p>
+  <div class="container">
+    <ngx-charts-bar-vertical [results]="budget$ | async" [legend]="true"> </ngx-charts-bar-vertical>
+  </div>
 } @else {
   <mat-spinner></mat-spinner>
 }
