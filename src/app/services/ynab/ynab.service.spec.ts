@@ -5,6 +5,11 @@ import { YnabService } from './ynab.service';
 import { YnabError } from './interfaces/ynabError';
 import { BudgetDetail } from './interfaces/budgets/detail/budgetDetail';
 import { BudgetSummary } from './interfaces/budgets/summary/budgetSummary';
+import { CategoryGroup } from './interfaces/categories/categoryGroup';
+import { Payee } from './interfaces/payees/payee';
+import { Transaction } from './interfaces/transactions/transaction';
+
+const id = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
 
 describe('YnabService', () => {
   let controller: HttpTestingController;
@@ -33,7 +38,7 @@ describe('YnabService', () => {
         data: {
           budgets: [
             {
-              id: 'f7ebaf33-92c7-452e-ad67-a870f4944af2',
+              id,
               name: 'Walter White’s Budget',
               last_modified_on: '2013-09-29T22:34:46Z',
               first_month: '2013-09-01',
@@ -91,7 +96,7 @@ describe('YnabService', () => {
           method: 'GET',
           url: 'https://api.ynab.com/v1/budgets?include_accounts=false',
         },
-        'Fetch budgets',
+        'Handle errors when fetching budgets',
       );
 
       expect(req.cancelled).toBeFalsy();
@@ -103,7 +108,6 @@ describe('YnabService', () => {
 
   describe('#getBudgetById()', () => {
     it('should fetch a budget', () => {
-      const id = 'f7ebaf33-92c7-452e-ad67-a870f4944af2';
       const mockBudget: { data: { budget: BudgetDetail; server_knowledge: number } } = {
         data: {
           budget: {
@@ -132,10 +136,13 @@ describe('YnabService', () => {
         expect(budget.id).toEqual(id);
       });
 
-      const req = controller.expectOne({
-        method: 'GET',
-        url: `https://api.ynab.com/v1/budgets/${id}`,
-      });
+      const req = controller.expectOne(
+        {
+          method: 'GET',
+          url: `https://api.ynab.com/v1/budgets/${id}`,
+        },
+        'Fetch budget',
+      );
 
       expect(req.cancelled).toBeFalsy();
       expect(req.request.responseType).toBe('json');
@@ -143,9 +150,7 @@ describe('YnabService', () => {
       req.flush(mockBudget);
     });
 
-    // https://angular.io/guide/http-handle-request-errors
     it('should handle error', () => {
-      const id = 'f7ebaf33-92c7-452e-ad67-a870f4944af2';
       const mockError: YnabError = {
         id: '404',
         name: 'Not found',
@@ -164,13 +169,263 @@ describe('YnabService', () => {
           method: 'GET',
           url: `https://api.ynab.com/v1/budgets/${id}`,
         },
-        'Fetch budgets',
+        'Handle errors when fetching a budget',
       );
 
       expect(req.cancelled).toBeFalsy();
       expect(req.request.responseType).toEqual('json');
 
       req.flush(mockError, { status: 404, statusText: 'Not found' });
+    });
+  });
+
+  describe('#getCategoryGroups()', () => {
+    it('should fetch category groups', () => {
+      const mockBudgets: { data: { category_groups: CategoryGroup[]; server_knowledge: number } } =
+        {
+          data: {
+            category_groups: [
+              {
+                id,
+                name: 'string',
+                hidden: true,
+                deleted: true,
+                categories: [
+                  {
+                    id,
+                    category_group_id: id,
+                    category_group_name: 'string',
+                    name: 'string',
+                    hidden: true,
+                    original_category_group_id: id,
+                    note: 'string',
+                    budgeted: 0,
+                    activity: 0,
+                    balance: 0,
+                    goal_type: 'TB',
+                    goal_day: 0,
+                    goal_cadence: 0,
+                    goal_cadence_frequency: 0,
+                    goal_creation_month: '2024-03-09',
+                    goal_target: 0,
+                    goal_target_month: '2024-03-09',
+                    goal_percentage_complete: 0,
+                    goal_months_to_budget: 0,
+                    goal_under_funded: 0,
+                    goal_overall_funded: 0,
+                    goal_overall_left: 0,
+                    deleted: true,
+                  },
+                ],
+              },
+            ],
+            'server_knowledge': 0,
+          },
+        };
+
+      service.getCategoryGroups(id).subscribe((categoryGroups) => {
+        expect(categoryGroups).toHaveSize(1);
+      });
+
+      const req = controller.expectOne(
+        {
+          method: 'GET',
+          url: `https://api.ynab.com/v1/budgets/${id}/categories`,
+        },
+        'Fetch all category groups for a budget',
+      );
+
+      expect(req.cancelled).toBeFalsy();
+      expect(req.request.responseType).toEqual('json');
+
+      req.flush(mockBudgets);
+    });
+
+    it('should handle error', () => {
+      const mockError: YnabError = {
+        id: '403',
+        name: 'Unauthorized',
+        detail: 'Unauthorized to access this endpoint',
+      };
+
+      service.getCategoryGroups(id).subscribe({
+        complete: () => fail('should have thrown an error'),
+        error: (error: YnabError) => {
+          expect(error).withContext('error').toEqual(mockError);
+        },
+      });
+
+      const req = controller.expectOne(
+        {
+          method: 'GET',
+          url: `https://api.ynab.com/v1/budgets/${id}/categories`,
+        },
+        'Handle errors when fetching all category groups for a budget',
+      );
+
+      expect(req.cancelled).toBeFalsy();
+      expect(req.request.responseType).toEqual('json');
+
+      req.flush(mockError, { status: 403, statusText: 'Unauthorized' });
+    });
+  });
+
+  describe('#getPayees()', () => {
+    it('should fetch category groups', () => {
+      const mockBudgets: { data: { payees: Payee[]; server_knowledge: number } } = {
+        data: {
+          payees: [
+            {
+              id,
+              name: 'string',
+              transfer_account_id: 'string',
+              deleted: true,
+            },
+          ],
+          server_knowledge: 0,
+        },
+      };
+
+      service.getPayees(id).subscribe((payees) => {
+        expect(payees).toHaveSize(1);
+      });
+
+      const req = controller.expectOne(
+        {
+          method: 'GET',
+          url: `https://api.ynab.com/v1/budgets/${id}/payees`,
+        },
+        'Fetch all payees for a budget',
+      );
+
+      expect(req.cancelled).toBeFalsy();
+      expect(req.request.responseType).toEqual('json');
+
+      req.flush(mockBudgets);
+    });
+
+    it('should handle error', () => {
+      const mockError: YnabError = {
+        id: '403',
+        name: 'Unauthorized',
+        detail: 'Unauthorized to access this endpoint',
+      };
+
+      service.getPayees(id).subscribe({
+        complete: () => fail('should have thrown an error'),
+        error: (error: YnabError) => {
+          expect(error).withContext('error').toEqual(mockError);
+        },
+      });
+
+      const req = controller.expectOne(
+        {
+          method: 'GET',
+          url: `https://api.ynab.com/v1/budgets/${id}/payees`,
+        },
+        'Handle errors when fetching payees',
+      );
+
+      expect(req.cancelled).toBeFalsy();
+      expect(req.request.responseType).toEqual('json');
+
+      req.flush(mockError, { status: 403, statusText: 'Unauthorized' });
+    });
+  });
+
+  describe('#getTransactions()', () => {
+    it('should fetch transactions', () => {
+      const mockBudgets: { data: { transactions: Transaction[]; server_knowledge: number } } = {
+        data: {
+          transactions: [
+            {
+              id,
+              date: '2024-03-09',
+              amount: 0,
+              memo: 'string',
+              cleared: 'cleared',
+              approved: true,
+              flag_color: 'red',
+              flag_name: 'string',
+              account_id: id,
+              payee_id: id,
+              category_id: id,
+              transfer_account_id: id,
+              transfer_transaction_id: id,
+              matched_transaction_id: id,
+              import_id: id,
+              import_payee_name: 'string',
+              import_payee_name_original: 'string',
+              debt_transaction_type: 'payment',
+              deleted: true,
+              account_name: 'string',
+              payee_name: 'string',
+              category_name: 'string',
+              subtransactions: [
+                {
+                  id,
+                  transaction_id: id,
+                  amount: 0,
+                  memo: 'string',
+                  payee_id: id,
+                  payee_name: 'string',
+                  category_id: id,
+                  category_name: 'string',
+                  transfer_account_id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+                  transfer_transaction_id: id,
+                  deleted: true,
+                },
+              ],
+            },
+          ],
+          server_knowledge: 0,
+        },
+      };
+
+      service.getTransactions(id).subscribe((transactions) => {
+        expect(transactions).toHaveSize(1);
+      });
+
+      const req = controller.expectOne(
+        {
+          method: 'GET',
+          url: `https://api.ynab.com/v1/budgets/${id}/transactions`,
+        },
+        'Fetch all transactions for a budget',
+      );
+
+      expect(req.cancelled).toBeFalsy();
+      expect(req.request.responseType).toEqual('json');
+
+      req.flush(mockBudgets);
+    });
+
+    it('should handle error', () => {
+      const mockError: YnabError = {
+        id: '403',
+        name: 'Unauthorized',
+        detail: 'Unauthorized to access this endpoint',
+      };
+
+      service.getTransactions(id).subscribe({
+        complete: () => fail('should have thrown an error'),
+        error: (error: YnabError) => {
+          expect(error).withContext('error').toEqual(mockError);
+        },
+      });
+
+      const req = controller.expectOne(
+        {
+          method: 'GET',
+          url: `https://api.ynab.com/v1/budgets/${id}/transactions`,
+        },
+        'Handle errors when fetching all transactions for a budget',
+      );
+
+      expect(req.cancelled).toBeFalsy();
+      expect(req.request.responseType).toEqual('json');
+
+      req.flush(mockError, { status: 403, statusText: 'Unauthorized' });
     });
   });
 });

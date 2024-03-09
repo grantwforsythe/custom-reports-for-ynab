@@ -17,7 +17,7 @@ export interface SubTransaction {
   /**
    * If a transfer, the id of transaction on the other side of the transfer
    */
-  transfer_transaction_Id?: string;
+  transfer_transaction_id?: string;
   /**
    * Whether or not the subtransaction has been deleted.  Deleted subtransactions will only be included in delta requests.
    */

@@ -4,9 +4,9 @@ import { Observable, catchError, map, throwError } from 'rxjs';
 
 import { BudgetDetail } from './interfaces/budgets/detail/budgetDetail';
 import { BudgetSummary } from './interfaces/budgets/summary/budgetSummary';
-import { PayeeLocation } from './interfaces/payees/payeeLocation';
 import { Transaction } from './interfaces/transactions/transaction';
 import { CategoryGroup } from './interfaces/categories/categoryGroup';
+import { Payee } from './interfaces/payees/payee';
 
 const BASE_URL = 'https://api.ynab.com/v1';
 
@@ -51,21 +51,21 @@ export class YnabService {
       );
   }
 
-  getCategories(budgetId: string) {
+  getCategoryGroups(budgetId: string) {
     return this.http
       .get<{
-        data: { categories: CategoryGroup[]; server_knowledge: number };
+        data: { category_groups: CategoryGroup[]; server_knowledge: number };
       }>(`${BASE_URL}/budgets/${budgetId}/categories`)
       .pipe(
-        map(({ data }) => data.categories),
+        map(({ data }) => data.category_groups),
         catchError(this.handleError),
       );
   }
 
-  getPayees(budgetId: string): Observable<PayeeLocation[]> {
+  getPayees(budgetId: string): Observable<Payee[]> {
     return this.http
       .get<{
-        data: { payees: PayeeLocation[]; server_knowledge: number };
+        data: { payees: Payee[]; server_knowledge: number };
       }>(`${BASE_URL}/budgets/${budgetId}/payees`)
       .pipe(
         map(({ data }) => data.payees),
