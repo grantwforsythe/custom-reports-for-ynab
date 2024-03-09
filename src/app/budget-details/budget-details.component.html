@@ -1,6 +1,16 @@
 @if (budget$ | async) {
   <div class="container">
-    <ngx-charts-bar-vertical [results]="budget$ | async" [legend]="true"> </ngx-charts-bar-vertical>
+    <ngx-charts-bar-vertical
+      [results]="budget$ | async"
+      [legend]="true"
+      [xAxis]="true"
+      [yAxis]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      xAxisLabel="Category"
+      yAxisLabel="Amount"
+    >
+    </ngx-charts-bar-vertical>
   </div>
 } @else {
   <mat-spinner></mat-spinner>

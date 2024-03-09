@@ -1,5 +1,5 @@
 import { Component, OnDestroy, inject } from '@angular/core';
-import { Subject, map, switchMap, takeUntil } from 'rxjs';
+import { Subject, map, switchMap, takeUntil, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { YnabService } from '../services/ynab/ynab.service';
@@ -24,22 +24,44 @@ export class BudgetDetailsComponent implements OnDestroy {
   // TODO: Add date filters
   // TODO: Add account filters
   // TODO: Add category filters
+  // TODO: Handle split transactions
 
   budget$ = this.route.params.pipe(
     takeUntil(this.destroy$),
     switchMap((params) => this.ynab.getBudgetById(params['id'])),
     map((budget: BudgetDetail) => {
-      return budget.transactions
-        ?.filter((transaction) => {
-          return new Date(transaction.date).getMonth() === 2 && transaction.amount < 0;
-        })
-        .map((transaction) => {
-          return {
-            value: transaction.amount / 1000,
-            name: budget.categories?.find((category) => category.id === transaction.category_id)
-              ?.name,
-          };
-        });
+      const ignoredTransactionIds =
+        budget.subtransactions?.map((subtransaction) => subtransaction.transaction_id) ?? [];
+
+      return (
+        budget.transactions
+          /**
+           * Filter out transactions based on the following criteria:
+           *  - Not made during the month of February
+           *  - An inflow
+           *  - Deleted
+           *  - Doesn't have a category_id
+           *  - Isn't a split transaction
+           **/
+          ?.filter((transaction) => {
+            return (
+              new Date(transaction.date).getMonth() === 2 &&
+              transaction.amount < 0 &&
+              !transaction.deleted &&
+              !!transaction.category_id &&
+              !ignoredTransactionIds.includes(transaction.id)
+            );
+          })
+          .map((transaction) => {
+            return {
+              value: (transaction.amount / 1000) * -1,
+              name:
+                budget.categories?.find((category) => category.id === transaction.category_id)
+                  ?.name ?? transaction.category_id,
+            };
+          })
+          .sort((t1, t2) => t2.value - t1.value)
+      );
     }),
   );
 
