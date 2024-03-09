@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse } from '@angular/common/http';
 import { CachedValue } from './interfaces/cache';
 
-// 2 hours in milliseconds
-const maxAge = 7200 * 1000;
+// 60 milliseconds
+const MAX_AGE = 60 * 1000;
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +12,13 @@ export class CacheService {
   cache = new Map<string, CachedValue>();
 
   get(req: HttpRequest<unknown>): HttpResponse<unknown> | undefined {
+    this.cache.forEach((expiredEntry) => {
+      // Delete expired cache
+      if (expiredEntry.lastRead < Date.now() - MAX_AGE) {
+        this.cache.delete(expiredEntry.urlWithParams);
+      }
+    });
+
     const cached = this.cache.get(req.urlWithParams);
 
     return !cached ? undefined : cached.response;
@@ -22,15 +29,6 @@ export class CacheService {
       urlWithParams: req.urlWithParams,
       response,
       lastRead: Date.now(),
-    });
-
-    const expired = Date.now() - maxAge;
-
-    // Delete expired cache
-    this.cache.forEach((expiredEntry) => {
-      if (expiredEntry.lastRead < expired) {
-        this.cache.delete(expiredEntry.urlWithParams);
-      }
     });
   }
 }
