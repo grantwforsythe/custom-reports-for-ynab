@@ -1,6 +1,6 @@
 {
   "name": "ynab-custom-reports",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "description": "A web app to help you explore your YNAB transactions further",
   "license": "MIT",
