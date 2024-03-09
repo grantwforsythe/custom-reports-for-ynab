@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { LoginComponent } from './login/login.component';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatDividerModule } from '@angular/material/divider';
@@ -16,6 +16,7 @@ import { AuthService } from './services/auth/auth.service';
   imports: [
     CommonModule,
     RouterOutlet,
+    RouterModule,
     LoginComponent,
     MatIconModule,
     MatDividerModule,

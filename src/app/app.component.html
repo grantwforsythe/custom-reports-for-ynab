@@ -1,15 +1,27 @@
 <mat-sidenav-container fullscreen>
   <mat-sidenav #sidenav (click)="sidenav.close()">
     <mat-nav-list>
-      <a mat-list-item routerLink="budgets">
-        <mat-icon>library_books</mat-icon>
-        <span>Budgets</span>
-      </a>
+      @if (auth.isAuthenticated()) {
+        <a mat-list-item [routerLink]="['budgets']">
+          <mat-icon>library_books</mat-icon>
+          <span>Budgets</span>
+        </a>
 
-      <a mat-list-item (click)="auth.logout()" (keyup)="auth.logout()" aria-disabled="true">
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Logout</span>
-      </a>
+        <a mat-list-item (click)="auth.logout()" (keyup)="auth.logout()" aria-disabled="true">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </a>
+      } @else {
+        <a
+          mat-list-item
+          (click)="auth.authenticate()"
+          (keyup)="auth.authenticate()"
+          aria-disabled="true"
+        >
+          <mat-icon>login</mat-icon>
+          <span>Authenticate</span>
+        </a>
+      }
     </mat-nav-list>
   </mat-sidenav>
 
