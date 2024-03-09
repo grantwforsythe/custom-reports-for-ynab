@@ -8,6 +8,8 @@ import { PayeeLocation } from './interfaces/payees/payeeLocation';
 import { Transaction } from './interfaces/transactions/transaction';
 import { CategoryGroup } from './interfaces/categories/categoryGroup';
 
+const BASE_URL = 'https://api.ynab.com/v1';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -27,7 +29,7 @@ export class YnabService {
   getBudgets(includeAccounts: boolean = false): Observable<BudgetSummary[]> {
     return this.http
       .get<{ data: { budgets: BudgetSummary[]; default_budget?: BudgetSummary } }>(
-        'https://api.ynab.com/v1/budgets',
+        `${BASE_URL}/budgets`,
         {
           params: { include_accounts: includeAccounts },
         },
@@ -42,7 +44,7 @@ export class YnabService {
     return this.http
       .get<{
         data: { budget: BudgetDetail; server_knowledge: number };
-      }>(`https://api.ynab.com/v1/budgets/${budgetId}`)
+      }>(`${BASE_URL}/budgets/${budgetId}`)
       .pipe(
         map(({ data }) => data.budget),
         catchError(this.handleError),
@@ -53,7 +55,7 @@ export class YnabService {
     return this.http
       .get<{
         data: { categories: CategoryGroup[]; server_knowledge: number };
-      }>(`https://api.ynab/com/v1/budgets/${budgetId}/categories`)
+      }>(`${BASE_URL}/budgets/${budgetId}/categories`)
       .pipe(
         map(({ data }) => data.categories),
         catchError(this.handleError),
@@ -64,7 +66,7 @@ export class YnabService {
     return this.http
       .get<{
         data: { payees: PayeeLocation[]; server_knowledge: number };
-      }>(`https://api.ynab.com/v1/budgets/${budgetId}/payees`)
+      }>(`${BASE_URL}/budgets/${budgetId}/payees`)
       .pipe(
         map(({ data }) => data.payees),
         catchError(this.handleError),
@@ -75,7 +77,7 @@ export class YnabService {
     return this.http
       .get<{
         data: { transactions: Transaction[]; server_knowledge: number };
-      }>(`https://api.ynab.com/v1/budgets/${budgetId}/transactions`)
+      }>(`${BASE_URL}/budgets/${budgetId}/transactions`)
       .pipe(
         map(({ data }) => data.transactions),
         catchError(this.handleError),
