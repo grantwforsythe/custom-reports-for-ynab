@@ -1,5 +1,5 @@
 import { Component, OnDestroy, inject } from '@angular/core';
-import { Subject, map, switchMap, takeUntil, tap } from 'rxjs';
+import { Subject, map, switchMap, takeUntil } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { YnabService } from '../services/ynab/ynab.service';
@@ -25,6 +25,7 @@ export class BudgetDetailsComponent implements OnDestroy {
   // TODO: Add account filters
   // TODO: Add category filters
   // TODO: Handle split transactions
+  // TODO: Add ability for user to sort ascending or descending
 
   budget$ = this.route.params.pipe(
     takeUntil(this.destroy$),
@@ -60,6 +61,7 @@ export class BudgetDetailsComponent implements OnDestroy {
                   ?.name ?? transaction.category_id,
             };
           })
+          // Descending order
           .sort((t1, t2) => t2.value - t1.value)
       );
     }),
