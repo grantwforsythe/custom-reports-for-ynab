@@ -1,5 +1,5 @@
 import { Component, OnDestroy, inject } from '@angular/core';
-import { Subject, map, switchMap, takeUntil } from 'rxjs';
+import { Subject, map, shareReplay, switchMap, takeUntil } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { YnabService } from '../services/ynab/ynab.service';
@@ -65,6 +65,7 @@ export class BudgetDetailsComponent implements OnDestroy {
           .sort((t1, t2) => t2.value - t1.value)
       );
     }),
+    shareReplay(),
   );
 
   ngOnDestroy(): void {

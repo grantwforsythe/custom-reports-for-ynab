@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable, catchError, map, shareReplay, throwError } from 'rxjs';
 
 import { BudgetDetail } from './interfaces/budgets/detail/budgetDetail';
 import { BudgetSummary } from './interfaces/budgets/summary/budgetSummary';
@@ -9,6 +9,8 @@ import { CategoryGroup } from './interfaces/categories/categoryGroup';
 import { Payee } from './interfaces/payees/payee';
 
 const BASE_URL = 'https://api.ynab.com/v1';
+
+// TODO: Refactor in library
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +39,7 @@ export class YnabService {
       .pipe(
         map(({ data }) => data.budgets),
         catchError(this.handleError),
+        shareReplay(),
       );
   }
 
@@ -48,6 +51,7 @@ export class YnabService {
       .pipe(
         map(({ data }) => data.budget),
         catchError(this.handleError),
+        shareReplay(),
       );
   }
 
@@ -59,6 +63,7 @@ export class YnabService {
       .pipe(
         map(({ data }) => data.category_groups),
         catchError(this.handleError),
+        shareReplay(),
       );
   }
 
@@ -70,6 +75,7 @@ export class YnabService {
       .pipe(
         map(({ data }) => data.payees),
         catchError(this.handleError),
+        shareReplay(),
       );
   }
 
@@ -81,6 +87,7 @@ export class YnabService {
       .pipe(
         map(({ data }) => data.transactions),
         catchError(this.handleError),
+        shareReplay(),
       );
   }
 }
