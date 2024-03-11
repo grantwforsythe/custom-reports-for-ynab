@@ -1,4 +1,3 @@
-// TODO: Write E2E tests
 describe('My First Test', () => {
   beforeEach(() => {
     cy.authenticate();
@@ -13,5 +12,12 @@ describe('My First Test', () => {
   it('Visit budgets', () => {
     cy.visit('/budgets');
     cy.get('mat-card:nth-child(3)').should('contain', "Grant's Budget (CAD)");
+  });
+
+  it('Should reroute to home page on 404', () => {
+    cy.visit('/bad-route');
+    cy.location().should((location) => {
+      expect(location.pathname).to.eq('/');
+    });
   });
 });

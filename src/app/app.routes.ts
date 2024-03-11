@@ -12,4 +12,5 @@ export const routes: Routes = [
   // TODO: Refactor to use child routes
   { path: 'budgets', component: BudgetsComponent, canActivate: [authGuard] },
   { path: 'budgets/:id', component: BudgetDetailsComponent, canActivate: [authGuard] },
+  { path: '**', redirectTo: '' },
 ];
