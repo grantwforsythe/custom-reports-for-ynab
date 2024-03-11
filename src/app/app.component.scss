@@ -13,5 +13,9 @@ img {
 .container {
   width: 100%;
   display: flex;
-  justify-content: left;
+  justify-content: center;
+}
+
+.spacer {
+  flex: 1 1 auto;
 }

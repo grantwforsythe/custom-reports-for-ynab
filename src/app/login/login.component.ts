@@ -1,12 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [MatButtonModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
   authService = inject(AuthService);

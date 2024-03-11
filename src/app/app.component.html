@@ -27,27 +27,41 @@
 
   <header>
     <mat-toolbar>
-      <div class="container">
-        <button mat-icon-button (click)="sidenav.open('mouse')">
-          <mat-icon>menu</mat-icon>
-        </button>
-        <a mat-button [routerLink]="['budgets']" aria-label="YNAB Custom Reports">
-          <img
-            matButtonIcon
-            aria-hidden="true"
-            alt="ynab-custom-reports"
-            src="../assets/images/charts.svg"
-          />
-        </a>
-      </div>
+      <!-- <button mat-icon-button (click)="sidenav.open('mouse')">
+        <mat-icon>menu</mat-icon>
+      </button> -->
+      <a mat-button [routerLink]="['budgets']" aria-label="YNAB Custom Reports">
+        <img
+          matButtonIcon
+          aria-hidden="true"
+          alt="ynab-custom-reports"
+          src="../assets/images/charts.svg"
+        />
+      </a>
+      <span>YNAB Custom Reports</span>
+      <span class="spacer"></span>
+      <app-login></app-login>
     </mat-toolbar>
   </header>
 
   <main>
     <router-outlet></router-outlet>
   </main>
+
   <footer>
-    <mat-divider></mat-divider>
-    <h1>Footer</h1>
+    <div class="container">
+      <a
+        mat-button
+        href="https://github.com/grantwforsythe/ynab-custom-reports"
+        aria-label="GitHub Repository"
+      >
+        <img
+          matButtonIcon
+          aria-hidden="true"
+          alt="ynab-custom-reports"
+          src="../assets/images/github.svg"
+        />
+      </a>
+    </div>
   </footer>
 </mat-sidenav-container>
