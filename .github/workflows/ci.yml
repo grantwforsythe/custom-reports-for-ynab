@@ -37,14 +37,6 @@ jobs:
         run: npm run test:ci
         shell: bash
 
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-        with:
-          browser: chrome
-          start: npm start
-        env:
-          CYPRESS_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
-
   e2e:
     runs-on: ubuntu-latest
     steps:
