@@ -31,17 +31,12 @@
         <button mat-icon-button (click)="sidenav.open('mouse')">
           <mat-icon>menu</mat-icon>
         </button>
-        <a
-          mat-button
-          id="header__link"
-          href="https://github.com/grantwforsythe/ynab-custom-reports"
-          aria-label="GitHub Repository"
-        >
+        <a mat-button [routerLink]="['budgets']" aria-label="YNAB Custom Reports">
           <img
             matButtonIcon
             aria-hidden="true"
             alt="ynab-custom-reports"
-            src="../assets/images/github.svg"
+            src="../assets/images/charts.svg"
           />
         </a>
       </div>

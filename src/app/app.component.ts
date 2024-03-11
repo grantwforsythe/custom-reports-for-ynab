@@ -35,5 +35,9 @@ export class AppComponent {
       'github',
       sanitizer.bypassSecurityTrustResourceUrl('assets/images/github.svg'),
     );
+    iconRegistry.addSvgIcon(
+      'charts',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/images/charts.svg'),
+    );
   }
 }

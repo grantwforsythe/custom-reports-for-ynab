@@ -5,7 +5,7 @@
   padding-right: 25px;
 }
 
-#header__link > img {
+img {
   height: 45px;
   width: 45px;
 }
@@ -13,10 +13,5 @@
 .container {
   width: 100%;
   display: flex;
-  justify-content: center;
-}
-
-.container > a {
-  margin-left: auto;
-  align-self: flex-end;
+  justify-content: left;
 }
