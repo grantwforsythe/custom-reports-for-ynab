@@ -5,8 +5,8 @@ describe('My First Test', () => {
 
   it('Should logout', () => {
     cy.visit('/');
-    cy.get('main button').should('contain', 'Logout').click();
-    cy.get('main button').should('contain', 'Authenticate');
+    cy.get('header button').should('contain', 'Logout').click();
+    cy.get('header button').should('contain', 'Authenticate');
   });
 
   it('Visit budgets', () => {
