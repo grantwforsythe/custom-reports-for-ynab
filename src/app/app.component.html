@@ -1,67 +1,36 @@
-<mat-sidenav-container fullscreen>
-  <mat-sidenav #sidenav (click)="sidenav.close()">
-    <mat-nav-list>
-      @if (auth.isAuthenticated()) {
-        <a mat-list-item [routerLink]="['budgets']">
-          <mat-icon>library_books</mat-icon>
-          <span>Budgets</span>
-        </a>
+<header>
+  <mat-toolbar>
+    <a mat-button [routerLink]="['budgets']" aria-label="YNAB Custom Reports">
+      <img
+        matButtonIcon
+        aria-hidden="true"
+        alt="ynab-custom-reports"
+        src="../assets/images/charts.svg"
+      />
+    </a>
+    <span>Custom Reports for YNAB</span>
+    <span class="spacer"></span>
+    <app-login></app-login>
+  </mat-toolbar>
+</header>
 
-        <a mat-list-item (click)="auth.logout()" (keyup)="auth.logout()" aria-disabled="true">
-          <mat-icon>exit_to_app</mat-icon>
-          <span>Logout</span>
-        </a>
-      } @else {
-        <a
-          mat-list-item
-          (click)="auth.authenticate()"
-          (keyup)="auth.authenticate()"
-          aria-disabled="true"
-        >
-          <mat-icon>login</mat-icon>
-          <span>Authenticate</span>
-        </a>
-      }
-    </mat-nav-list>
-  </mat-sidenav>
+<main>
+  <router-outlet></router-outlet>
+</main>
 
-  <header>
-    <mat-toolbar>
-      <!-- <button mat-icon-button (click)="sidenav.open('mouse')">
-        <mat-icon>menu</mat-icon>
-      </button> -->
-      <a mat-button [routerLink]="['budgets']" aria-label="YNAB Custom Reports">
-        <img
-          matButtonIcon
-          aria-hidden="true"
-          alt="ynab-custom-reports"
-          src="../assets/images/charts.svg"
-        />
-      </a>
-      <span>Custom Reports for YNAB</span>
-      <span class="spacer"></span>
-      <app-login></app-login>
-    </mat-toolbar>
-  </header>
-
-  <main>
-    <router-outlet></router-outlet>
-  </main>
-
-  <footer>
-    <div class="container">
-      <a
-        mat-button
-        href="https://github.com/grantwforsythe/ynab-custom-reports"
-        aria-label="GitHub Repository"
-      >
-        <img
-          matButtonIcon
-          aria-hidden="true"
-          alt="ynab-custom-reports"
-          src="../assets/images/github.svg"
-        />
-      </a>
-    </div>
-  </footer>
-</mat-sidenav-container>
+<footer>
+  <div class="container">
+    <a
+      mat-button
+      href="https://github.com/grantwforsythe/ynab-custom-reports"
+      aria-label="GitHub Repository"
+    >
+      <img
+        matButtonIcon
+        aria-hidden="true"
+        alt="ynab-custom-reports"
+        src="../assets/images/github.svg"
+      />
+    </a>
+  </div>
+</footer>

@@ -5,8 +5,6 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AuthService } from './services/auth/auth.service';
 
@@ -20,8 +18,6 @@ import { AuthService } from './services/auth/auth.service';
     LoginComponent,
     MatIconModule,
     MatDividerModule,
-    MatSidenavModule,
-    MatListModule,
     MatToolbarModule,
   ],
   templateUrl: './app.component.html',
