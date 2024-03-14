@@ -2,12 +2,12 @@ import { Component, OnDestroy, inject } from '@angular/core';
 import { Subject, map, shareReplay, switchMap, takeUntil } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { YnabService } from '../services/ynab/ynab.service';
+import { YnabService } from '../shared/services/ynab/ynab.service';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { BudgetDetail } from '../services/ynab/interfaces/budgets/detail/budgetDetail';
+import { BudgetDetail } from '../shared/services/ynab/interfaces/budgets/detail/budgetDetail';
 
 @Component({
   selector: 'app-budget-details',

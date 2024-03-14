@@ -6,7 +6,7 @@ import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { AuthService } from './services/auth/auth.service';
+import { AuthService } from './shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-root',

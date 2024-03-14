@@ -3,16 +3,16 @@ import { Component, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatRippleModule } from '@angular/material/core';
 import { RouterModule } from '@angular/router';
-import { YnabService } from '../services/ynab/ynab.service';
+import { YnabService } from '../../../shared/services/ynab/ynab.service';
 
 @Component({
   selector: 'app-budgets',
   standalone: true,
   imports: [CommonModule, MatCardModule, MatRippleModule, DatePipe, RouterModule],
-  templateUrl: './budgets.component.html',
-  styleUrl: './budgets.component.scss',
+  templateUrl: './budget-cards.component.html',
+  styleUrl: './budget-cards.component.scss',
 })
-export class BudgetsComponent {
+export class BudgetCardsComponent {
   ynab = inject(YnabService);
   budgets$ = this.ynab.getBudgets();
 
