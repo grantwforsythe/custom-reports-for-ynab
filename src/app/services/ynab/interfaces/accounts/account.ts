@@ -40,7 +40,7 @@ export interface Account {
   /**
    * A date/time specifying when the account was last reconciled.
    */
-  last_reconciled_at?: Date;
+  last_reconciled_at?: string;
   /**
    * The original debt/loan account balance, specified in milliunits format.
    */

@@ -7,6 +7,7 @@ import { BudgetSummary } from './interfaces/budgets/summary/budgetSummary';
 import { Transaction } from './interfaces/transactions/transaction';
 import { CategoryGroup } from './interfaces/categories/categoryGroup';
 import { Payee } from './interfaces/payees/payee';
+import { Account } from './interfaces/accounts/account';
 
 const BASE_URL = 'https://api.ynab.com/v1';
 
@@ -86,6 +87,18 @@ export class YnabService {
       }>(`${BASE_URL}/budgets/${budgetId}/transactions`)
       .pipe(
         map(({ data }) => data.transactions),
+        catchError(this.handleError),
+        shareReplay(),
+      );
+  }
+
+  getAccounts(budgetId: string): Observable<Account[]> {
+    return this.http
+      .get<{
+        data: { accounts: Account[]; server_knowledge: number };
+      }>(`${BASE_URL}/budgets/${budgetId}/accounts`)
+      .pipe(
+        map(({ data }) => data.accounts),
         catchError(this.handleError),
         shareReplay(),
       );
