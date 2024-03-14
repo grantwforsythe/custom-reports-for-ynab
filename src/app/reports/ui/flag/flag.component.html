@@ -1,0 +1,20 @@
+<span class="flag-pill-icon-container">
+  <svg class="flag-pill-icon"><use href="flag-pill-icon-fill"></use></svg>
+</span>
+<span class="label">{{ flag.name }}</span>
+
+<svg>
+  <symbol
+    xmlns="http://www.w3.org/2000/svg"
+    id="flag-pill-icon-fill"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <path
+      [attr.fill]="flag.color"
+      fill-rule="evenodd"
+      d="M23 19.5H1.5A1.5 1.5 0 0 1 0 18V6a1.5 1.5 0 0 1 1.5-1.5H23a1 1 0 0 1 .9 1.5l-3.3 5.8v.4l3.3 5.8a1 1 0 0 1-.9 1.5"
+      clip-rule="evenodd"
+    ></path>
+  </symbol>
+</svg>
