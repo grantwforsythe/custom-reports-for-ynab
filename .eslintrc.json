@@ -13,16 +13,25 @@
         "plugin:@typescript-eslint/recommended",
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:@ngrx/recommended-requiring-type-checking",
         "prettier"
       ],
       "rules": {
         "@angular-eslint/directive-selector": [
           "error",
-          { "type": "attribute", "prefix": "app", "style": "camelCase" }
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
         ],
         "@angular-eslint/component-selector": [
           "error",
-          { "type": "element", "prefix": "app", "style": "kebab-case" }
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
         ],
         "@typescript-eslint/array-type": "error",
         "@typescript-eslint/consistent-type-assertions": [
@@ -33,7 +42,12 @@
           }
         ],
         "@typescript-eslint/consistent-type-definitions": "error",
-        "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            "argsIgnorePattern": "^_"
+          }
+        ]
       }
     },
     {
@@ -54,8 +68,7 @@
     },
     {
       "files": ["*.json"],
-      "extends": ["plugin:json/recommended"],
-      "rules": {}
+      "extends": ["plugin:json/recommended"]
     }
   ]
 }
