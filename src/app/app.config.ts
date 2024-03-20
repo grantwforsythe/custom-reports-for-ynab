@@ -19,7 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimationsAsync(),
-    provideStore({ report: reportReducer, router: routerReducer, auth: authReducer }),
+    provideStore({ report: reportReducer, router: routerReducer }),
     provideEffects([ReportEffects]),
     provideRouterStore(),
     provideStoreDevtools({
