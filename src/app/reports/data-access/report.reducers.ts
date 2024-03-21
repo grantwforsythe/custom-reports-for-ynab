@@ -18,7 +18,7 @@ const initialState: ReportState = {
 
 export const reportReducer = createReducer(
   initialState,
-  on(ReportActions.set, (state, action): ReportState => {
+  on(ReportActions.setReportData, (state, action): ReportState => {
     return {
       ...state,
       categoryGroups: action.categoryGroups,

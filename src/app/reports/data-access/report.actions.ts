@@ -4,10 +4,10 @@ import { Account } from '../../shared/services/ynab/interfaces/accounts/account'
 import { Transaction } from '../../shared/services/ynab/interfaces/transactions/transaction';
 
 export const ReportActions = createActionGroup({
-  source: 'Report',
+  source: 'Dashboard Page',
   events: {
-    'Init': emptyProps(),
-    'Set': props<{
+    'Init Report Data': emptyProps(),
+    'Set Report Data': props<{
       categoryGroups: CategoryGroup[];
       accounts: Account[];
       transactions: Transaction[];

@@ -15,6 +15,6 @@ export class DashboardComponent implements OnInit {
   store = inject(Store);
 
   ngOnInit(): void {
-    this.store.dispatch(ReportActions.init());
+    this.store.dispatch(ReportActions.initReportData());
   }
 }

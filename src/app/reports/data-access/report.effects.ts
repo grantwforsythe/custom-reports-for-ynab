@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
-import { init, set } from './report.actions';
+import { ReportActions } from './report.actions';
 import { forkJoin, mergeMap, of, switchMap } from 'rxjs';
 import { YnabService } from '../../shared/services/ynab/ynab.service';
 import { Store } from '@ngrx/store';
@@ -13,7 +13,7 @@ export class ReportEffects {
 
   loadBudgetResources$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(init),
+      ofType(ReportActions.initReportData),
       concatLatestFrom(() => this.store.select(selectRouteNestedParam('id'))),
       mergeMap(([_action, id]) => {
         return forkJoin({
@@ -23,7 +23,7 @@ export class ReportEffects {
         });
       }),
       switchMap((data) => {
-        return of(set(data));
+        return of(ReportActions.setReportData(data));
       }),
     );
   });
