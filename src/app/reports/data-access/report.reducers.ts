@@ -1,14 +1,16 @@
 import { createReducer, on } from '@ngrx/store';
-import { set } from './report.actions';
+import { ReportActions } from './report.actions';
 import { CategoryGroup } from '../../shared/services/ynab/interfaces/categories/categoryGroup';
 import { Account } from '../../shared/services/ynab/interfaces/accounts/account';
 import { Transaction } from '../../shared/services/ynab/interfaces/transactions/transaction';
 
-const initialState: {
+interface ReportState {
   categoryGroups: CategoryGroup[];
   accounts: Account[];
   transactions: Transaction[];
-} = {
+}
+
+const initialState: ReportState = {
   categoryGroups: [],
   accounts: [],
   transactions: [],
@@ -16,7 +18,7 @@ const initialState: {
 
 export const reportReducer = createReducer(
   initialState,
-  on(set, (state, action) => {
+  on(ReportActions.set, (state, action): ReportState => {
     return {
       ...state,
       categoryGroups: action.categoryGroups,

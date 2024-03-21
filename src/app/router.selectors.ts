@@ -15,7 +15,7 @@ export const {
   selectRouteDataParam, // factory function to select a route data param
   selectUrl, // select the current url
   selectTitle, // select the title if available
-} = getRouterSelectors();
+} = getRouterSelectors(selectRouter);
 
 // Beware of using this accumulation technique when two params with the same name exist in the route (e.g. my/:route/:id/with/another/:id).
 // Only the rightmost value is accessible because leftmost values are overwritten by the rightmost one in the traversal.
