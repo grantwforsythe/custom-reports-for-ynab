@@ -13,11 +13,13 @@ import { reportReducer } from './reports/data-access/report.reducers';
 import { ReportEffects } from './reports/data-access/report.effects';
 import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor])),
+    provideNativeDateAdapter(),
     provideAnimationsAsync(),
     provideStore({ report: reportReducer, router: routerReducer }),
     provideEffects([ReportEffects]),

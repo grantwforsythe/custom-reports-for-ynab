@@ -13,6 +13,16 @@ export interface AppState {
   report: ReportState;
 }
 
+export const selectReportAccounts = (state: AppState) => {
+  return state.report.accounts.filter((account) => !account.deleted);
+};
+
+export const selectReportCategories = (state: AppState) => {
+  return state.report.categoryGroups
+    .flatMap((categoryGroup) => categoryGroup?.categories)
+    .filter((category) => category !== undefined);
+};
+
 export const selectReportTransactions = (state: AppState) => {
   return {
     categoryGroups: state.report.categoryGroups,
