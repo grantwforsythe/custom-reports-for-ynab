@@ -3,7 +3,7 @@ import { CategoryGroup } from '../../shared/services/ynab/interfaces/categories/
 import { Account } from '../../shared/services/ynab/interfaces/accounts/account';
 import { Transaction } from '../../shared/services/ynab/interfaces/transactions/transaction';
 
-export const ReportActions = createActionGroup({
+export const reportActions = createActionGroup({
   source: 'Dashboard Page',
   events: {
     'Init Report Data': emptyProps(),

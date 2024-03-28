@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { ReportActions } from '../../data-access/report.actions';
+import { reportActions } from '../../data-access/report.actions';
 import { DashboardFormComponent } from './reports-form/dashboard-form.component';
 
 @Component({
@@ -15,6 +15,6 @@ export class DashboardComponent implements OnInit {
   store = inject(Store);
 
   ngOnInit(): void {
-    this.store.dispatch(ReportActions.initReportData());
+    this.store.dispatch(reportActions.initReportData());
   }
 }
