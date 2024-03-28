@@ -1,9 +1,10 @@
-<form [formGroup]="dashboardForm">
-  <mat-form-field>
+<form>
+  <!-- TODO: Fix filters for this control -->
+  <!-- <mat-form-field>
     <mat-label>Enter a date range</mat-label>
     <mat-date-range-input [rangePicker]="picker">
-      <input matStartDate placeholder="Start date" />
-      <input matEndDate placeholder="End date" />
+      <input matStartDate placeholder="Start date" formControlName="start" />
+      <input matEndDate placeholder="End date" formControlName="end" />
     </mat-date-range-input>
     <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -17,46 +18,34 @@
       <mat-option value="asc">Ascending</mat-option>
       <mat-option value="none">None</mat-option>
     </mat-select>
-  </mat-form-field>
+  </mat-form-field> -->
 
   <mat-form-field>
     <mat-label>Accounts</mat-label>
-    <mat-select formControlName="account" multiple>
-      <!-- TODO: Display 'All Accounts' if all accounts are selected -->
-      <!-- TODO: Display 'Some Accounts' if at least one account is selected -->
-      <!-- TODO: Display 'No Accounts' if no accounts are selected -->
-      <!-- TODO: Allow the account group to be selected with accounts as sub selections  -->
-      <!-- <mat-select-trigger>
-        {{ account.value?.[0] || '' }}
-        @if ((account.value?.length || 0) > 1) {
-          <span class="example-additional-selection">
-            (+{{ (account.value?.length || 0) - 1 }}
-            {{ account.value?.length === 2 ? 'other' : 'others' }})
-          </span>
+    <mat-select [formControl]="account" multiple>
+      <mat-select-trigger>
+        @if (account.value?.length === (accounts$ | async)?.length) {
+          <span>All Accounts</span>
+        } @else {
+          <span>Some Accounts</span>
         }
-      </mat-select-trigger> -->
+      </mat-select-trigger>
       @for (account of accounts$ | async; track account.id) {
         <mat-option [value]="account.id">{{ account.name }}</mat-option>
       }
     </mat-select>
   </mat-form-field>
 
-  <!-- TODO: Display 'All Categories' if all categories are selected -->
-  <!-- TODO: Display 'Some Categories' if at least one category is selected -->
-  <!-- TODO: Display 'No Categories' if no category are selected -->
-  <!-- TODO: Allow the category group to be selected with categories as sub selections  -->
   <mat-form-field>
     <mat-label>Categories</mat-label>
-    <mat-select formControlName="category" multiple>
-      <!-- <mat-select-trigger>
-        {{ category.value?.[0] || '' }}
-        @if ((category.value?.length || 0) > 1) {
-          <span class="example-additional-selection">
-            (+{{ (category.value?.length || 0) - 1 }}
-            {{ category.value?.length === 2 ? 'other' : 'others' }})
-          </span>
+    <mat-select [formControl]="category" multiple>
+      <mat-select-trigger>
+        @if (category.value?.length === (categories$ | async)?.length) {
+          <span>All categories</span>
+        } @else {
+          <span>Some categories</span>
         }
-      </mat-select-trigger> -->
+      </mat-select-trigger>
       @for (category of categories$ | async; track category?.id) {
         <mat-option [value]="category?.id">{{ category?.name }}</mat-option>
       }
