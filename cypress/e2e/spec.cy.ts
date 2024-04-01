@@ -9,9 +9,9 @@ describe('My First Test', () => {
     cy.get('header button').should('contain', 'Authenticate');
   });
 
-  it('Visit budgets', () => {
+  it('Should visit budgets', () => {
     cy.visit('/budgets');
-    cy.get('mat-card:nth-child(3)').should('contain', "Grant's Budget (CAD)");
+    cy.get('main').contains("Grant's Budget (CAD)");
   });
 
   it('Should reroute to home page on 404', () => {
