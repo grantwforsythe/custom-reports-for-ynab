@@ -9,16 +9,16 @@
     <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-date-range-picker #picker></mat-date-range-picker>
-  </mat-form-field>
+  </mat-form-field> -->
 
   <mat-form-field>
     <mat-label>Sorting</mat-label>
-    <mat-select formControlName="sort">
+    <mat-select [formControl]="sort">
+      <mat-option>None</mat-option>
       <mat-option value="desc">Descending</mat-option>
       <mat-option value="asc">Ascending</mat-option>
-      <mat-option value="none">None</mat-option>
     </mat-select>
-  </mat-form-field> -->
+  </mat-form-field>
 
   <mat-form-field>
     <mat-label>Accounts</mat-label>

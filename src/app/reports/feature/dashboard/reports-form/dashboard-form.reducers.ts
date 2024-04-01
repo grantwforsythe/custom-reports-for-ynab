@@ -5,7 +5,6 @@ import { FormState } from './dashboard-form.interface';
 const initialState: FormState = {
   start: null,
   end: null,
-  sort: null,
   account: [],
   category: [],
 };

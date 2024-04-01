@@ -36,7 +36,7 @@ export class DashboardFormComponent implements OnInit, OnDestroy {
   //   start: new FormControl<Date | null>(new Date()),
   //   end: new FormControl<Date | null>(new Date()),
   // });
-  sort = new FormControl<'desc' | 'asc' | 'none' | null>(null);
+  sort = new FormControl<'desc' | 'asc' | undefined>(undefined);
   category = new FormControl<string[]>([]);
   account = new FormControl<string[]>([]);
 
@@ -48,12 +48,14 @@ export class DashboardFormComponent implements OnInit, OnDestroy {
     this.accounts$ = this.store.select(selectReportAccounts);
 
     combineLatest([
+      this.sort.valueChanges.pipe(startWith(this.sort.value)),
       this.category.valueChanges.pipe(startWith(this.category.value)),
       this.account.valueChanges.pipe(startWith(this.account.value)),
     ])
       .pipe(takeUntil(this.destroy$))
-      .subscribe(([category, account]) => {
+      .subscribe(([sort, category, account]) => {
         this.updateFormState({
+          sort,
           category,
           account,
         });

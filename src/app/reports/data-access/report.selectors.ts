@@ -46,43 +46,51 @@ export const selectReportCategories = createSelector(selectReportState, (report)
  *
  * @return {Transaction[]} The filtered transactions.
  */
+// TODO: Refactor into separate selector
 export const selectReportTransactions = createSelector(
   selectReportState,
   selectFormState,
   (report, form) => {
-    return (
-      report.transactions
-        .filter((transaction) => {
-          return (
-            new Date(transaction.date).getFullYear() === 2024 &&
-            transaction.amount < 0 &&
-            !transaction.deleted &&
-            !!transaction.category_id &&
-            transaction.subtransactions !== undefined
-          );
-        })
-        // TODO: Refactor into separate selector
-        // Filter by select accounts
-        .filter((transaction) => {
-          if (form.account?.length === 0 || form.account === null) {
-            return true;
-          }
+    const transactions = report.transactions
+      .filter((transaction) => {
+        return (
+          new Date(transaction.date).getFullYear() === 2024 &&
+          transaction.amount < 0 &&
+          !transaction.deleted &&
+          !!transaction.category_id &&
+          transaction.subtransactions !== undefined
+        );
+      })
+      // TODO: Refactor into separate selector
+      // Filter by select accounts
+      .filter((transaction) => {
+        if (form.account?.length === 0 || form.account === null) {
+          return true;
+        }
 
-          return form.account.includes(transaction.account_id);
-        })
-        // TODO: Refactor into separate selector
-        // Filter by select categories
-        .filter((transaction) => {
-          // If no category is selected, display all transactions with and without a category
-          if (form.category?.length === 0 || form.category === null) {
-            return true;
-          } else if (transaction.category_id === undefined) {
-            return false;
-          } else {
-            return form.category.includes(transaction.category_id);
-          }
-        })
-    );
+        return form.account.includes(transaction.account_id);
+      })
+      // TODO: Refactor into separate selector
+      // Filter by select categories
+      .filter((transaction) => {
+        // If no category is selected, display all transactions with and without a category
+        if (form.category?.length === 0 || form.category === null) {
+          return true;
+        } else if (transaction.category_id === undefined) {
+          return false;
+        } else {
+          return form.category.includes(transaction.category_id);
+        }
+      });
+
+    switch (form.sort) {
+      case 'asc':
+        return transactions.sort((a, b) => a.amount - b.amount);
+      case 'desc':
+        return transactions.sort((a, b) => b.amount - a.amount);
+      default:
+        return transactions;
+    }
   },
 );
 
