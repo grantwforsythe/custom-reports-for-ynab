@@ -41,6 +41,43 @@ export const selectReportCategories = createSelector(selectReportState, (report)
 });
 
 /**
+ * Selects the date range from the form state.
+ *
+ * @return An object with 'start' and 'end' properties representing the start
+ * and end of the date range in milliseconds since the Unix Epoch, or undefined
+ * if either start or end is null.
+ */
+export const selectDateRange = createSelector(selectFormState, (form) => {
+  if (form.start === null || form.end === null) return;
+
+  return {
+    start: new Date(form.start).getTime(),
+    end: new Date(form.end).getTime(),
+  };
+});
+
+/**
+ * Selects transactions from the report state, filtering out transactions that
+ * that are not within the specified date range.
+ *
+ * @return {Transaction[]} The filtered transactions.
+ */
+export const selectFilteredTransactions = createSelector(
+  selectReportState,
+  selectDateRange,
+  ({ transactions }, dateRange) => {
+    if (dateRange === undefined) return transactions;
+
+    return transactions.filter((transaction) => {
+      return (
+        new Date(transaction.date).getTime() >= dateRange.start &&
+        new Date(transaction.date).getTime() <= dateRange.end
+      );
+    });
+  },
+);
+
+/**
  * Selects transactions from the report state, filtering out deleted transactions and
  * transactions that don't meet the specified criteria.
  *
@@ -48,13 +85,12 @@ export const selectReportCategories = createSelector(selectReportState, (report)
  */
 // TODO: Refactor into separate selector
 export const selectReportTransactions = createSelector(
-  selectReportState,
+  selectFilteredTransactions,
   selectFormState,
-  (report, form) => {
-    const transactions = report.transactions
+  (filteredTransactions, form) => {
+    const transactions = filteredTransactions
       .filter((transaction) => {
         return (
-          new Date(transaction.date).getFullYear() === 2024 &&
           transaction.amount < 0 &&
           !transaction.deleted &&
           !!transaction.category_id &&

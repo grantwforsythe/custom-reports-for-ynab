@@ -1,6 +1,6 @@
 export interface FormState {
-  start: Date | null;
-  end: Date | null;
+  start: string | null;
+  end: string | null;
   sort?: 'asc' | 'desc' | null;
   account: string[] | null;
   category: string[] | null;

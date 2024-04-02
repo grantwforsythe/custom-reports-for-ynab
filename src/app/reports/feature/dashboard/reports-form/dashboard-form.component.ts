@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import {
   selectReportAccounts,
@@ -14,6 +14,7 @@ import { AsyncPipe } from '@angular/common';
 import { Account } from '../../../../shared/services/ynab/interfaces/accounts/account';
 import { formActions } from './dashboard-form.actions';
 import { FormState } from './dashboard-form.interface';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-reports-dashboard-form',
@@ -25,6 +26,7 @@ import { FormState } from './dashboard-form.interface';
     MatFormFieldModule,
     MatDatepickerModule,
     ReactiveFormsModule,
+    MatButtonModule,
     AsyncPipe,
   ],
 })
@@ -32,10 +34,10 @@ export class DashboardFormComponent implements OnInit, OnDestroy {
   private store = inject(Store);
   private destroy$ = new Subject<void>();
 
-  // dateRange = new FormGroup({
-  //   start: new FormControl<Date | null>(new Date()),
-  //   end: new FormControl<Date | null>(new Date()),
-  // });
+  range = new FormGroup({
+    start: new FormControl<string | undefined>(undefined),
+    end: new FormControl<string | undefined>(undefined),
+  });
   sort = new FormControl<'desc' | 'asc' | undefined>(undefined);
   category = new FormControl<string[]>([]);
   account = new FormControl<string[]>([]);
@@ -48,13 +50,17 @@ export class DashboardFormComponent implements OnInit, OnDestroy {
     this.accounts$ = this.store.select(selectReportAccounts);
 
     combineLatest([
-      this.sort.valueChanges.pipe(startWith(this.sort.value)),
+      this.range.get('start')!.valueChanges.pipe(startWith(undefined)),
+      this.range.get('end')!.valueChanges.pipe(startWith(undefined)),
+      this.sort.valueChanges.pipe(startWith(undefined)),
       this.category.valueChanges.pipe(startWith(this.category.value)),
       this.account.valueChanges.pipe(startWith(this.account.value)),
     ])
       .pipe(takeUntil(this.destroy$))
-      .subscribe(([sort, category, account]) => {
+      .subscribe(([start, end, sort, category, account]) => {
         this.updateFormState({
+          start,
+          end,
           sort,
           category,
           account,
