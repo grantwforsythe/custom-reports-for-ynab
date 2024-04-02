@@ -1,5 +1,13 @@
 
 
+## [1.1.0](https://github.com/grantwforsythe/custom-reports-for-ynab/compare/1.0.0...1.1.0) (2024-04-02)
+
+
+### Features
+
+* add date range filter ([bdc2634](https://github.com/grantwforsythe/custom-reports-for-ynab/commit/bdc2634ef9f5c9401fa0f991b8cefda9b0cb3c6b))
+* add sort option ([719ea76](https://github.com/grantwforsythe/custom-reports-for-ynab/commit/719ea76d893d88ea1b9af07d2457ac4ed5551cc5))
+
 ## [1.0.0](https://github.com/grantwforsythe/ynab-custom-reports/compare/0.0.2...1.0.0) (2024-03-28)
 
 
