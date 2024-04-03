@@ -14,7 +14,7 @@ import { selectReportResults } from '../../../../data-access/report.selectors';
 export class ChartsBarVerticalComponent implements OnInit {
   store = inject(Store);
 
-  results$: Observable<{ value: number; name: string }[]> | undefined;
+  results$!: Observable<{ value: number; name: string | undefined }[]>;
 
   ngOnInit(): void {
     this.results$ = this.store.select(selectReportResults);

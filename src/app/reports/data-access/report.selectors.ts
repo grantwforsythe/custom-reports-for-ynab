@@ -48,6 +48,7 @@ export const selectEarliestTransactionDate = createSelector(
 
     if (transactions.length === 0) return today;
 
+    // Find the earliest transaction date in the array of transactions.
     return transactions.reduce((date, transaction) => {
       const transactionDate = new Date(transaction.date);
       return transactionDate < date ? transactionDate : date;
@@ -102,6 +103,7 @@ export const selectReportTransactions = createSelector(
   selectFormState,
   (filteredTransactions, form) => {
     const transactions = filteredTransactions
+      // Filter out transactions without a category
       .filter((transaction) => {
         return (
           transaction.amount < 0 &&
@@ -159,17 +161,22 @@ export interface ReportResults {
  *
  * @return {ReportResults[]} The results from report state.
  */
-export const selectReportResults = createSelector(
-  selectReportCategories,
-  selectReportTransactions,
-  (categories, transactions) => {
-    return transactions.map((transaction) => {
-      return {
-        value: (transaction.amount / 1000) * -1,
-        name:
-          // TODO: Resolve the issue where category is undefined at first
-          categories.find((category) => category!.id === transaction.category_id)?.name ?? 'temp',
-      };
-    });
-  },
-);
+export const selectReportResults = createSelector(selectReportTransactions, (transactions) => {
+  return (
+    transactions
+      // TODO: Refactor
+      .filter(
+        (transaction) =>
+          transaction.category_name !== undefined &&
+          transaction.category_name !== 'Inflow: Ready to Assign' &&
+          // TODO: Handle split transactions
+          transaction.category_name !== 'Split',
+      )
+      .map((transaction) => {
+        return {
+          value: (transaction.amount / 1000) * -1,
+          name: transaction!.category_name,
+        };
+      })
+  );
+});
