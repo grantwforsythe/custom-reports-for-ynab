@@ -2,6 +2,7 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import {
+  selectEarliestTransactionDate,
   selectReportAccounts,
   selectReportCategories,
 } from '../../../data-access/report.selectors';
@@ -45,9 +46,13 @@ export class DashboardFormComponent implements OnInit, OnDestroy {
   categories$!: Observable<(Category | undefined)[]>;
   accounts$!: Observable<Account[]>;
 
+  minDate$!: Observable<Date>;
+  maxDate: Date = new Date();
+
   ngOnInit(): void {
     this.categories$ = this.store.select(selectReportCategories);
     this.accounts$ = this.store.select(selectReportAccounts);
+    this.minDate$ = this.store.select(selectEarliestTransactionDate);
 
     combineLatest([
       this.range.get('start')!.valueChanges.pipe(startWith(undefined)),

@@ -40,40 +40,52 @@ export const selectReportCategories = createSelector(selectReportState, (report)
     .filter((category) => !!category);
 });
 
-/**
- * Selects the date range from the form state.
- *
- * @return An object with 'start' and 'end' properties representing the start
- * and end of the date range in milliseconds since the Unix Epoch, or undefined
- * if either start or end is null.
- */
-export const selectDateRange = createSelector(selectFormState, (form) => {
-  if (form.start === null || form.end === null) return;
+export const selectEarliestTransactionDate = createSelector(
+  selectReportState,
+  ({ transactions }) => {
+    const today = new Date();
 
-  return {
-    start: new Date(form.start).getTime(),
-    end: new Date(form.end).getTime(),
-  };
-});
+    if (transactions.length === 0) return today;
+
+    return transactions.reduce((date, transaction) => {
+      const transactionDate = new Date(transaction.date);
+      return transactionDate < date ? transactionDate : date;
+    }, today);
+  },
+);
 
 /**
  * Selects transactions from the report state, filtering out transactions that
- * that are not within the specified date range.
+ * that are not within the specified date range:
+ *  - If the start and end dates are null, all transactions are returned.
+ *  - If the start date is null, only transactions up to the end date are returned.
+ *  - If the end date is null, only transactions after the start date are returned.
+ *  - Else transactions between the start and end dates are returned.
  *
  * @return {Transaction[]} The filtered transactions.
  */
 export const selectFilteredTransactions = createSelector(
   selectReportState,
-  selectDateRange,
-  ({ transactions }, dateRange) => {
-    if (dateRange === undefined) return transactions;
-
-    return transactions.filter((transaction) => {
-      return (
-        new Date(transaction.date).getTime() >= dateRange.start &&
-        new Date(transaction.date).getTime() <= dateRange.end
+  selectFormState,
+  ({ transactions }, { start, end }) => {
+    if (start === null && end === null) {
+      return transactions;
+    } else if (start === null) {
+      return transactions.filter(
+        (transaction) => new Date(transaction.date).getTime() <= new Date(end as string).getTime(),
       );
-    });
+    } else if (end === null) {
+      return transactions.filter(
+        (transaction) => new Date(transaction.date).getTime() >= new Date(start).getTime(),
+      );
+    } else {
+      return transactions.filter((transaction) => {
+        return (
+          new Date(transaction.date).getTime() >= new Date(start).getTime() &&
+          new Date(transaction.date).getTime() <= new Date(end).getTime()
+        );
+      });
+    }
   },
 );
 
