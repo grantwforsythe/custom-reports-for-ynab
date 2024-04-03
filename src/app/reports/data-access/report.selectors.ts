@@ -25,7 +25,7 @@ export const selectReportState = createFeatureSelector<ReportState>('report');
  * @return {Account[]} The filtered accounts.
  */
 export const selectReportAccounts = createSelector(selectReportState, (report) => {
-  return report.accounts.filter((account) => !account.deleted);
+  return report.accounts.filter((account) => !account.deleted && account.on_budget);
 });
 
 /**
@@ -36,6 +36,7 @@ export const selectReportAccounts = createSelector(selectReportState, (report) =
  */
 export const selectReportCategories = createSelector(selectReportState, (report) => {
   return report.categoryGroups
+    .filter((categoryGroup) => categoryGroup.name !== 'Internal Master Category')
     .flatMap((categoryGroup) => categoryGroup?.categories)
     .filter((category) => !!category);
 });
@@ -166,8 +167,8 @@ export const selectReportResults = createSelector(
       return {
         value: (transaction.amount / 1000) * -1,
         name:
-          // TODO: Fix this
-          categories.find((category) => category?.id === transaction.category_id)?.name ?? 'temp',
+          // TODO: Resolve the issue where category is undefined at first
+          categories.find((category) => category!.id === transaction.category_id)?.name ?? 'temp',
       };
     });
   },
