@@ -6,8 +6,8 @@ import { DashboardFormComponent } from './reports-form/dashboard-form.component'
 import { Observable } from 'rxjs';
 import { selectChartType } from '../../data-access/report.selectors';
 import { AsyncPipe } from '@angular/common';
-import { ChartsBarVerticalComponent } from './charts/bar-vertical/bar-vertical.component';
-import { ChartsBarHorizontalComponent } from './charts/bar-horizontal/bar-horizontal.component';
+import { ChartsBarVerticalComponent } from './bar-chart/bar-vertical.component';
+import { ChartsBarHorizontalComponent } from './bar-chart/bar-horizontal.component';
 
 // TODO: Refactor the charts into a module
 @Component({

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChartsBarVerticalComponent } from './bar-vertical.component';
+import { ChartsBarHorizontalComponent } from './bar-horizontal.component';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { CategoryGroup } from '../../../../../shared/services/ynab/interfaces/categories/categoryGroup';
-import { Account } from '../../../../../shared/services/ynab/interfaces/accounts/account';
-import { Transaction } from '../../../../../shared/services/ynab/interfaces/transactions/transaction';
-import { selectReportResults } from '../../../../data-access/report.selectors';
+import { CategoryGroup } from '../../../../shared/services/ynab/interfaces/categories/categoryGroup';
+import { Account } from '../../../../shared/services/ynab/interfaces/accounts/account';
+import { Transaction } from '../../../../shared/services/ynab/interfaces/transactions/transaction';
+import { selectReportResults } from '../../../data-access/report.selectors';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-describe('ChartsBarVerticalComponent', () => {
-  let component: ChartsBarVerticalComponent;
-  let fixture: ComponentFixture<ChartsBarVerticalComponent>;
+describe('ChartsBarHorizontalComponent', () => {
+  let component: ChartsBarHorizontalComponent;
+  let fixture: ComponentFixture<ChartsBarHorizontalComponent>;
   let store: MockStore;
 
   const initialState: {
@@ -59,7 +59,7 @@ describe('ChartsBarVerticalComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChartsBarVerticalComponent);
+    fixture = TestBed.createComponent(ChartsBarHorizontalComponent);
     component = fixture.componentInstance;
     store = TestBed.inject(MockStore);
     fixture.detectChanges();
