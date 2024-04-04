@@ -12,5 +12,6 @@ export const reportActions = createActionGroup({
       accounts: Account[];
       transactions: Transaction[];
     }>(),
+    'Reset Report Data': emptyProps(),
   },
 });

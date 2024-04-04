@@ -13,6 +13,7 @@ import { YnabService } from '../../../shared/services/ynab/ynab.service';
   styleUrl: './budget-cards.component.scss',
 })
 export class BudgetCardsComponent {
+  // TODO: Refactor to use NgRx effect
   ynab = inject(YnabService);
   budgets$ = this.ynab.getBudgets();
 

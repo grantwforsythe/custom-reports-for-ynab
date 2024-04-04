@@ -26,4 +26,5 @@ export const reportReducer = createReducer(
       transactions: action.transactions,
     };
   }),
+  on(reportActions.resetReportData, (): ReportState => initialState),
 );
