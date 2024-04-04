@@ -36,9 +36,9 @@ export class DashboardFormComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   // TODO: Create enums
-  chartTypeGroups = [
+  chartTypeGroups: { name: string; chartTypes: { value: string; name: string }[] }[] = [
     {
-      name: 'Bar',
+      name: 'Bar Charts',
       chartTypes: [
         {
           value: 'vertical',
@@ -49,6 +49,10 @@ export class DashboardFormComponent implements OnInit, OnDestroy {
           name: 'horizontal Bar Chart',
         },
       ],
+    },
+    {
+      name: 'Pie Charts',
+      chartTypes: [{ value: 'pie-chart', name: 'Pie Chart' }],
     },
   ];
 

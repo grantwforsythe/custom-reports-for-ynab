@@ -8,6 +8,7 @@ import { selectChartType } from '../../data-access/report.selectors';
 import { AsyncPipe } from '@angular/common';
 import { ChartsBarVerticalComponent } from './bar-chart/bar-vertical.component';
 import { ChartsBarHorizontalComponent } from './bar-chart/bar-horizontal.component';
+import { ChartsPieChartComponent } from './pie-chart/pie-chart.component';
 
 // TODO: Refactor the charts into a module
 @Component({
@@ -21,6 +22,7 @@ import { ChartsBarHorizontalComponent } from './bar-chart/bar-horizontal.compone
     AsyncPipe,
     ChartsBarVerticalComponent,
     ChartsBarHorizontalComponent,
+    ChartsPieChartComponent,
   ],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
