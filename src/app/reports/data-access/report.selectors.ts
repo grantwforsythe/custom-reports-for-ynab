@@ -19,6 +19,8 @@ export const selectFormState = createFeatureSelector<FormState>('form');
 
 export const selectReportState = createFeatureSelector<ReportState>('report');
 
+export const selectChartType = createSelector(selectFormState, (form) => form.chartType);
+
 /**
  * Selects accounts from the report state, filtering out deleted accounts.
  *

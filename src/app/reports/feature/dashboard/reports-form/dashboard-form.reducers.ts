@@ -7,6 +7,7 @@ const initialState: FormState = {
   end: null,
   account: [],
   category: [],
+  chartType: 'vertical',
 };
 
 export const formReducer = createReducer(

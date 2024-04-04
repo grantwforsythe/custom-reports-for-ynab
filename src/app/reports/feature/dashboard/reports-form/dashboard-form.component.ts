@@ -35,6 +35,23 @@ export class DashboardFormComponent implements OnInit, OnDestroy {
   private store = inject(Store);
   private destroy$ = new Subject<void>();
 
+  // TODO: Create enums
+  chartTypeGroups = [
+    {
+      name: 'Bar',
+      chartTypes: [
+        {
+          value: 'vertical',
+          name: 'Vertical Bar Chart',
+        },
+        {
+          value: 'horizontal',
+          name: 'horizontal Bar Chart',
+        },
+      ],
+    },
+  ];
+
   range = new FormGroup({
     start: new FormControl<string | undefined>(undefined),
     end: new FormControl<string | undefined>(undefined),
@@ -42,6 +59,7 @@ export class DashboardFormComponent implements OnInit, OnDestroy {
   sort = new FormControl<'desc' | 'asc' | undefined>(undefined);
   category = new FormControl<string[]>([]);
   account = new FormControl<string[]>([]);
+  chartType = new FormControl<string>('vertical');
 
   categories$!: Observable<(Category | undefined)[]>;
   accounts$!: Observable<Account[]>;
@@ -54,7 +72,9 @@ export class DashboardFormComponent implements OnInit, OnDestroy {
     this.accounts$ = this.store.select(selectReportAccounts);
     this.minDate$ = this.store.select(selectEarliestTransactionDate);
 
+    // TODO: Think about refactoring this into individual subscriptions
     combineLatest([
+      this.chartType.valueChanges.pipe(startWith('vertical')),
       this.range.get('start')!.valueChanges.pipe(startWith(undefined)),
       this.range.get('end')!.valueChanges.pipe(startWith(undefined)),
       this.sort.valueChanges.pipe(startWith(undefined)),
@@ -62,8 +82,9 @@ export class DashboardFormComponent implements OnInit, OnDestroy {
       this.account.valueChanges.pipe(startWith(this.account.value)),
     ])
       .pipe(takeUntil(this.destroy$))
-      .subscribe(([start, end, sort, category, account]) => {
+      .subscribe(([chartType, start, end, sort, category, account]) => {
         this.updateFormState({
+          chartType,
           start,
           end,
           sort,

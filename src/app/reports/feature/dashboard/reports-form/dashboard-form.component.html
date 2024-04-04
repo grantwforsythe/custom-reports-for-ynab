@@ -1,5 +1,17 @@
 <form>
-  <!-- TODO: Fix filters for this control -->
+  <mat-form-field>
+    <mat-label>Chart Type</mat-label>
+    <mat-select [formControl]="chartType">
+      @for (group of chartTypeGroups; track group) {
+        <mat-optgroup [label]="group.name">
+          @for (chartType of group.chartTypes; track chartType) {
+            <mat-option [value]="chartType.value">{{ chartType.name }}</mat-option>
+          }
+        </mat-optgroup>
+      }
+    </mat-select>
+  </mat-form-field>
+
   <mat-form-field>
     <mat-label>Enter a date range</mat-label>
     <mat-date-range-input

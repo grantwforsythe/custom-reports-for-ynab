@@ -1,9 +1,7 @@
 <!-- TODO: Order budgets by last modified -->
 <div style="display: flex; flex-direction: row; justify-content: space-around">
   @for (budget of budgets$ | async; track budget.id) {
-    <!-- TODO: Add link to specific budget, i.e. fetch all transaction data -->
-    <!-- TODO: Do not select a chart by default -->
-    <mat-card matRipple [routerLink]="[budget.id, 'dashboard', 'bar-vert']" class="budget-card">
+    <mat-card matRipple [routerLink]="[budget.id, 'dashboard']" class="budget-card">
       <mat-card-header>
         <!-- TODO: Add an indicator for the default budget -->
         <mat-card-title>{{ budget.name }}</mat-card-title>

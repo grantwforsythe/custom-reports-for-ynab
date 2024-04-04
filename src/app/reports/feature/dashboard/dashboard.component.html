@@ -1,2 +1,10 @@
 <app-reports-dashboard-form></app-reports-dashboard-form>
-<router-outlet></router-outlet>
+
+@switch (chartType$ | async) {
+  @case ('vertical') {
+    <app-charts-bar-vertical></app-charts-bar-vertical>
+  }
+  @case ('horizontal') {
+    <app-charts-bar-horizontal></app-charts-bar-horizontal>
+  }
+}
