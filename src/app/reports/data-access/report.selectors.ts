@@ -117,23 +117,16 @@ export const selectReportTransactions = createSelector(
       // TODO: Refactor into separate selector
       // Filter by select accounts
       .filter((transaction) => {
-        if (form.account?.length === 0 || form.account === null) {
-          return true;
-        }
+        if (form.account === null) return true;
 
         return form.account.includes(transaction.account_id);
       })
       // TODO: Refactor into separate selector
       // Filter by select categories
       .filter((transaction) => {
-        // If no category is selected, display all transactions with and without a category
-        if (form.category?.length === 0 || form.category === null) {
-          return true;
-        } else if (transaction.category_id === undefined) {
-          return false;
-        } else {
-          return form.category.includes(transaction.category_id);
-        }
+        if (form.category === null || transaction.category_id === undefined) return true;
+
+        return form.category.includes(transaction.category_id);
       });
 
     switch (form.sort) {
