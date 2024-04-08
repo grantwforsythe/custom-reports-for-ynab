@@ -174,11 +174,20 @@ export const selectReportResults = createSelector(selectReportTransactions, (tra
           // TODO: Handle split transactions
           transaction.category_name !== 'Split',
       )
-      .map((transaction) => {
-        return {
-          value: (transaction.amount / 1000) * -1,
-          name: transaction!.category_name,
-        };
-      })
+      .reduce((results, transaction) => {
+        const existingResult = results.find((result) => result.name === transaction.category_name);
+        const amount = (transaction.amount / 1000) * -1;
+
+        if (existingResult) {
+          existingResult.value += amount;
+        } else {
+          results.push({
+            value: amount,
+            name: transaction.category_name!,
+          });
+        }
+
+        return results;
+      }, [] as ReportResults[])
   );
 });
