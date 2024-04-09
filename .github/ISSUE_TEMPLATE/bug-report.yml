@@ -2,6 +2,7 @@ name: Bug Report
 description: Report a bug
 labels: ['bug']
 assignees: ['grantwforsythe']
+title: '[BUG]'
 body:
   - type: markdown
     attributes:
