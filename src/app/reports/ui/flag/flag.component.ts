@@ -9,6 +9,4 @@ import { FlagColor } from '../../../shared/services/ynab/interfaces/transactions
 export class FlagIconComponent {
   @Input({ required: true })
   flag!: { color: FlagColor; name: string };
-
-  constructor() {}
 }

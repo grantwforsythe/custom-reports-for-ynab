@@ -16,6 +16,4 @@ export class BudgetCardsComponent {
   // TODO: Refactor to use NgRx effect
   ynab = inject(YnabService);
   budgets$ = this.ynab.getBudgets();
-
-  constructor() {}
 }

@@ -19,8 +19,6 @@ const BASE_URL = 'https://api.ynab.com/v1';
 export class YnabService {
   http = inject(HttpClient);
 
-  constructor() {}
-
   // TODO: Improve error handling
   private handleError(error: HttpErrorResponse) {
     return throwError(() => {
