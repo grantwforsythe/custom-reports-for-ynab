@@ -1,5 +1,4 @@
-<!-- TODO: Order budgets by last modified -->
-<div style="display: flex; flex-direction: row; justify-content: space-around">
+<div class="container">
   @for (budget of budgets$ | async; track budget.id) {
     <mat-card matRipple [routerLink]="[budget.id, 'dashboard']" class="budget-card">
       <mat-card-header>

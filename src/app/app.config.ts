@@ -15,6 +15,8 @@ import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { formReducer } from './reports/feature/dashboard/reports-form/dashboard-form.reducers';
+import { budgetsReducers } from './reports/feature/budget-cards/budget-cards.reducers';
+import { BudgetEffects } from './reports/feature/budget-cards/budget-cards.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,8 +24,13 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([authInterceptor])),
     provideNativeDateAdapter(),
     provideAnimationsAsync(),
-    provideStore({ report: reportReducer, form: formReducer, router: routerReducer }),
-    provideEffects([ReportEffects]),
+    provideStore({
+      report: reportReducer,
+      budget: budgetsReducers,
+      form: formReducer,
+      router: routerReducer,
+    }),
+    provideEffects([ReportEffects, BudgetEffects]),
     provideRouterStore(),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
