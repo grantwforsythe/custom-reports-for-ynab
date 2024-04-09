@@ -1,5 +1,24 @@
 
 
+## [1.2.0](https://github.com/grantwforsythe/custom-reports-for-ynab/compare/1.1.0...1.2.0) (2024-04-09)
+
+
+### Features
+
+* add date range filter ([d80bbf3](https://github.com/grantwforsythe/custom-reports-for-ynab/commit/d80bbf36fc8e6db3c1b2f74ad0b9905fd95ed782))
+* add pie chart ([e3ef58d](https://github.com/grantwforsythe/custom-reports-for-ynab/commit/e3ef58d773cd28caf0809e7fde9bac5a5b3b5335))
+* add report button ([72bd0f5](https://github.com/grantwforsythe/custom-reports-for-ynab/commit/72bd0f5bec561755d5aca785feaf1980d9e30675))
+* center dashboard form ([1511c9f](https://github.com/grantwforsythe/custom-reports-for-ynab/commit/1511c9f240d2f1416a8188427f3472e3e23e2b76))
+* group transactions by category name ([7c71ca1](https://github.com/grantwforsythe/custom-reports-for-ynab/commit/7c71ca110e2cdc54b722132d7bd03b5770a7a24e))
+* select all accounts and categories on init ([3dc5f91](https://github.com/grantwforsythe/custom-reports-for-ynab/commit/3dc5f91580c148a4a3458296ecc93910112cb08e))
+
+
+### Bug Fixes
+
+* data not displayed when switching budgets ([1f48ad9](https://github.com/grantwforsythe/custom-reports-for-ynab/commit/1f48ad9409a6de9e49668b3dcd3e02c759da0ccb))
+* only display on budget accounts ([8b21e2c](https://github.com/grantwforsythe/custom-reports-for-ynab/commit/8b21e2ca845c0cd21f5df7b57f7805e02fe35eb0))
+* sort by grouped value vs transaction amount ([142d63d](https://github.com/grantwforsythe/custom-reports-for-ynab/commit/142d63d83b4e5b6884b158e1042d8d24a4a6dfdc))
+
 ## [1.1.0](https://github.com/grantwforsythe/custom-reports-for-ynab/compare/1.0.0...1.1.0) (2024-04-02)
 
 
