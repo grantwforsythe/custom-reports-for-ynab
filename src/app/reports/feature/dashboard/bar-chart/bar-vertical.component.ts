@@ -1,14 +1,14 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BarChartModule } from '@swimlane/ngx-charts';
 import { Store } from '@ngrx/store';
 import { selectReportResults } from '../../../data-access/report.selectors';
 
 @Component({
   selector: 'app-charts-bar-vertical',
   standalone: true,
-  imports: [AsyncPipe, NgxChartsModule],
+  imports: [AsyncPipe, BarChartModule],
   templateUrl: './bar-vertical.component.html',
 })
 export class ChartsBarVerticalComponent implements OnInit {
