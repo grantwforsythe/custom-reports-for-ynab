@@ -104,39 +104,32 @@ export const selectReportTransactions = createSelector(
   selectFilteredTransactions,
   selectFormState,
   (filteredTransactions, form) => {
-    const transactions = filteredTransactions
-      // Filter out transactions without a category
-      .filter((transaction) => {
-        return (
-          transaction.amount < 0 &&
-          !transaction.deleted &&
-          !!transaction.category_id &&
-          transaction.subtransactions !== undefined
-        );
-      })
-      // TODO: Refactor into separate selector
-      // Filter by select accounts
-      .filter((transaction) => {
-        if (form.account === null) return true;
+    return (
+      filteredTransactions
+        // Filter out transactions without a category
+        .filter((transaction) => {
+          return (
+            transaction.amount < 0 &&
+            !transaction.deleted &&
+            !!transaction.category_id &&
+            transaction.subtransactions !== undefined
+          );
+        })
+        // TODO: Refactor into separate selector
+        // Filter by select accounts
+        .filter((transaction) => {
+          if (form.account === null) return true;
 
-        return form.account.includes(transaction.account_id);
-      })
-      // TODO: Refactor into separate selector
-      // Filter by select categories
-      .filter((transaction) => {
-        if (form.category === null || transaction.category_id === undefined) return true;
+          return form.account.includes(transaction.account_id);
+        })
+        // TODO: Refactor into separate selector
+        // Filter by select categories
+        .filter((transaction) => {
+          if (form.category === null || transaction.category_id === undefined) return true;
 
-        return form.category.includes(transaction.category_id);
-      });
-
-    switch (form.sort) {
-      case 'asc':
-        return transactions.sort((a, b) => a.amount - b.amount);
-      case 'desc':
-        return transactions.sort((a, b) => b.amount - a.amount);
-      default:
-        return transactions;
-    }
+          return form.category.includes(transaction.category_id);
+        })
+    );
   },
 );
 
@@ -152,13 +145,15 @@ export interface ReportResults {
 }
 
 /**
- * Selects results from report state.
+ * Selects sorted results from report state.
  *
- * @return {ReportResults[]} The results from report state.
+ * @return {ReportResults[]} The sorted results from report state.
  */
-export const selectReportResults = createSelector(selectReportTransactions, (transactions) => {
-  return (
-    transactions
+export const selectReportResults = createSelector(
+  selectReportTransactions,
+  selectFormState,
+  (transactions, form) => {
+    const results = transactions
       // TODO: Refactor
       .filter(
         (transaction) =>
@@ -181,6 +176,16 @@ export const selectReportResults = createSelector(selectReportTransactions, (tra
         }
 
         return results;
-      }, [] as ReportResults[])
-  );
-});
+      }, [] as ReportResults[]);
+
+    // TODO: Refactor into own selector
+    switch (form.sort) {
+      case 'asc':
+        return results.sort((a, b) => a.value - b.value);
+      case 'desc':
+        return results.sort((a, b) => b.value - a.value);
+      default:
+        return results;
+    }
+  },
+);
