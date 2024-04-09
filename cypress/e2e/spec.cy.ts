@@ -10,8 +10,21 @@ describe('Custom Reports for YNAB', () => {
   describe('Home', () => {
     it('Should logout', () => {
       cy.visit('/');
-      cy.get('header button').should('contain', 'Logout').click();
+      cy.get('header button').last().should('contain', 'Logout').click();
       cy.get('header button').should('contain', 'Authenticate');
+      cy.get('header a').should('not.contain', 'Report');
+    });
+
+    it('Should create new issue on GitHub', () => {
+      cy.visit('/');
+      cy.get('header a')
+        .last()
+        .should('contain', 'Report')
+        .should(
+          'have.attr',
+          'href',
+          'https://github.com/grantwforsythe/custom-reports-for-ynab/issues/new?assignees=grantwforsythe&labels=bug&projects=&template=bug-report.yml&title=%5BBUG%5D',
+        );
     });
 
     it('Should reroute to home page on 404', () => {
@@ -34,7 +47,7 @@ describe('Custom Reports for YNAB', () => {
     });
 
     it('Should access privacy page when not authenticated', () => {
-      cy.get('header button').should('contain', 'Logout').click();
+      cy.get('header button').last().should('contain', 'Logout').click();
       cy.visit('/privacy');
       cy.get('h1').should('contain', 'Privacy Policy');
     });
@@ -43,14 +56,14 @@ describe('Custom Reports for YNAB', () => {
   describe('Budget', () => {
     it('Should visit budgets', () => {
       cy.visit('/');
-      cy.get('header a').click();
+      cy.get('header a').first().click();
       cy.location().should((location) => expect(location.pathname).to.eq('/budgets'));
       cy.get('main').should('contain', "Grant's Budget (CAD)");
     });
 
     it('Should not be able to visit budgets when not authenticated', () => {
       cy.visit('/');
-      cy.get('header button').should('contain', 'Logout').click();
+      cy.get('header button').last().should('contain', 'Logout').click();
       cy.visit('/budgets');
       cy.location().should((location) => expect(location.pathname).to.eq('/'));
     });

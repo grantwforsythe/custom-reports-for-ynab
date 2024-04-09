@@ -2,6 +2,15 @@
   @if (!authService.isAuthenticated()) {
     <button mat-raised-button (click)="login()" color="primary">Authenticate</button>
   } @else {
+    <a
+      mat-raised-button
+      href="https://github.com/grantwforsythe/custom-reports-for-ynab/issues/new?assignees=grantwforsythe&labels=bug&projects=&template=bug-report.yml&title=%5BBUG%5D"
+      aria-label="Report an Issue"
+      color="warn"
+    >
+      <mat-icon fontIcon="report"></mat-icon>
+      Report
+    </a>
     <button mat-raised-button (click)="logout()" color="primary">Logout</button>
   }
 </div>
