@@ -1,0 +1,31 @@
+name: New feature
+description: Suggest or request a new feature
+labels: ['enhancement']
+assignees: ['grantwforsythe']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill out the sections below to properly describe the new feature you are suggesting.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Is your feature request related to a problem?
+      description: Please first open an issue and link it to this ticket
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the feature
+      placeholder: A clear and concise description of any alternative solutions or features you've considered.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      placeholder: |
+        Add any other context or screenshots about the feature request here.
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your suggestion!

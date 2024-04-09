@@ -1,0 +1,47 @@
+name: Bug Report
+description: Report a bug
+labels: ['bug']
+assignees: ['grantwforsythe']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill out the sections below to help everyone identify and fix the bug
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      placeholder: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to page X
+        2. Click here
+        3. Scroll down to there
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: A clear and concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: If applicable, add screenshots to help explain your problem.
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional content
+      placeholder: Add any other context about the problem here
+  - type: markdown
+    attributes:
+      value: |
+        Thank you reporting this issue
