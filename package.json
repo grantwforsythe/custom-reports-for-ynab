@@ -26,7 +26,8 @@
     "release": "release-it",
     "e2e": "ng e2e",
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run",
+    "explore": "source-map-explorer dist/ynab-custom-reports/**/*.js --html dist/source-map-explorer.html"
   },
   "dependencies": {
     "@angular/animations": "^17.3.3",
@@ -81,6 +82,7 @@
     "lint-staged": "^15.2.2",
     "prettier": "3.2.5",
     "release-it": "^17.1.1",
+    "source-map-explorer": "^2.5.3",
     "typescript": "~5.2.2"
   },
   "lint-staged": {
