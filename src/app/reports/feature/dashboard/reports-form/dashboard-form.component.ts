@@ -1,21 +1,24 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+
 import { Store } from '@ngrx/store';
+
+import { Observable, Subject, combineLatest, startWith, takeUntil } from 'rxjs';
+
+import { Account } from '../../../../shared/services/ynab/interfaces/accounts/account';
+import { Category } from '../../../../shared/services/ynab/interfaces/categories/category';
 import {
   selectEarliestTransactionDate,
   selectReportAccounts,
   selectReportCategories,
 } from '../../../data-access/report.selectors';
-import { combineLatest, Observable, startWith, Subject, takeUntil } from 'rxjs';
-import { Category } from '../../../../shared/services/ynab/interfaces/categories/category';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { AsyncPipe } from '@angular/common';
-import { Account } from '../../../../shared/services/ynab/interfaces/accounts/account';
 import { formActions } from './dashboard-form.actions';
 import { FormState } from './dashboard-form.interface';
-import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-reports-dashboard-form',

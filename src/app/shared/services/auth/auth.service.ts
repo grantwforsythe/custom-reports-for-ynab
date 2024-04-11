@@ -1,6 +1,8 @@
-import { Injectable, inject, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
+
 import { environment as env } from '../../../../environments/environment';
 
 @Injectable({

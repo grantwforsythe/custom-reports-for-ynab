@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 
-import { authGuard } from './shared/services/auth/auth.guard';
-import { BudgetCardsComponent } from './reports/feature/budget-cards/budget-cards.component';
 import { HomeComponent } from './home/home.component';
 import { PrivacyComponent } from './privacy/privacy.component';
+import { BudgetCardsComponent } from './reports/feature/budget-cards/budget-cards.component';
 import { DashboardComponent } from './reports/feature/dashboard/dashboard.component';
+import { authGuard } from './shared/services/auth/auth.guard';
 
 // TODO: Privacy policy route
 export const routes: Routes = [

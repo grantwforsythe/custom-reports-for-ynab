@@ -1,10 +1,13 @@
 import { inject } from '@angular/core';
+
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
-import { reportActions } from './report.actions';
-import { forkJoin, mergeMap, of, switchMap } from 'rxjs';
-import { YnabService } from '../../shared/services/ynab/ynab.service';
 import { Store } from '@ngrx/store';
+
+import { forkJoin, mergeMap, of, switchMap } from 'rxjs';
+
 import { selectRouteNestedParam } from '../../router.selectors';
+import { YnabService } from '../../shared/services/ynab/ynab.service';
+import { reportActions } from './report.actions';
 
 export class ReportEffects {
   actions$ = inject(Actions);

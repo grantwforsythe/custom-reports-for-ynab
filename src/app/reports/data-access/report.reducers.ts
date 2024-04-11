@@ -1,8 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
-import { reportActions } from './report.actions';
-import { CategoryGroup } from '../../shared/services/ynab/interfaces/categories/categoryGroup';
+
 import { Account } from '../../shared/services/ynab/interfaces/accounts/account';
+import { CategoryGroup } from '../../shared/services/ynab/interfaces/categories/categoryGroup';
 import { Transaction } from '../../shared/services/ynab/interfaces/transactions/transaction';
+import { reportActions } from './report.actions';
 
 interface ReportState {
   categoryGroups: CategoryGroup[];

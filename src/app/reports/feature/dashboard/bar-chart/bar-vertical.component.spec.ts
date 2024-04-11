@@ -1,12 +1,15 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChartsBarVerticalComponent } from './bar-vertical.component';
-import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { CategoryGroup } from '../../../../shared/services/ynab/interfaces/categories/categoryGroup';
+
 import { Account } from '../../../../shared/services/ynab/interfaces/accounts/account';
+import { CategoryGroup } from '../../../../shared/services/ynab/interfaces/categories/categoryGroup';
 import { Transaction } from '../../../../shared/services/ynab/interfaces/transactions/transaction';
 import { selectReportResults } from '../../../data-access/report.selectors';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ChartsBarVerticalComponent } from './bar-vertical.component';
 
 describe('ChartsBarVerticalComponent', () => {
   let component: ChartsBarVerticalComponent;

@@ -1,9 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+
+import { of } from 'rxjs';
 
 import { AuthService } from './auth.service';
-import { of } from 'rxjs';
 
 describe('AuthService', () => {
   let authService: AuthService;

@@ -1,14 +1,17 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+
 import { Store } from '@ngrx/store';
-import { reportActions } from '../../data-access/report.actions';
-import { DashboardFormComponent } from './reports-form/dashboard-form.component';
+
 import { Observable } from 'rxjs';
+
+import { reportActions } from '../../data-access/report.actions';
 import { selectChartType } from '../../data-access/report.selectors';
-import { AsyncPipe } from '@angular/common';
-import { ChartsBarVerticalComponent } from './bar-chart/bar-vertical.component';
 import { ChartsBarHorizontalComponent } from './bar-chart/bar-horizontal.component';
+import { ChartsBarVerticalComponent } from './bar-chart/bar-vertical.component';
 import { ChartsPieChartComponent } from './pie-chart/pie-chart.component';
+import { DashboardFormComponent } from './reports-form/dashboard-form.component';
 
 // TODO: Refactor the charts into a module
 @Component({

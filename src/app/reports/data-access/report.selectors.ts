@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { CategoryGroup } from '../../shared/services/ynab/interfaces/categories/categoryGroup';
+
 import { Account } from '../../shared/services/ynab/interfaces/accounts/account';
+import { CategoryGroup } from '../../shared/services/ynab/interfaces/categories/categoryGroup';
 import { Transaction } from '../../shared/services/ynab/interfaces/transactions/transaction';
 import { FormState } from '../feature/dashboard/reports-form/dashboard-form.interface';
 

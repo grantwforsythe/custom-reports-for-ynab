@@ -1,14 +1,14 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
-import { YnabService } from './ynab.service';
-import { YnabError } from './interfaces/ynabError';
+import { Account } from './interfaces/accounts/account';
 import { BudgetDetail } from './interfaces/budgets/detail/budgetDetail';
 import { BudgetSummary } from './interfaces/budgets/summary/budgetSummary';
 import { CategoryGroup } from './interfaces/categories/categoryGroup';
 import { Payee } from './interfaces/payees/payee';
 import { Transaction } from './interfaces/transactions/transaction';
-import { Account } from './interfaces/accounts/account';
+import { YnabError } from './interfaces/ynabError';
+import { YnabService } from './ynab.service';
 
 const id = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
 

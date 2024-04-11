@@ -1,8 +1,11 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { BarChartModule } from '@swimlane/ngx-charts';
+import { Component, OnInit, inject } from '@angular/core';
+
 import { Store } from '@ngrx/store';
+
+import { BarChartModule } from '@swimlane/ngx-charts';
+import { Observable } from 'rxjs';
+
 import { selectReportResults } from '../../../data-access/report.selectors';
 
 @Component({

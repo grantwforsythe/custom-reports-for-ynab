@@ -1,9 +1,12 @@
 import { inject } from '@angular/core';
-import { budgetActions } from './budget-cards.actions';
-import { of, switchMap } from 'rxjs';
+
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { YnabService } from '../../../shared/services/ynab/ynab.service';
 import { Store } from '@ngrx/store';
+
+import { of, switchMap } from 'rxjs';
+
+import { YnabService } from '../../../shared/services/ynab/ynab.service';
+import { budgetActions } from './budget-cards.actions';
 
 export class BudgetEffects {
   actions$ = inject(Actions);

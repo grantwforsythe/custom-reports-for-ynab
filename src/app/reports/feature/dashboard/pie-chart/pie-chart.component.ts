@@ -1,9 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { selectReportResults } from '../../../data-access/report.selectors';
-import { PieChartModule } from '@swimlane/ngx-charts';
 import { AsyncPipe } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
+
+import { Store } from '@ngrx/store';
+
+import { PieChartModule } from '@swimlane/ngx-charts';
+import { Observable } from 'rxjs';
+
+import { selectReportResults } from '../../../data-access/report.selectors';
 
 @Component({
   selector: 'app-charts-pie-chart',

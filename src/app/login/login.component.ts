@@ -1,7 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { AuthService } from '../shared/services/auth/auth.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+
+import { AuthService } from '../shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
