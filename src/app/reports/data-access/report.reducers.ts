@@ -11,7 +11,7 @@ interface ReportState {
   transactions: Transaction[];
 }
 
-const initialState: ReportState = {
+export const initialState: ReportState = {
   categoryGroups: [],
   accounts: [],
   transactions: [],
@@ -19,9 +19,8 @@ const initialState: ReportState = {
 
 export const reportReducer = createReducer(
   initialState,
-  on(reportActions.setReportData, (state, action): ReportState => {
+  on(reportActions.setReportData, (_state, action): ReportState => {
     return {
-      ...state,
       categoryGroups: action.categoryGroups,
       accounts: action.accounts,
       transactions: action.transactions,
