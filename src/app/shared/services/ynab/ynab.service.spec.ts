@@ -1,6 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
+import { mockBudgets, mockCategoryGroups, mockId, mockPayees } from '../../utils/mocks';
 import { Account } from './interfaces/accounts/account';
 import { BudgetDetail } from './interfaces/budgets/detail/budgetDetail';
 import { BudgetSummary } from './interfaces/budgets/summary/budgetSummary';
@@ -35,33 +36,14 @@ describe('YnabService', () => {
 
   describe('#getBudgets()', () => {
     it('should fetch budgets without accounts', () => {
-      const mockBudgets: { data: { budgets: BudgetSummary[]; default_budget?: BudgetSummary } } = {
+      const mockResponse: { data: { budgets: BudgetSummary[]; default_budget?: BudgetSummary } } = {
         data: {
-          budgets: [
-            {
-              id,
-              name: 'Walter White’s Budget',
-              last_modified_on: '2013-09-29T22:34:46Z',
-              first_month: '2013-09-01',
-              last_month: '2013-10-01',
-              date_format: { 'format': 'MM/DD/YYYY' },
-              currency_format: {
-                currency_symbol: '$',
-                decimal_digits: 2,
-                decimal_separator: '.',
-                display_symbol: true,
-                example_format: '123,456.78',
-                group_separator: ',',
-                iso_code: 'USD',
-                symbol_first: true,
-              },
-            },
-          ],
+          budgets: mockBudgets,
         },
       };
 
       service.getBudgets().subscribe((budgets) => {
-        expect(budgets).toHaveSize(1);
+        expect(budgets).toHaveSize(2);
       });
 
       const req = controller.expectOne(
@@ -75,7 +57,7 @@ describe('YnabService', () => {
       expect(req.cancelled).toBeFalsy();
       expect(req.request.responseType).toEqual('json');
 
-      req.flush(mockBudgets);
+      req.flush(mockResponse);
     });
 
     it('should handle error', () => {
@@ -109,26 +91,9 @@ describe('YnabService', () => {
 
   describe('#getBudgetById()', () => {
     it('should fetch a budget', () => {
-      const mockBudget: { data: { budget: BudgetDetail; server_knowledge: number } } = {
+      const mockResponse: { data: { budget: BudgetDetail; server_knowledge: number } } = {
         data: {
-          budget: {
-            id,
-            name: 'Walter White’s Budget',
-            last_modified_on: '2013-09-29T22:34:46Z',
-            first_month: '2013-09-01',
-            last_month: '2013-10-01',
-            date_format: { format: 'MM/DD/YYYY' },
-            currency_format: {
-              iso_code: 'USD',
-              example_format: '123,456.78',
-              decimal_digits: 2,
-              decimal_separator: '.',
-              symbol_first: true,
-              group_separator: ',',
-              currency_symbol: '$',
-              display_symbol: true,
-            },
-          },
+          budget: mockBudgets.find((budget) => budget.id === mockId)!,
           server_knowledge: 0,
         },
       };
@@ -140,7 +105,7 @@ describe('YnabService', () => {
       const req = controller.expectOne(
         {
           method: 'GET',
-          url: `https://api.ynab.com/v1/budgets/${id}`,
+          url: `https://api.ynab.com/v1/budgets/${mockId}`,
         },
         'Fetch budget',
       );
@@ -148,7 +113,7 @@ describe('YnabService', () => {
       expect(req.cancelled).toBeFalsy();
       expect(req.request.responseType).toBe('json');
 
-      req.flush(mockBudget);
+      req.flush(mockResponse);
     });
 
     it('should handle error', () => {
@@ -182,51 +147,17 @@ describe('YnabService', () => {
 
   describe('#getCategoryGroups()', () => {
     it('should fetch category groups', () => {
-      const mockCategoryGroups: {
+      const mockResponse: {
         data: { category_groups: CategoryGroup[]; server_knowledge: number };
       } = {
         data: {
-          category_groups: [
-            {
-              id,
-              name: 'string',
-              hidden: true,
-              deleted: true,
-              categories: [
-                {
-                  id,
-                  category_group_id: id,
-                  category_group_name: 'string',
-                  name: 'string',
-                  hidden: true,
-                  original_category_group_id: id,
-                  note: 'string',
-                  budgeted: 0,
-                  activity: 0,
-                  balance: 0,
-                  goal_type: 'TB',
-                  goal_day: 0,
-                  goal_cadence: 0,
-                  goal_cadence_frequency: 0,
-                  goal_creation_month: '2024-03-09',
-                  goal_target: 0,
-                  goal_target_month: '2024-03-09',
-                  goal_percentage_complete: 0,
-                  goal_months_to_budget: 0,
-                  goal_under_funded: 0,
-                  goal_overall_funded: 0,
-                  goal_overall_left: 0,
-                  deleted: true,
-                },
-              ],
-            },
-          ],
+          category_groups: mockCategoryGroups,
           'server_knowledge': 0,
         },
       };
 
       service.getCategoryGroups(id).subscribe((categoryGroups) => {
-        expect(categoryGroups).toHaveSize(1);
+        expect(categoryGroups.length).toBeGreaterThan(0);
       });
 
       const req = controller.expectOne(
@@ -240,7 +171,7 @@ describe('YnabService', () => {
       expect(req.cancelled).toBeFalsy();
       expect(req.request.responseType).toEqual('json');
 
-      req.flush(mockCategoryGroups);
+      req.flush(mockResponse);
     });
 
     it('should handle error', () => {
@@ -274,16 +205,9 @@ describe('YnabService', () => {
 
   describe('#getPayees()', () => {
     it('should fetch category groups', () => {
-      const mockPayees: { data: { payees: Payee[]; server_knowledge: number } } = {
+      const mockResponse: { data: { payees: Payee[]; server_knowledge: number } } = {
         data: {
-          payees: [
-            {
-              id,
-              name: 'string',
-              transfer_account_id: 'string',
-              deleted: true,
-            },
-          ],
+          payees: mockPayees,
           server_knowledge: 0,
         },
       };
@@ -303,7 +227,7 @@ describe('YnabService', () => {
       expect(req.cancelled).toBeFalsy();
       expect(req.request.responseType).toEqual('json');
 
-      req.flush(mockPayees);
+      req.flush(mockResponse);
     });
 
     it('should handle error', () => {

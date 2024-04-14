@@ -7,8 +7,8 @@ import { provideMockStore } from '@ngrx/store/testing';
 
 import { Observable, of } from 'rxjs';
 
-import { BudgetSummary } from '../../../shared/services/ynab/interfaces/budgets/summary/budgetSummary';
 import { YnabService } from '../../../shared/services/ynab/ynab.service';
+import { mockBudgets } from '../../../shared/utils/mocks';
 import { budgetActions } from './budget-cards.actions';
 import { BudgetEffects } from './budget-cards.effects';
 
@@ -37,18 +37,6 @@ describe('BudgetEffects', () => {
 
   describe('loadBudgets$', () => {
     it('should dispatch setBudgets when initBudgets is dispatched', () => {
-      const mockBudgets: BudgetSummary[] = [
-        {
-          id: '1',
-          name: 'Test Budget 1',
-          last_modified_on: '2022-01-01',
-        },
-        {
-          id: '2',
-          name: 'Test Budget 2',
-          last_modified_on: '2022-02-01',
-        },
-      ];
       actions$ = of({ type: '[Budget Page] Init Budgets' });
       ynabSpy.getBudgets.and.returnValue(of(mockBudgets));
 
