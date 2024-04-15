@@ -1,167 +1,266 @@
+import { faker } from '@faker-js/faker';
+
 import { Account } from '../services/ynab/interfaces/accounts/account';
 import { BudgetSummary } from '../services/ynab/interfaces/budgets/summary/budgetSummary';
 import { CategoryGroup } from '../services/ynab/interfaces/categories/categoryGroup';
 import { Payee } from '../services/ynab/interfaces/payees/payee';
 import { Transaction } from '../services/ynab/interfaces/transactions/transaction';
 
-// TODO: Change the id for each mock
+const from = '2024-01-01T00:00:00.000Z';
+const to = '2024-12-31T11:59:00.000Z';
 
-// TODO: Rename to mockBudgetId
-export const mockId = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
+faker.seed(1234);
+faker.setDefaultRefDate(from);
 
 export const mockBudgets: BudgetSummary[] = [
   {
-    id: mockId,
-    name: 'string',
-    last_modified_on: '2024-04-11T20:44:53.501Z',
-    first_month: '2024-04-11',
-    last_month: '2024-04-11',
+    id: faker.string.uuid(),
+    name: 'Budget #1',
+    last_modified_on: faker.date
+      .between({
+        from,
+        to,
+      })
+      .toDateString(),
+    first_month: faker.date.past().toDateString(),
+    last_month: faker.date.future().toDateString(),
     date_format: {
       format: 'MM/DD/YYYY',
     },
     currency_format: {
-      iso_code: 'string',
-      example_format: 'string',
-      decimal_digits: 0,
-      decimal_separator: 'string',
+      iso_code: 'CAD',
+      example_format: '123,456.78',
+      decimal_digits: 2,
+      decimal_separator: '.',
       symbol_first: true,
-      group_separator: 'string',
-      currency_symbol: 'string',
+      group_separator: ',',
+      currency_symbol: '$',
       display_symbol: true,
     },
   },
   {
-    id: '2fa85f64-5717-4562-b3fc-2c963f66afa6',
-    name: 'string',
-    last_modified_on: '2024-04-11T20:44:53.501Z',
-    first_month: '2024-04-11',
-    last_month: '2024-04-11',
+    id: faker.string.uuid(),
+    name: 'Budget #2',
+    last_modified_on: faker.date
+      .between({
+        from,
+        to,
+      })
+      .toDateString(),
+    first_month: faker.date.past().toDateString(),
+    last_month: faker.date.future().toDateString(),
     date_format: {
       format: 'MM/DD/YYYY',
     },
     currency_format: {
-      iso_code: 'string',
-      example_format: 'string',
-      decimal_digits: 0,
-      decimal_separator: 'string',
+      iso_code: 'CAD',
+      example_format: '123,456.78',
+      decimal_digits: 2,
+      decimal_separator: '.',
       symbol_first: true,
-      group_separator: 'string',
-      currency_symbol: 'string',
+      group_separator: ',',
+      currency_symbol: '$',
       display_symbol: true,
     },
   },
 ];
+
+// TODO: Rename to mockBudgetId
+export const mockId = mockBudgets[0].id;
+
+const hiddenCategoryGroup = {
+  id: faker.string.uuid(),
+  name: 'Hidden Category Group',
+};
+const deletedCategoryGroup = {
+  id: faker.string.uuid(),
+  name: 'Deleted Category Group',
+};
+const internalMasterCategoryGroup = {
+  id: faker.string.uuid(),
+  name: 'Internal Master Category',
+};
+const regularCategoryGroup = {
+  id: faker.string.uuid(),
+  name: 'Regular Category Group',
+};
 
 export const mockCategoryGroups: CategoryGroup[] = [
   {
-    id: mockId,
-    name: 'string',
+    ...hiddenCategoryGroup,
     hidden: true,
-    deleted: true,
+    deleted: false,
     categories: [
       {
-        id: mockId,
-        category_group_id: mockId,
-        category_group_name: 'string',
-        name: 'string',
+        id: faker.string.uuid(),
+        category_group_id: hiddenCategoryGroup.id,
+        category_group_name: hiddenCategoryGroup.name,
+        name: '💍 Wedding Ring',
         hidden: true,
-        original_category_group_id: mockId,
-        note: 'string',
         budgeted: 0,
         activity: 0,
         balance: 0,
-        goal_type: 'TB',
-        goal_day: 0,
-        goal_cadence: 0,
-        goal_cadence_frequency: 0,
-        goal_creation_month: '2024-03-09',
-        goal_target: 0,
-        goal_target_month: '2024-03-09',
-        goal_percentage_complete: 0,
-        goal_months_to_budget: 0,
-        goal_under_funded: 0,
-        goal_overall_funded: 0,
-        goal_overall_left: 0,
+        deleted: false,
+      },
+    ],
+  },
+  {
+    ...deletedCategoryGroup,
+    name: 'Deleted Category Group',
+    hidden: false,
+    deleted: true,
+    categories: [
+      {
+        id: faker.string.uuid(),
+        category_group_id: deletedCategoryGroup.id,
+        category_group_name: deletedCategoryGroup.name,
+        name: '🍕 Pizza Party',
+        hidden: false,
+        budgeted: 500000,
+        activity: 500000,
+        balance: 0,
         deleted: true,
       },
     ],
   },
   {
-    id: mockId,
-    name: 'Internal Master Category',
-    hidden: true,
-    deleted: true,
+    ...internalMasterCategoryGroup,
+    hidden: false,
+    deleted: false,
     categories: [
       {
-        id: mockId,
-        category_group_id: mockId,
-        category_group_name: 'Internal Master Category',
-        name: 'string',
-        hidden: true,
-        original_category_group_id: mockId,
-        note: 'string',
+        id: faker.string.uuid(),
+        category_group_id: internalMasterCategoryGroup.id,
+        category_group_name: internalMasterCategoryGroup.name,
+        name: 'Inflow: Ready to Assign',
+        hidden: false,
+        budgeted: 0,
+        activity: faker.number.int({ min: 0, max: 10000000 }),
+        balance: faker.number.int({ min: 0, max: 10000000 }),
+        deleted: false,
+      },
+      {
+        id: faker.string.uuid(),
+        category_group_id: internalMasterCategoryGroup.id,
+        category_group_name: internalMasterCategoryGroup.name,
+        name: 'Uncategorized',
+        hidden: false,
         budgeted: 0,
         activity: 0,
         balance: 0,
-        goal_type: 'TB',
-        goal_day: 0,
-        goal_cadence: 0,
-        goal_cadence_frequency: 0,
-        goal_creation_month: '2024-03-09',
         goal_target: 0,
-        goal_target_month: '2024-03-09',
-        goal_percentage_complete: 0,
-        goal_months_to_budget: 0,
-        goal_under_funded: 0,
-        goal_overall_funded: 0,
-        goal_overall_left: 0,
-        deleted: true,
+        deleted: false,
+      },
+    ],
+  },
+  {
+    ...regularCategoryGroup,
+    hidden: false,
+    deleted: false,
+    categories: [
+      {
+        id: faker.string.uuid(),
+        category_group_id: regularCategoryGroup.id,
+        category_group_name: regularCategoryGroup.name,
+        name: '🍔 Groceries',
+        hidden: false,
+        budgeted: 0,
+        activity: 0,
+        balance: 0,
+        deleted: false,
+      },
+      {
+        id: faker.string.uuid(),
+        category_group_id: regularCategoryGroup.id,
+        category_group_name: regularCategoryGroup.name,
+        name: '⛽️ Gas',
+        hidden: false,
+        budgeted: 0,
+        activity: 0,
+        balance: 0,
+        deleted: false,
+      },
+      {
+        id: faker.string.uuid(),
+        category_group_id: regularCategoryGroup.id,
+        category_group_name: regularCategoryGroup.name,
+        name: '🚈 Transportation',
+        hidden: false,
+        budgeted: 0,
+        activity: 0,
+        balance: 0,
+        deleted: false,
       },
     ],
   },
 ];
 
+const regularTransferAccountId = faker.string.uuid();
+const closedTransferAccountId = faker.string.uuid();
+const deletedTransferAccountId = faker.string.uuid();
+
 export const mockPayees: Payee[] = [
   {
-    id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-    name: 'string',
-    transfer_account_id: 'string',
+    id: faker.string.uuid(),
+    name: 'Employer',
+    deleted: false,
+  },
+  {
+    id: faker.string.uuid(),
+    name: 'Loblaws',
+    deleted: false,
+  },
+  {
+    id: faker.string.uuid(),
+    name: 'Shell',
+    deleted: false,
+  },
+  {
+    id: faker.string.uuid(),
+    name: 'Public Transit',
+    deleted: false,
+  },
+  {
+    id: faker.string.uuid(),
+    name: 'Block Buster',
+    deleted: true,
+  },
+  {
+    id: faker.string.uuid(),
+    name: `Transfer : ${faker.finance.accountName()}`,
+    transfer_account_id: regularTransferAccountId,
+    deleted: false,
+  },
+  {
+    id: faker.string.uuid(),
+    name: `Transfer : ${faker.finance.accountName()}`,
+    transfer_account_id: closedTransferAccountId,
+    deleted: false,
+  },
+  {
+    id: faker.string.uuid(),
+    name: `Transfer : ${faker.finance.accountName()}`,
+    transfer_account_id: deletedTransferAccountId,
     deleted: true,
   },
 ];
 
 export const mockAccounts: Account[] = [
   {
-    id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-    name: 'string',
+    id: regularTransferAccountId,
+    name: mockPayees
+      .find((payee) => payee.transfer_account_id === regularTransferAccountId)!
+      .name.split(' : ')[1],
     type: 'checking',
     on_budget: true,
-    closed: true,
+    closed: false,
     note: 'string',
     balance: 0,
     cleared_balance: 0,
     uncleared_balance: 0,
-    transfer_payee_id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-    direct_import_linked: true,
-    direct_import_in_error: true,
-    last_reconciled_at: '2024-03-14T02:39:28.300Z',
-    debt_original_balance: 0,
-    debt_interest_rates: {},
-    debt_minimum_payments: {},
-    debt_escrow_amounts: {},
-    deleted: true,
-  },
-  {
-    id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-    name: 'string',
-    type: 'checking',
-    on_budget: true,
-    closed: true,
-    note: 'string',
-    balance: 0,
-    cleared_balance: 0,
-    uncleared_balance: 0,
-    transfer_payee_id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+    transfer_payee_id: mockPayees.find(
+      (payee) => payee.transfer_account_id === regularTransferAccountId,
+    )!.id,
     direct_import_linked: true,
     direct_import_in_error: true,
     last_reconciled_at: '2024-03-14T02:39:28.300Z',
@@ -170,95 +269,204 @@ export const mockAccounts: Account[] = [
     debt_minimum_payments: {},
     debt_escrow_amounts: {},
     deleted: false,
+  },
+  {
+    id: closedTransferAccountId,
+    name: mockPayees
+      .find((payee) => payee.transfer_account_id === closedTransferAccountId)!
+      .name.split(' : ')[1],
+    type: 'checking',
+    on_budget: true,
+    closed: false,
+    note: 'string',
+    balance: 0,
+    cleared_balance: 0,
+    uncleared_balance: 0,
+    transfer_payee_id: mockPayees.find(
+      (payee) => payee.transfer_account_id === closedTransferAccountId,
+    )!.id,
+    direct_import_linked: true,
+    direct_import_in_error: true,
+    last_reconciled_at: '2024-03-14T02:39:28.300Z',
+    debt_original_balance: 0,
+    debt_interest_rates: {},
+    debt_minimum_payments: {},
+    debt_escrow_amounts: {},
+    deleted: false,
+  },
+  {
+    id: deletedTransferAccountId,
+    name: mockPayees
+      .find((payee) => payee.transfer_account_id === deletedTransferAccountId)!
+      .name.split(' : ')[1],
+    type: 'checking',
+    on_budget: true,
+    closed: false,
+    note: 'string',
+    balance: 0,
+    cleared_balance: 0,
+    uncleared_balance: 0,
+    transfer_payee_id: mockPayees.find(
+      (payee) => payee.transfer_account_id === deletedTransferAccountId,
+    )!.id,
+    direct_import_linked: true,
+    direct_import_in_error: true,
+    last_reconciled_at: '2024-03-14T02:39:28.300Z',
+    debt_original_balance: 0,
+    debt_interest_rates: {},
+    debt_minimum_payments: {},
+    debt_escrow_amounts: {},
+    deleted: true,
   },
 ];
 
+// TODO: Add a transaction with subtransactions
 export const mockTransactions: Transaction[] = [
   {
-    id: mockId,
-    date: '2024-03-09',
-    amount: 0,
+    id: faker.string.uuid(),
+    date: faker.date.past().toDateString(),
+    amount: 1000000,
     memo: 'string',
     cleared: 'cleared',
     approved: true,
     flag_color: 'red',
     flag_name: 'string',
-    account_id: mockId,
-    payee_id: mockId,
-    category_id: mockId,
-    transfer_account_id: mockId,
-    transfer_transaction_id: mockId,
-    matched_transaction_id: mockId,
-    import_id: mockId,
-    import_payee_name: 'string',
-    import_payee_name_original: 'string',
-    debt_transaction_type: 'payment',
-    deleted: true,
-    account_name: 'string',
-    payee_name: 'string',
-    category_name: 'string',
-    subtransactions: [
-      {
-        id: mockId,
-        transaction_id: mockId,
-        amount: 0,
-        memo: 'string',
-        payee_id: mockId,
-        payee_name: 'string',
-        category_id: mockId,
-        category_name: 'string',
-        transfer_account_id: mockId,
-        transfer_transaction_id: mockId,
-        deleted: true,
-      },
-    ],
-  },
-  {
-    id: mockId,
-    date: '2024-01-01',
-    amount: 0,
-    memo: 'string',
-    cleared: 'cleared',
-    approved: true,
-    flag_color: 'red',
-    flag_name: 'string',
-    account_id: mockId,
-    payee_id: mockId,
-    category_id: mockId,
-    transfer_account_id: mockId,
-    transfer_transaction_id: mockId,
-    matched_transaction_id: mockId,
-    import_id: mockId,
-    import_payee_name: 'string',
-    import_payee_name_original: 'string',
-    debt_transaction_type: 'payment',
-    deleted: true,
-    account_name: 'string',
-    payee_name: 'string',
-    category_name: 'string',
-  },
-  {
-    id: mockId,
-    date: '2023-01-01',
-    amount: 0,
-    memo: 'string',
-    cleared: 'cleared',
-    approved: true,
-    flag_color: 'red',
-    flag_name: 'string',
-    account_id: mockId,
-    payee_id: mockId,
-    category_id: mockId,
-    transfer_account_id: mockId,
-    transfer_transaction_id: mockId,
-    matched_transaction_id: mockId,
-    import_id: mockId,
-    import_payee_name: 'string',
-    import_payee_name_original: 'string',
-    debt_transaction_type: 'payment',
+    account_id: regularTransferAccountId,
+    payee_id: mockPayees.find((payee) => payee.name === 'Employer')!.id,
+    category_id: mockCategoryGroups
+      .filter((categoryGroup) => categoryGroup.id === internalMasterCategoryGroup.id)
+      .flatMap((categoryGroup) => categoryGroup.categories)
+      .find((category) => category?.name === 'Inflow: Ready to Assign')!.id,
     deleted: false,
     account_name: 'string',
-    payee_name: 'string',
-    category_name: 'string',
+    payee_name: 'Employer',
+    category_name: 'Inflow: Ready to Assign',
+    subtransactions: [],
+  },
+  {
+    id: faker.string.uuid(),
+    date: faker.date.between({ from, to }).toDateString(),
+    amount: faker.number.int({ min: -2500, max: 0 }),
+    memo: 'string',
+    cleared: 'cleared',
+    approved: true,
+    flag_color: 'red',
+    flag_name: 'string',
+    account_id: regularTransferAccountId,
+    payee_id: mockPayees.find((payee) => payee.name === 'Loblaws')!.id,
+    category_id: mockCategoryGroups
+      .filter((categoryGroup) => categoryGroup.id === regularCategoryGroup.id)
+      .flatMap((categoryGroup) => categoryGroup.categories)
+      .find((category) => category?.name.includes('Groceries'))!.id,
+    deleted: false,
+    account_name: 'string',
+    payee_name: 'Loblaws',
+    category_name: '🍔 Groceries',
+    subtransactions: [],
+  },
+  {
+    id: faker.string.uuid(),
+    date: faker.date.between({ from, to }).toDateString(),
+    amount: faker.number.int({ min: -2000, max: 0 }),
+    memo: 'string',
+    cleared: 'cleared',
+    approved: true,
+    flag_color: 'red',
+    flag_name: 'string',
+    account_id: regularTransferAccountId,
+    payee_id: mockPayees.find((payee) => payee.name === 'Shell')!.id,
+    category_id: mockCategoryGroups
+      .filter((categoryGroup) => categoryGroup.id === regularCategoryGroup.id)
+      .flatMap((categoryGroup) => categoryGroup.categories)
+      .find((category) => category?.name.includes('Gas'))!.id,
+    deleted: false,
+    account_name: 'string',
+    payee_name: 'Shell',
+    category_name: '⛽️ Gas',
+    subtransactions: [],
+  },
+  {
+    id: faker.string.uuid(),
+    date: faker.date.between({ from, to }).toDateString(),
+    amount: faker.number.int({ min: -5000, max: 0 }),
+    memo: 'string',
+    cleared: 'cleared',
+    approved: true,
+    flag_color: 'red',
+    flag_name: 'string',
+    account_id: regularTransferAccountId,
+    payee_id: mockPayees.find((payee) => payee.name === 'Public Transit')!.id,
+    category_id: mockCategoryGroups
+      .filter((categoryGroup) => categoryGroup.id === regularCategoryGroup.id)
+      .flatMap((categoryGroup) => categoryGroup.categories)
+      .find((category) => category?.name.includes('Transportation'))!.id,
+    deleted: false,
+    account_name: 'string',
+    payee_name: 'Public Transit',
+    category_name: '🚈 Transportation',
+    subtransactions: [],
+  },
+  {
+    id: faker.string.uuid(),
+    date: faker.date.past().toDateString(),
+    amount: faker.number.int({ min: -10000, max: 0 }),
+    memo: 'string',
+    cleared: 'cleared',
+    approved: true,
+    flag_color: 'red',
+    flag_name: 'string',
+    account_id: regularTransferAccountId,
+    payee_id: mockPayees.find((payee) => payee.name === 'Loblaws')!.id,
+    category_id: mockCategoryGroups
+      .filter((categoryGroup) => categoryGroup.id === regularCategoryGroup.id)
+      .flatMap((categoryGroup) => categoryGroup.categories)
+      .find((category) => category?.name.includes('Groceries'))!.id,
+    deleted: false,
+    account_name: 'string',
+    payee_name: 'Loblaws',
+    category_name: '🍔 Groceries',
+    subtransactions: [],
+  },
+  {
+    id: faker.string.uuid(),
+    date: faker.date.future().toDateString(),
+    amount: faker.number.int({ min: -10000, max: 0 }),
+    memo: 'string',
+    cleared: 'cleared',
+    approved: true,
+    flag_color: 'red',
+    flag_name: 'string',
+    account_id: regularTransferAccountId,
+    payee_id: mockPayees.find((payee) => payee.name === 'Loblaws')!.id,
+    category_id: mockCategoryGroups
+      .filter((categoryGroup) => categoryGroup.id === regularCategoryGroup.id)
+      .flatMap((categoryGroup) => categoryGroup.categories)
+      .find((category) => category?.name.includes('Groceries'))!.id,
+    deleted: false,
+    account_name: 'string',
+    payee_name: 'Loblaws',
+    category_name: '🍔 Groceries',
+    subtransactions: [],
+  },
+  {
+    id: faker.string.uuid(),
+    date: faker.date.between({ from, to }).toDateString(),
+    amount: faker.number.int({ min: -10000, max: 0 }),
+    memo: 'string',
+    cleared: 'cleared',
+    approved: true,
+    flag_color: 'red',
+    flag_name: 'string',
+    account_id: regularTransferAccountId,
+    payee_id: mockPayees.find((payee) => payee.name === 'Loblaws')!.id,
+    category_id: mockCategoryGroups
+      .filter((categoryGroup) => categoryGroup.id === regularCategoryGroup.id)
+      .flatMap((categoryGroup) => categoryGroup.categories)
+      .find((category) => category?.name.includes('Groceries'))!.id,
+    deleted: true,
+    account_name: 'string',
+    payee_name: 'Loblaws',
+    category_name: '🍔 Groceries',
+    subtransactions: [],
   },
 ];
