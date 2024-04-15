@@ -6,9 +6,9 @@ import { Store } from '@ngrx/store';
 
 import { forkJoin, mergeMap, of, switchMap } from 'rxjs';
 
-import { selectRouteNestedParam } from '../../router.selectors';
 import { YnabService } from '../../shared/services/ynab/ynab.service';
 import { reportActions } from '../actions/report.actions';
+import { selectRouteNestedParam } from '../selectors/router.selectors';
 
 export class ReportEffects {
   actions$ = inject(Actions);
