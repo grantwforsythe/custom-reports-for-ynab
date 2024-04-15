@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { BarChartModule } from '@swimlane/ngx-charts';
 import { Observable } from 'rxjs';
 
-import { selectReportResults } from '../../../data-access/report.selectors';
+import { selectSortedResults } from '../../../data-access/report.selectors';
 
 @Component({
   selector: 'app-charts-bar-horizontal',
@@ -20,6 +20,6 @@ export class ChartsBarHorizontalComponent implements OnInit {
   results$: Observable<{ value: number; name: string | undefined }[]> | undefined;
 
   ngOnInit(): void {
-    this.results$ = this.store.select(selectReportResults);
+    this.results$ = this.store.select(selectSortedResults);
   }
 }

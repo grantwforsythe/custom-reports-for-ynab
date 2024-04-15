@@ -8,7 +8,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { Account } from '../../../../shared/services/ynab/interfaces/accounts/account';
 import { CategoryGroup } from '../../../../shared/services/ynab/interfaces/categories/categoryGroup';
 import { Transaction } from '../../../../shared/services/ynab/interfaces/transactions/transaction';
-import { selectReportResults } from '../../../data-access/report.selectors';
+import { selectSortedResults } from '../../../data-access/report.selectors';
 import { ChartsBarHorizontalComponent } from './bar-horizontal.component';
 
 describe('ChartsBarHorizontalComponent', () => {
@@ -39,7 +39,7 @@ describe('ChartsBarHorizontalComponent', () => {
           initialState,
           selectors: [
             {
-              selector: selectReportResults,
+              selector: selectSortedResults,
               value: [
                 {
                   name: 'Groceries',

@@ -31,12 +31,19 @@ export const selectReportAccounts = createSelector(selectReportState, (report) =
   return report.accounts.filter((account) => !account.deleted && account.on_budget);
 });
 
+export const selectInternalCategoryGroup = createSelector(selectReportState, (report) => {
+  return report.categoryGroups
+    .filter((categoryGroup) => categoryGroup.name === 'Internal Master Category')
+    .flatMap((categoryGroup) => categoryGroup?.categories);
+});
+
 /**
  * Selects categories from the report state, filtering out all undefined
  * categories.
  *
  * @return {Category[]} The filtered categories.
  */
+// TODO: Add a toggle for delete / hidden categories
 export const selectReportCategories = createSelector(selectReportState, (report) => {
   return report.categoryGroups
     .filter((categoryGroup) => categoryGroup.name !== 'Internal Master Category')
@@ -44,20 +51,46 @@ export const selectReportCategories = createSelector(selectReportState, (report)
     .filter((category) => !!category);
 });
 
-export const selectEarliestTransactionDate = createSelector(
+/**
+ * Selects transactions from the report state, filtering out deleted transactions and
+ * transactions that don't meet the specified criteria.
+ *
+ * @return {Transaction[]} The filtered transactions.
+ */
+// TODO: Handle subtransactions
+export const selectTransactions = createSelector(
   selectReportState,
-  ({ transactions }) => {
-    const today = new Date();
-
-    if (transactions.length === 0) return today;
-
-    // Find the earliest transaction date in the array of transactions.
-    return transactions.reduce((date, transaction) => {
-      const transactionDate = new Date(transaction.date);
-      return transactionDate < date ? transactionDate : date;
-    }, today);
+  selectInternalCategoryGroup,
+  ({ transactions }, internalCategories) => {
+    return (
+      transactions
+        // Filter out transactions without a category
+        .filter((transaction) => {
+          return (
+            transaction.amount < 0 &&
+            !transaction.deleted &&
+            !!transaction.category_id &&
+            (transaction.subtransactions === undefined ||
+              transaction.subtransactions.length === 0) &&
+            !internalCategories.map((category) => category?.id).includes(transaction.category_id) &&
+            transaction.category_name !== 'Split'
+          );
+        })
+    );
   },
 );
+
+export const selectEarliestTransactionDate = createSelector(selectTransactions, (transactions) => {
+  const today = new Date();
+
+  if (transactions.length === 0) return today;
+
+  // Find the earliest transaction date in the array of transactions.
+  return transactions.reduce((date, transaction) => {
+    const transactionDate = new Date(transaction.date);
+    return transactionDate < date ? transactionDate : date;
+  }, today);
+});
 
 /**
  * Selects transactions from the report state, filtering out transactions that
@@ -69,10 +102,10 @@ export const selectEarliestTransactionDate = createSelector(
  *
  * @return {Transaction[]} The filtered transactions.
  */
-export const selectFilteredTransactions = createSelector(
-  selectReportState,
+export const selectFilteredTransactionsByDateRange = createSelector(
+  selectTransactions,
   selectFormState,
-  ({ transactions }, { start, end }) => {
+  (transactions, { start, end }) => {
     if (start === null && end === null) {
       return transactions;
     } else if (start === null) {
@@ -94,43 +127,27 @@ export const selectFilteredTransactions = createSelector(
   },
 );
 
-/**
- * Selects transactions from the report state, filtering out deleted transactions and
- * transactions that don't meet the specified criteria.
- *
- * @return {Transaction[]} The filtered transactions.
- */
-// TODO: Refactor into separate selector
-export const selectReportTransactions = createSelector(
-  selectFilteredTransactions,
+export const selectTransactionsByAccountAndDate = createSelector(
+  selectFilteredTransactionsByDateRange,
   selectFormState,
-  (filteredTransactions, form) => {
-    return (
-      filteredTransactions
-        // Filter out transactions without a category
-        .filter((transaction) => {
-          return (
-            transaction.amount < 0 &&
-            !transaction.deleted &&
-            !!transaction.category_id &&
-            transaction.subtransactions !== undefined
-          );
-        })
-        // TODO: Refactor into separate selector
-        // Filter by select accounts
-        .filter((transaction) => {
-          if (form.account === null) return true;
+  (filteredTransactions, { account }) => {
+    return filteredTransactions.filter((transaction) => {
+      if (account === null) return true;
 
-          return form.account.includes(transaction.account_id);
-        })
-        // TODO: Refactor into separate selector
-        // Filter by select categories
-        .filter((transaction) => {
-          if (form.category === null || transaction.category_id === undefined) return true;
+      return account.includes(transaction.account_id);
+    });
+  },
+);
 
-          return form.category.includes(transaction.category_id);
-        })
-    );
+export const selectFilterTransactionsByCategory = createSelector(
+  selectTransactionsByAccountAndDate,
+  selectFormState,
+  (transactions, { category }) => {
+    return transactions.filter((transaction) => {
+      if (category === null || transaction.category_id === undefined) return true;
+
+      return category.includes(transaction.category_id);
+    });
   },
 );
 
@@ -151,36 +168,31 @@ export interface ReportResults {
  * @return {ReportResults[]} The sorted results from report state.
  */
 export const selectReportResults = createSelector(
-  selectReportTransactions,
+  selectFilterTransactionsByCategory,
+  (transactions) => {
+    return transactions.reduce((results, transaction) => {
+      const existingResult = results.find((result) => result.name === transaction.category_name);
+      const amount = (transaction.amount / 1000) * -1;
+
+      if (existingResult) {
+        existingResult.value += amount;
+      } else {
+        results.push({
+          value: amount,
+          name: transaction.category_name!,
+        });
+      }
+
+      return results;
+    }, [] as ReportResults[]);
+  },
+);
+
+export const selectSortedResults = createSelector(
+  selectReportResults,
   selectFormState,
-  (transactions, form) => {
-    const results = transactions
-      // TODO: Refactor
-      .filter(
-        (transaction) =>
-          transaction.category_name !== undefined &&
-          transaction.category_name !== 'Inflow: Ready to Assign' &&
-          // TODO: Handle split transactions
-          transaction.category_name !== 'Split',
-      )
-      .reduce((results, transaction) => {
-        const existingResult = results.find((result) => result.name === transaction.category_name);
-        const amount = (transaction.amount / 1000) * -1;
-
-        if (existingResult) {
-          existingResult.value += amount;
-        } else {
-          results.push({
-            value: amount,
-            name: transaction.category_name!,
-          });
-        }
-
-        return results;
-      }, [] as ReportResults[]);
-
-    // TODO: Refactor into own selector
-    switch (form.sort) {
+  (results, { sort }) => {
+    switch (sort) {
       case 'asc':
         return results.sort((a, b) => a.value - b.value);
       case 'desc':

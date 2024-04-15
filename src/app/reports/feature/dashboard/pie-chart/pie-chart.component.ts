@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { PieChartModule } from '@swimlane/ngx-charts';
 import { Observable } from 'rxjs';
 
-import { selectReportResults } from '../../../data-access/report.selectors';
+import { selectSortedResults } from '../../../data-access/report.selectors';
 
 @Component({
   selector: 'app-charts-pie-chart',
@@ -20,6 +20,6 @@ export class ChartsPieChartComponent implements OnInit {
   results$!: Observable<{ value: number; name: string | undefined }[]>;
 
   ngOnInit(): void {
-    this.results$ = this.store.select(selectReportResults);
+    this.results$ = this.store.select(selectSortedResults);
   }
 }
