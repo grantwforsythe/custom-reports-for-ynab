@@ -210,25 +210,76 @@ describe('Report Selectors', () => {
   });
 
   describe('#selectTransactionsByAccountAndDate()', () => {
-    it('should return all transactions if account is null', () => {
-      const internalCategories = fromSelectors.selectInternalCategoryGroup.projector({
+    const internalCategories = fromSelectors.selectInternalCategoryGroup.projector({
+      categoryGroups: mockCategoryGroups,
+      accounts: mockAccounts,
+      transactions: mockTransactions,
+    });
+
+    const transactions = fromSelectors.selectTransactions.projector(
+      {
         categoryGroups: mockCategoryGroups,
         accounts: mockAccounts,
         transactions: mockTransactions,
-      });
+      },
+      internalCategories,
+    );
 
-      const expected = fromSelectors.selectTransactions.projector(
-        {
-          categoryGroups: mockCategoryGroups,
-          accounts: mockAccounts,
-          transactions: mockTransactions,
-        },
-        internalCategories,
+    it('should return all transactions if account is null', () => {
+      const result = fromSelectors.selectTransactionsByAccountAndDate.projector(
+        transactions,
+        initialState.form,
       );
 
-      const result = fromSelectors.selectTransactionsByAccountAndDate.projector(
-        expected,
+      expect(result).toEqual(transactions);
+    });
+
+    it('should return transactions for the specified account', () => {
+      const result = fromSelectors.selectTransactionsByAccountAndDate.projector(transactions, {
+        ...initialState.form,
+        account: [mockAccounts[0].id],
+      });
+
+      const expected = transactions.filter(
+        (transaction) => transaction.account_id === mockAccounts[0].id,
+      );
+      expect(result).toEqual(expected);
+    });
+  });
+
+  describe('#selectFilterTransactionsByCategory()', () => {
+    const internalCategories = fromSelectors.selectInternalCategoryGroup.projector({
+      categoryGroups: mockCategoryGroups,
+      accounts: mockAccounts,
+      transactions: mockTransactions,
+    });
+
+    const transactions = fromSelectors.selectTransactions.projector(
+      {
+        categoryGroups: mockCategoryGroups,
+        accounts: mockAccounts,
+        transactions: mockTransactions,
+      },
+      internalCategories,
+    );
+
+    it('should return all transactions if category is null', () => {
+      const result = fromSelectors.selectFilterTransactionsByCategory.projector(
+        transactions,
         initialState.form,
+      );
+
+      expect(result).toEqual(transactions);
+    });
+
+    it('should return transactions for the specified category', () => {
+      const result = fromSelectors.selectFilterTransactionsByCategory.projector(transactions, {
+        ...initialState.form,
+        category: [mockCategoryGroups[0].id],
+      });
+
+      const expected = transactions.filter(
+        (transaction) => transaction.category_id === mockCategoryGroups[0].id,
       );
 
       expect(result).toEqual(expected);

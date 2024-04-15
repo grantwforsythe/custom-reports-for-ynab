@@ -320,6 +320,10 @@ export const mockAccounts: Account[] = [
   },
 ];
 
+const regularAccountName = mockAccounts.find(
+  (account) => account.id === regularTransferAccountId,
+)!.name;
+
 // TODO: Add a transaction with subtransactions
 export const mockTransactions: Transaction[] = [
   {
@@ -338,7 +342,7 @@ export const mockTransactions: Transaction[] = [
       .flatMap((categoryGroup) => categoryGroup.categories)
       .find((category) => category?.name === 'Inflow: Ready to Assign')!.id,
     deleted: false,
-    account_name: 'string',
+    account_name: regularAccountName,
     payee_name: 'Employer',
     category_name: 'Inflow: Ready to Assign',
     subtransactions: [],
@@ -359,7 +363,7 @@ export const mockTransactions: Transaction[] = [
       .flatMap((categoryGroup) => categoryGroup.categories)
       .find((category) => category?.name.includes('Groceries'))!.id,
     deleted: false,
-    account_name: 'string',
+    account_name: regularAccountName,
     payee_name: 'Loblaws',
     category_name: '🍔 Groceries',
     subtransactions: [],
@@ -380,7 +384,7 @@ export const mockTransactions: Transaction[] = [
       .flatMap((categoryGroup) => categoryGroup.categories)
       .find((category) => category?.name.includes('Gas'))!.id,
     deleted: false,
-    account_name: 'string',
+    account_name: regularAccountName,
     payee_name: 'Shell',
     category_name: '⛽️ Gas',
     subtransactions: [],
@@ -394,14 +398,14 @@ export const mockTransactions: Transaction[] = [
     approved: true,
     flag_color: 'red',
     flag_name: 'string',
-    account_id: regularTransferAccountId,
+    account_id: closedTransferAccountId,
     payee_id: mockPayees.find((payee) => payee.name === 'Public Transit')!.id,
     category_id: mockCategoryGroups
       .filter((categoryGroup) => categoryGroup.id === regularCategoryGroup.id)
       .flatMap((categoryGroup) => categoryGroup.categories)
       .find((category) => category?.name.includes('Transportation'))!.id,
     deleted: false,
-    account_name: 'string',
+    account_name: mockAccounts.find((account) => account.id === closedTransferAccountId)!.name,
     payee_name: 'Public Transit',
     category_name: '🚈 Transportation',
     subtransactions: [],
@@ -422,7 +426,7 @@ export const mockTransactions: Transaction[] = [
       .flatMap((categoryGroup) => categoryGroup.categories)
       .find((category) => category?.name.includes('Groceries'))!.id,
     deleted: false,
-    account_name: 'string',
+    account_name: regularAccountName,
     payee_name: 'Loblaws',
     category_name: '🍔 Groceries',
     subtransactions: [],
@@ -443,7 +447,7 @@ export const mockTransactions: Transaction[] = [
       .flatMap((categoryGroup) => categoryGroup.categories)
       .find((category) => category?.name.includes('Groceries'))!.id,
     deleted: false,
-    account_name: 'string',
+    account_name: regularAccountName,
     payee_name: 'Loblaws',
     category_name: '🍔 Groceries',
     subtransactions: [],
@@ -457,14 +461,14 @@ export const mockTransactions: Transaction[] = [
     approved: true,
     flag_color: 'red',
     flag_name: 'string',
-    account_id: regularTransferAccountId,
+    account_id: closedTransferAccountId,
     payee_id: mockPayees.find((payee) => payee.name === 'Loblaws')!.id,
     category_id: mockCategoryGroups
       .filter((categoryGroup) => categoryGroup.id === regularCategoryGroup.id)
       .flatMap((categoryGroup) => categoryGroup.categories)
       .find((category) => category?.name.includes('Groceries'))!.id,
     deleted: true,
-    account_name: 'string',
+    account_name: mockAccounts.find((account) => account.id === closedTransferAccountId)!.name,
     payee_name: 'Loblaws',
     category_name: '🍔 Groceries',
     subtransactions: [],
