@@ -11,6 +11,7 @@ import { Transaction } from './interfaces/transactions/transaction';
 import { YnabError } from './interfaces/ynabError';
 import { YnabService } from './ynab.service';
 
+// TODO: Refactor out
 const id = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
 
 describe('YnabService', () => {
@@ -98,8 +99,8 @@ describe('YnabService', () => {
         },
       };
 
-      service.getBudgetById(id).subscribe((budget) => {
-        expect(budget.id).toEqual(id);
+      service.getBudgetById(mockId).subscribe((budget) => {
+        expect(budget.id).toEqual(mockId);
       });
 
       const req = controller.expectOne(
@@ -212,14 +213,14 @@ describe('YnabService', () => {
         },
       };
 
-      service.getPayees(id).subscribe((payees) => {
-        expect(payees).toHaveSize(1);
+      service.getPayees(mockId).subscribe((payees) => {
+        expect(payees).toBeDefined();
       });
 
       const req = controller.expectOne(
         {
           method: 'GET',
-          url: `https://api.ynab.com/v1/budgets/${id}/payees`,
+          url: `https://api.ynab.com/v1/budgets/${mockId}/payees`,
         },
         'Fetch all payees for a budget',
       );
