@@ -6,8 +6,8 @@ import { RouterModule } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 
-import { budgetActions } from './budget-cards.actions';
-import { selectBudgets } from './budget-cards.selectors';
+import { budgetActions } from '../../../state/actions/budget-cards.actions';
+import { selectBudgets } from '../../../state/selectors/budget-cards.selectors';
 
 @Component({
   selector: 'app-budgets',

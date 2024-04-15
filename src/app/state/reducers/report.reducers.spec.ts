@@ -1,5 +1,5 @@
 import { mockAccounts, mockCategoryGroups, mockTransactions } from '../../shared/utils/mocks';
-import { reportActions } from './report.actions';
+import { reportActions } from '../actions/report.actions';
 import * as fromReducer from './report.reducers';
 
 describe('Report Reducer', () => {

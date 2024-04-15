@@ -1,4 +1,4 @@
-import { BudgetState } from './budget-cards.reducers';
+import { BudgetState } from '../app.state';
 import { selectBudgets } from './budget-cards.selectors';
 
 describe('Budget Cards Selectors', () => {

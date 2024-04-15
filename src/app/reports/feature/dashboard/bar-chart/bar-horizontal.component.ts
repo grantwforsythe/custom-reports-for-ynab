@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { BarChartModule } from '@swimlane/ngx-charts';
 import { Observable } from 'rxjs';
 
-import { selectSortedResults } from '../../../data-access/report.selectors';
+import { selectSortedResults } from '../../../../state/selectors/report.selectors';
 
 @Component({
   selector: 'app-charts-bar-horizontal',

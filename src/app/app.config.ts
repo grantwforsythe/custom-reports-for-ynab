@@ -11,12 +11,12 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { environment as env } from '../environments/environment';
 import { routes } from './app.routes';
-import { ReportEffects } from './reports/data-access/report.effects';
-import { reportReducer } from './reports/data-access/report.reducers';
-import { BudgetEffects } from './reports/feature/budget-cards/budget-cards.effects';
-import { budgetsReducers } from './reports/feature/budget-cards/budget-cards.reducers';
-import { formReducer } from './reports/feature/dashboard/reports-form/dashboard-form.reducers';
 import { authInterceptor } from './shared/services/auth/auth.interceptor';
+import { BudgetEffects } from './state/effects/budget-cards.effects';
+import { ReportEffects } from './state/effects/report.effects';
+import { budgetsReducers } from './state/reducers/budget-cards.reducers';
+import { formReducer } from './state/reducers/dashboard-form.reducers';
+import { reportReducer } from './state/reducers/report.reducers';
 
 export const appConfig: ApplicationConfig = {
   providers: [

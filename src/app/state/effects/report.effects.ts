@@ -8,7 +8,7 @@ import { forkJoin, mergeMap, of, switchMap } from 'rxjs';
 
 import { selectRouteNestedParam } from '../../router.selectors';
 import { YnabService } from '../../shared/services/ynab/ynab.service';
-import { reportActions } from './report.actions';
+import { reportActions } from '../actions/report.actions';
 
 export class ReportEffects {
   actions$ = inject(Actions);

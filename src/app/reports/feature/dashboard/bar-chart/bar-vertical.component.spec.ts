@@ -8,7 +8,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { Account } from '../../../../shared/services/ynab/interfaces/accounts/account';
 import { CategoryGroup } from '../../../../shared/services/ynab/interfaces/categories/categoryGroup';
 import { Transaction } from '../../../../shared/services/ynab/interfaces/transactions/transaction';
-import { selectSortedResults } from '../../../data-access/report.selectors';
+import { selectSortedResults } from '../../../../state/selectors/report.selectors';
 import { ChartsBarVerticalComponent } from './bar-vertical.component';
 
 describe('ChartsBarVerticalComponent', () => {

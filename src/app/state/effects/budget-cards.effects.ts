@@ -5,8 +5,8 @@ import { Store } from '@ngrx/store';
 
 import { of, switchMap } from 'rxjs';
 
-import { YnabService } from '../../../shared/services/ynab/ynab.service';
-import { budgetActions } from './budget-cards.actions';
+import { YnabService } from '../../shared/services/ynab/ynab.service';
+import { budgetActions } from '../actions/budget-cards.actions';
 
 export class BudgetEffects {
   actions$ = inject(Actions);

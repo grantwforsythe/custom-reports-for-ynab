@@ -1,20 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { Account } from '../../shared/services/ynab/interfaces/accounts/account';
-import { CategoryGroup } from '../../shared/services/ynab/interfaces/categories/categoryGroup';
-import { Transaction } from '../../shared/services/ynab/interfaces/transactions/transaction';
-import { FormState } from '../feature/dashboard/reports-form/dashboard-form.interface';
-
-export interface ReportState {
-  categoryGroups: CategoryGroup[];
-  accounts: Account[];
-  transactions: Transaction[];
-}
-
-export interface AppState {
-  form: FormState;
-  report: ReportState;
-}
+import { FormState, ReportState } from '../app.state';
 
 export const selectFormState = createFeatureSelector<FormState>('form');
 
