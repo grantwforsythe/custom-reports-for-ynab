@@ -86,6 +86,7 @@
     "lint-staged": "^15.2.2",
     "postcss": "^8.4.38",
     "prettier": "3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.14",
     "release-it": "^17.1.1",
     "source-map-explorer": "^2.5.3",
     "tailwindcss": "^3.4.3",
