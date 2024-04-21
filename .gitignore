@@ -12,6 +12,7 @@ npm-debug.log
 yarn-error.log
 
 # IDEs and editors
+.env
 .idea/
 .project
 .classpath
@@ -36,6 +37,7 @@ yarn-error.log
 /libpeerconnection.log
 testem.log
 /typings
+/cypress/downloads
 
 # System files
 .DS_Store
