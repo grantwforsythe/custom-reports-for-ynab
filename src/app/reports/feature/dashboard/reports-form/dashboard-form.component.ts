@@ -12,13 +12,13 @@ import { Observable, Subject, combineLatest, startWith, takeUntil } from 'rxjs';
 
 import { Account } from '../../../../shared/services/ynab/interfaces/accounts/account';
 import { Category } from '../../../../shared/services/ynab/interfaces/categories/category';
+import { formActions } from '../../../../state/actions/dashboard-form.actions';
+import { FormState } from '../../../../state/app.state';
 import {
   selectEarliestTransactionDate,
   selectReportAccounts,
   selectReportCategories,
-} from '../../../data-access/report.selectors';
-import { formActions } from './dashboard-form.actions';
-import { FormState } from './dashboard-form.interface';
+} from '../../../../state/selectors/report.selectors';
 
 @Component({
   selector: 'app-reports-dashboard-form',

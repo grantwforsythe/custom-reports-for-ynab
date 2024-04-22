@@ -1,11 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { BudgetSummary } from '../../../shared/services/ynab/interfaces/budgets/summary/budgetSummary';
-import { budgetActions } from './budget-cards.actions';
-
-export interface BudgetState {
-  budgets: BudgetSummary[];
-}
+import { budgetActions } from '../actions/budget-cards.actions';
+import { BudgetState } from '../app.state';
 
 export const initialState: BudgetState = {
   budgets: [],

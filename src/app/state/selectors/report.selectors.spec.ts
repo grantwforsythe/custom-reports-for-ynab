@@ -1,7 +1,8 @@
 import { mockAccounts, mockCategoryGroups, mockTransactions } from '../../shared/utils/mocks';
+import { AppState } from '../app.state';
 import * as fromSelectors from './report.selectors';
 
-const initialState: fromSelectors.AppState = {
+const initialState: AppState = {
   report: {
     categoryGroups: [],
     accounts: [],

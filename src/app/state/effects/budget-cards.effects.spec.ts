@@ -7,9 +7,9 @@ import { provideMockStore } from '@ngrx/store/testing';
 
 import { Observable, of } from 'rxjs';
 
-import { YnabService } from '../../../shared/services/ynab/ynab.service';
-import { mockBudgets } from '../../../shared/utils/mocks';
-import { budgetActions } from './budget-cards.actions';
+import { YnabService } from '../../shared/services/ynab/ynab.service';
+import { mockBudgets } from '../../shared/utils/mocks';
+import { budgetActions } from '../actions/budget-cards.actions';
 import { BudgetEffects } from './budget-cards.effects';
 
 describe('BudgetEffects', () => {

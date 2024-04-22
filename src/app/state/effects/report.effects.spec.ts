@@ -14,7 +14,7 @@ import {
   mockId,
   mockTransactions,
 } from '../../shared/utils/mocks';
-import { reportActions } from './report.actions';
+import { reportActions } from '../actions/report.actions';
 import { ReportEffects } from './report.effects';
 
 describe('ReportEffects', () => {

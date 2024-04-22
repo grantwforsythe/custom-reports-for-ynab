@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { BudgetState } from './budget-cards.reducers';
+import { BudgetState } from '../app.state';
 
 export const selectBudgetState = createFeatureSelector<BudgetState>('budget');
 

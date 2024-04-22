@@ -1,4 +1,4 @@
-import { budgetActions } from './budget-cards.actions';
+import { budgetActions } from '../actions/budget-cards.actions';
 import * as fromReducer from './budget-cards.reducers';
 
 describe('Budget Cards Reducers', () => {

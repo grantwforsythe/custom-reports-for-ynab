@@ -6,8 +6,8 @@ import { Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
 
-import { reportActions } from '../../data-access/report.actions';
-import { selectChartType } from '../../data-access/report.selectors';
+import { reportActions } from '../../../state/actions/report.actions';
+import { selectChartType } from '../../../state/selectors/report.selectors';
 import { ChartsBarHorizontalComponent } from './bar-chart/bar-horizontal.component';
 import { ChartsBarVerticalComponent } from './bar-chart/bar-vertical.component';
 import { ChartsPieChartComponent } from './pie-chart/pie-chart.component';
