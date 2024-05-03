@@ -23,7 +23,7 @@
     "format": "prettier --write src/**/*.{ts,html,scss}",
     "test": "ng test",
     "test:ci": "ng test --configuration production",
-    "lint": "ng lint",
+    "lint": "ng lint && stylelint src/**/*.scss --fix",
     "release": "release-it",
     "e2e": "ng e2e",
     "cy:open": "cypress open",
@@ -89,6 +89,9 @@
     "pretty-quick": "^4.0.0",
     "release-it": "^17.1.1",
     "source-map-explorer": "^2.5.3",
+    "stylelint": "^16.5.0",
+    "stylelint-config-standard": "^36.0.0",
+    "stylelint-config-standard-scss": "^13.1.0",
     "tailwindcss": "^3.4.3",
     "typescript": "~5.2.2"
   }
