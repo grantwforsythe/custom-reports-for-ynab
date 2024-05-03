@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+// Pull in resets
+@import url('https://unpkg.com/modern-css-reset@1.4.0/dist/reset.min.css');
+
 html,
 body {
   height: 100%;
