@@ -1,21 +1,18 @@
 // Pull in resets
 @import 'https://unpkg.com/modern-css-reset@1.4.0/dist/reset.min.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+// Update tailwind styles
+@layer base {
+  body {
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+  }
 
-html,
-body {
-  height: 100%;
-  margin: 0;
-}
-
-body {
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  p,
+  li {
+    @apply max-w-prose text-lg;
+  }
 }
