@@ -22,7 +22,6 @@ import { AuthService } from './shared/services/auth/auth.service';
     MatToolbarModule,
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   auth = inject(AuthService);

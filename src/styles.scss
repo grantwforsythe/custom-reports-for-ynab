@@ -1,9 +1,14 @@
+// Pull in resets
+@import 'https://unpkg.com/modern-css-reset@1.4.0/dist/reset.min.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-// Pull in resets
-@import url('https://unpkg.com/modern-css-reset@1.4.0/dist/reset.min.css');
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 html,
 body {
@@ -13,12 +18,4 @@ body {
 
 body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
-}
-
-footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: white;
 }

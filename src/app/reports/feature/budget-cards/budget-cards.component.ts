@@ -14,7 +14,6 @@ import { selectBudgets } from '../../../state/selectors/budget-cards.selectors';
   standalone: true,
   imports: [CommonModule, MatCardModule, MatRippleModule, DatePipe, RouterModule],
   templateUrl: './budget-cards.component.html',
-  styleUrl: './budget-cards.component.scss',
 })
 export class BudgetCardsComponent implements OnInit {
   private store = inject(Store);

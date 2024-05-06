@@ -6,34 +6,15 @@
         aria-hidden="true"
         alt="ynab-custom-reports"
         src="../assets/images/charts.svg"
+        class="h-10 w-10"
       />
     </a>
     <span>Custom Reports for YNAB</span>
-    <span class="spacer"></span>
+    <span class="flex flex-auto"></span>
     <app-login></app-login>
   </mat-toolbar>
 </header>
 
-<main>
+<main class="mt-8">
   <router-outlet></router-outlet>
 </main>
-
-<footer>
-  <mat-divider></mat-divider>
-  <div class="container">
-    <a [routerLink]="['/privacy']">Privacy Policy</a>
-    <!-- TODO: Fix placement of GitHub logo -->
-    <!-- <a
-      mat-button
-      href="https://github.com/grantwforsythe/ynab-custom-reports"
-      aria-label="GitHub Repository"
-    >
-      <img
-        matButtonIcon
-        aria-hidden="true"
-        alt="ynab-custom-reports"
-        src="../assets/images/github.svg"
-      />
-    </a> -->
-  </div>
-</footer>

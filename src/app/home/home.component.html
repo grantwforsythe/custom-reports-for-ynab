@@ -1,17 +1,25 @@
-<div class="container">
-  <p>
+<div class="flex flex-col content-center items-center justify-center text-center text-justify">
+  <p class="max-w-prose text-lg">
     I officially became a YNABer back in 2024 and have been hooked ever since. I believe YNAB to be
     a great product; however, I find the reports feature to be lacking even with the
-    <a href="https://www.toolkitforynab.com/"> Toolkit for YNAB</a> which is why I started this
-    project. I hope others will deprive some use from it as well.
+    <a class="text-blue-800 underline" href="https://www.toolkitforynab.com/"> Toolkit for YNAB</a>
+    which is why I started this project. I hope others will deprive some use from it as well.
   </p>
-  <p>
+  <p class="max-w-prose text-lg">
     <em>
       To get started, click the 'Authenticate' button on the top right-hand corner of your screen.
     </em>
   </p>
-  <p>
+  <p class="max-w-prose text-lg">
     For those that want to contribute or report a bug, please do so from the GitHub repository
     linked below.
+  </p>
+  <p class="max-w-prose text-lg">
+    Please read the
+    <a class="text-blue-800 underline" [routerLink]="['/privacy']">privacy policy</a> to learn how
+    your data is being accessed. TL;DR:
+    <em
+      >All of your data is stored locally in your browser and will be cleared once you close it.</em
+    >
   </p>
 </div>

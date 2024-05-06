@@ -9,7 +9,6 @@ import { AuthService } from '../shared/services/auth/auth.service';
   standalone: true,
   imports: [MatButtonModule, MatIconModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
   authService = inject(AuthService);
