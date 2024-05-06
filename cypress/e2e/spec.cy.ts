@@ -43,7 +43,7 @@ describe('Custom Reports for YNAB', () => {
       cy.get('p a').contains('privacy policy').click();
       cy.location().should((location) => expect(location.pathname).to.eq('/privacy'));
       cy.get('h1').should('contain', 'Privacy Policy');
-      cy.get('div.content a').should('have.attr', 'href', 'https://api.ynab.com/#terms');
+      cy.get('div a').should('have.attr', 'href', 'https://api.ynab.com/#terms');
     });
 
     it('Should access privacy page when not authenticated', () => {
