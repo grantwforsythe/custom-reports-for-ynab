@@ -24,4 +24,4 @@ jobs:
         with:
           urls: '${{ env.PREVIEW_URL }}'
           prCommentEnabled: true
-          gitHubAcessToken: ${{ secrets.GITHUB_TOKEN }}
+          gitHubAccessToken: ${{ secrets.GITHUB_TOKEN }}
