@@ -4,8 +4,7 @@ jobs:
   lighthouse:
     runs-on: ubuntu-latest
     if: >-
-      github.event.issue.pull_request &&
-      github.event.comment.user.login == 'render[bot]'
+      github.event.issue.pull_request
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
