@@ -16,6 +16,9 @@
   <a href="https://github.com/grantwforsythe/ynab-custom-reports/actions/workflows/ci.yml">
     <img src="https://github.com/grantwforsythe/ynab-custom-reports/actions/workflows/ci.yml/badge.svg">
   </a>
+  <a href="https://codecov.io/gh/grantwforsythe/custom-reports-for-ynab" > 
+    <img src="https://codecov.io/gh/grantwforsythe/custom-reports-for-ynab/graph/badge.svg?token=C867BJUW6X"/> 
+  </a>
   <a href="https://github.com/grantwforsythe/ynab-custom-reports/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg">
   </a>

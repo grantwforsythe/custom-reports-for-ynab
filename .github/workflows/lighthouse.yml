@@ -1,0 +1,28 @@
+on: issue_comment
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    if: >-
+      github.event.issue.pull_request &&
+      github.event.comment.user.login == 'render[bot]'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Get preview URL
+        id: preview-url
+        env:
+          BODY: ${{ github.event.comment.body }}
+        run: |
+          PREVIEW_URL=$(echo "$BODY" | grep -o 'https:\/\/.*\.onrender\.com' | head -n 1)
+          echo "PREVIEW_URL=$PREVIEW_URL" >> $GITHUB_ENV
+
+      - name: Lighthouse Report
+        uses: foo-software/lighthouse-check-action@master
+        with:
+          urls: '${{ env.PREVIEW_URL }}'
+          prCommentEnabled: true
+          gitHubAcessToken: ${{ secrets.GITHUB_TOKEN }}

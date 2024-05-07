@@ -118,7 +118,7 @@ describe('Report Selectors', () => {
 
       const expected = transactions.reduce((date, transaction) => {
         const transactionDate = new Date(transaction.date);
-        return transactionDate < date ? transactionDate : date;
+        return transactionDate <= date ? transactionDate : date;
       }, new Date());
 
       expect(result).toEqual(expected);

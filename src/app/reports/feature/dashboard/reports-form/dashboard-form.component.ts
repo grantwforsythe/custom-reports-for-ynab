@@ -24,7 +24,6 @@ import {
   selector: 'app-reports-dashboard-form',
   standalone: true,
   templateUrl: './dashboard-form.component.html',
-  styleUrl: './dashboard-form.component.scss',
   imports: [
     MatSelectModule,
     MatFormFieldModule,
