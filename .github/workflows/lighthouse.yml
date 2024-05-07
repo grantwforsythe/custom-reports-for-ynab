@@ -16,7 +16,7 @@ jobs:
         env:
           BODY: ${{ github.event.comment.body }}
         run: |
-          PREVIEW_URL=$(echo "$BODY" | grep -o 'https:\/\/.*\.onrender\.com' | head -n 1)
+          PREVIEW_URL=$(echo "$BODY" | grep -o 'https://[a-zA-Z0-9.-]*\.onrender\.com' | head -n 1)
           echo "PREVIEW_URL=$PREVIEW_URL" >> $GITHUB_ENV
 
       - name: Lighthouse Report
