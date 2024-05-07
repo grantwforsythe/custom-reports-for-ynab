@@ -1,4 +1,6 @@
-on: issue_comment
+on:
+  workflow_dispatch:
+  issue_comment:
 
 jobs:
   lighthouse:
