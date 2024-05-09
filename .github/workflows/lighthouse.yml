@@ -21,9 +21,48 @@ jobs:
           PREVIEW_URL=$(echo "$BODY" | grep -o 'https://[a-zA-Z0-9.-]*\.onrender\.com' | head -n 1)
           echo "PREVIEW_URL=$PREVIEW_URL" >> $GITHUB_ENV
 
-      - name: Lighthouse Report
-        uses: foo-software/lighthouse-check-action@master
+      - name: Audit preview URL with Lighthouse
+        id: lighthouse-audit
+        uses: treosh/lighthouse-ci-action@v8
         with:
-          urls: '${{ env.PREVIEW_URL }}'
-          prCommentEnabled: true
-          gitHubAccessToken: ${{ secrets.GITHUB_TOKEN }}
+          urls: |
+            ${{ env.PREVIEW_URL }}
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          runs: 5
+
+      - name: Format lighthouse score
+        id: format-lighthouse-score
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const formatScore = (score) => Math.round(score * 100);
+            const emojiScore = (score) =>
+              score >= 0.9 ? '🟢' : score >= 0.5 ? '🟠' : '🔴';
+            const scoreRow = (label, score) =>
+              `| ${emojiScore(score)} ${labe} | ${formatScore(score)} |`;
+
+            const { summary } = ${{ steps.lighthouse-audit.outputs.manifest }}[0];
+            const [[testedUrl, _]] = Objects.entries(${{ steps.lighthouse-audit.outputs.links }});
+
+            return `## ⚡️🏠 Lighthouse report
+              We ran Lighthouse against the changes and produced this summary:
+
+              | Category | Score |
+              | -------- | ----- |
+              ${scoreRow('Performance', summary.performance)}
+              ${scoreRow('Accessibility', summary.accessibility)}
+              ${scoreRow('Best practices', summary['best-practices'])}
+              ${scoreRow('SEO', summary.seo)}
+              ${scoreRow('PWA', summary.pwa)}
+
+              *Lighthouse ran against [${testedUrl}](${testedUrl})*
+            `;
+          result-encoding: string
+
+      - name: Add a comment with formatted lighthouse score
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: ${{ steps.format-lighthouse-score.outputs.result }}
