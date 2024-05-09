@@ -21,9 +21,14 @@ jobs:
           PREVIEW_URL=$(echo "$BODY" | grep -o 'https://[a-zA-Z0-9.-]*\.onrender\.com' | head -n 1)
           echo "PREVIEW_URL=$PREVIEW_URL" >> $GITHUB_ENV
 
-      - name: Lighthouse Report
-        uses: foo-software/lighthouse-check-action@master
+      - name: Generate Lighthouse report
+        uses: foo-software/lighthouse-check-action@12
         with:
           urls: '${{ env.PREVIEW_URL }}'
-          prCommentEnabled: true
-          gitHubAccessToken: ${{ secrets.GITHUB_TOKEN }}
+          outputDirectory: ${{ github.workspace }}/tmp/artifacts
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@4
+        with:
+          name: lighthouse-report
+          path: ${{ github.workspace }}/tmp/artifacts
