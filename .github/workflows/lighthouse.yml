@@ -14,6 +14,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Create tmp directory
+        run: mkdir -p ${{ github.workspace }}/tmp/artifacts
+
       - name: Get preview URL
         env:
           BODY: ${{ github.event.comment.body }}
@@ -22,13 +25,13 @@ jobs:
           echo "PREVIEW_URL=$PREVIEW_URL" >> $GITHUB_ENV
 
       - name: Generate Lighthouse report
-        uses: foo-software/lighthouse-check-action@12
+        uses: foo-software/lighthouse-check-action@master
         with:
           urls: '${{ env.PREVIEW_URL }}'
           outputDirectory: ${{ github.workspace }}/tmp/artifacts
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@4
+        uses: actions/upload-artifact@v4
         with:
           name: lighthouse-report
           path: ${{ github.workspace }}/tmp/artifacts
