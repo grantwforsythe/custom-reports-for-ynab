@@ -19,6 +19,8 @@ jobs:
           git config --global user.name "Release Workflow"
 
       - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run release --ci
 
       - name: Deploy to Render
