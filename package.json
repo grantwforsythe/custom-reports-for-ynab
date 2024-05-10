@@ -23,7 +23,7 @@
     "format": "prettier --write src/**/*.{ts,html,scss}",
     "test": "ng test",
     "test:ci": "ng test --configuration production",
-    "lint": "ng lint && stylelint src/**/*.scss --fix",
+    "lint": "ng lint && stylelint src/**/*.scss --fix && prettier --check src/**/*.{ts,html,scss}",
     "release": "release-it",
     "e2e": "ng e2e",
     "cy:open": "cypress open",
