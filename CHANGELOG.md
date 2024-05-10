@@ -1,3 +1,10 @@
+## [1.4.0](https://github.com/grantwforsythe/custom-reports-for-ynab/compare/1.3.0...1.4.0) (2024-05-10)
+
+### Features
+
+- add other charts ([#14](https://github.com/grantwforsythe/custom-reports-for-ynab/issues/14)) ([ecb961e](https://github.com/grantwforsythe/custom-reports-for-ynab/commit/ecb961ebed6e8633abb015330febf11be23d9594))
+- reroute to dashboard if there is only one budget ([ee3594c](https://github.com/grantwforsythe/custom-reports-for-ynab/commit/ee3594c88f22a290c18309ab5cdcc4a40e4d11b2))
+
 ## [1.3.0](https://github.com/grantwforsythe/custom-reports-for-ynab/compare/1.2.0...1.3.0) (2024-05-06)
 
 ### Features
