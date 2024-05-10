@@ -56,6 +56,14 @@ export class DashboardFormComponent implements OnInit, OnDestroy {
       name: 'Pie Charts',
       chartTypes: [{ value: 'pie-chart', name: 'Pie Chart' }],
     },
+    {
+      name: 'Other Charts',
+      chartTypes: [
+        { value: 'tree-map', name: 'Tree Map' },
+        { value: 'number-cards', name: 'Number Cards' },
+        { value: 'gauge', name: 'Gauge' },
+      ],
+    },
   ];
 
   range = new FormGroup({

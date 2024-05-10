@@ -10,6 +10,9 @@ import { reportActions } from '../../../state/actions/report.actions';
 import { selectChartType } from '../../../state/selectors/report.selectors';
 import { ChartsBarHorizontalComponent } from './bar-chart/bar-horizontal.component';
 import { ChartsBarVerticalComponent } from './bar-chart/bar-vertical.component';
+import { ChartsGaugeComponent } from './other-chart/gauge.component';
+import { ChartsNumberCardsComponent } from './other-chart/number-cards.component';
+import { ChartsTreeMapComponent } from './other-chart/tree-map.component';
 import { ChartsPieChartComponent } from './pie-chart/pie-chart.component';
 import { DashboardFormComponent } from './reports-form/dashboard-form.component';
 
@@ -17,7 +20,6 @@ import { DashboardFormComponent } from './reports-form/dashboard-form.component'
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css',
   standalone: true,
   imports: [
     RouterOutlet,
@@ -26,6 +28,9 @@ import { DashboardFormComponent } from './reports-form/dashboard-form.component'
     ChartsBarVerticalComponent,
     ChartsBarHorizontalComponent,
     ChartsPieChartComponent,
+    ChartsTreeMapComponent,
+    ChartsNumberCardsComponent,
+    ChartsGaugeComponent,
   ],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
