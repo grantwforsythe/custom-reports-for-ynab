@@ -61,6 +61,7 @@ export class DashboardFormComponent implements OnInit, OnDestroy {
       chartTypes: [
         { value: 'tree-map', name: 'Tree Map' },
         { value: 'number-cards', name: 'Number Cards' },
+        { value: 'gauge', name: 'Gauge' },
       ],
     },
   ];
