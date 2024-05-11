@@ -18,6 +18,17 @@ jobs:
           git config --global user.email "grantwforsythe@gmail.com"
           git config --global user.name "Release Workflow"
 
+      # Reference: https://github.com/carbon-design-system/gatsby-theme-carbon/blob/37615427c548a64d83acd02091616fb623f50f08/.github/workflows/release.yml#L39C7-L57
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+        shell: bash
+        env:
+          SSH_PRIVATE_KEY: ${{ SECRETS.SSH_PRIVATE_KEY }}
+
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
