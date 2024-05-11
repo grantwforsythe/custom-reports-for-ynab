@@ -1,3 +1,9 @@
+## [1.5.0](https://github.com/grantwforsythe/custom-reports-for-ynab/compare/1.4.0...1.5.0) (2024-05-11)
+
+### Features
+
+- add cloudflare web analytics ([#15](https://github.com/grantwforsythe/custom-reports-for-ynab/issues/15)) ([08cecde](https://github.com/grantwforsythe/custom-reports-for-ynab/commit/08cecde8ef9d8c6dece69dbf5c7b215ae6fbb022))
+
 ## [1.4.0](https://github.com/grantwforsythe/custom-reports-for-ynab/compare/1.3.0...1.4.0) (2024-05-10)
 
 ### Features
