@@ -1,6 +1,5 @@
 comment:
-  layout: "diff, files"
-  require_changes: true
+  layout: 'diff, files'
 
 github_checks:
   annotations: true
