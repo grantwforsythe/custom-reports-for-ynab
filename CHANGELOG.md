@@ -1,3 +1,10 @@
+## [1.6.0](https://github.com/grantwforsythe/custom-reports-for-ynab/compare/1.5.0...1.6.0) (2024-05-16)
+
+### Features
+
+- transpose budget cards, add card content ([c939252](https://github.com/grantwforsythe/custom-reports-for-ynab/commit/c939252351d1118a878142132593cfdf9e1bd323))
+- update privacy policy ([17f54e4](https://github.com/grantwforsythe/custom-reports-for-ynab/commit/17f54e444dcff33457eb3932be43f3c78bbea63c))
+
 ## [1.5.0](https://github.com/grantwforsythe/custom-reports-for-ynab/compare/1.4.0...1.5.0) (2024-05-11)
 
 ### Features
