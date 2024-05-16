@@ -1,9 +1,9 @@
-<div class="flex flex-col items-center justify-evenly">
+<div class="flex items-center justify-evenly">
   @for (budget of budgets$ | async; track budget.id) {
     <mat-card
       matRipple
       [routerLink]="[budget.id, 'dashboard']"
-      class="mb-8 shadow-none hover:scale-110 hover:cursor-pointer hover:shadow-md"
+      class="mb-8 shadow-none hover:scale-110 hover:cursor-pointer hover:border-2 hover:border-gray-200 hover:shadow-md"
     >
       <mat-card-header>
         <!-- TODO: Add an indicator for the default budget -->
@@ -13,7 +13,11 @@
         >
       </mat-card-header>
       <mat-card-content>
-        <p>Default</p>
+        @if (budget.currency_format?.iso_code) {
+          <p><strong>Currency</strong>: {{ budget.currency_format?.iso_code }}</p>
+        } @else {
+          <p>No currency set</p>
+        }
       </mat-card-content>
     </mat-card>
   }
