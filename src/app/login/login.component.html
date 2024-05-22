@@ -1,14 +1,22 @@
 @if (!authService.isAuthenticated()) {
-  <button mat-raised-button (click)="login()" color="accent">Authenticate</button>
-} @else {
-  <a
-    mat-raised-button
-    href="https://github.com/grantwforsythe/custom-reports-for-ynab/issues/new?assignees=grantwforsythe&labels=bug&projects=&template=bug-report.yml&title=%5BBUG%5D"
-    aria-label="Report an Issue"
-    color="warn"
-  >
-    <mat-icon fontIcon="report"></mat-icon>
-    Report
+  <a mat-raised-button (click)="login()" (keyup.enter)="logout()" color="accent" tabindex="0">
+    <mat-icon fontIcon="login"></mat-icon>
+    Login
   </a>
-  <button mat-raised-button (click)="logout()" color="accent">Logout</button>
+} @else {
+  <div class="flex space-x-4">
+    <a
+      mat-raised-button
+      href="https://github.com/grantwforsythe/custom-reports-for-ynab/issues/new?assignees=grantwforsythe&labels=bug&projects=&template=bug-report.yml&title=%5BBUG%5D"
+      aria-label="Report an Issue"
+      color="warn"
+    >
+      <mat-icon fontIcon="report"></mat-icon>
+      Report
+    </a>
+    <a mat-raised-button (click)="logout()" (keyup.enter)="logout()" color="accent" tabindex="0">
+      <mat-icon fontIcon="logout"></mat-icon>
+      Logout
+    </a>
+  </div>
 }
