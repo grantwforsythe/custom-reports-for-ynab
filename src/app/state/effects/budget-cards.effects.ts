@@ -23,7 +23,6 @@ export class BudgetEffects {
         return this.ynab.getBudgets();
       }),
       tap((budgets: BudgetSummary[]) => {
-        console.log(budgets);
         if (budgets.length === 1) {
           this.router.navigate(['budgets', budgets[0].id, 'dashboard']);
         }
