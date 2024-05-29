@@ -52,8 +52,8 @@ describe('LoginComponent', () => {
 
     fixture.detectChanges();
 
-    const button: HTMLElement = fixture.nativeElement.querySelector('button');
-    expect(button.textContent).toEqual('Authenticate');
+    const button: HTMLElement = fixture.nativeElement.querySelector('a[color="accent"]');
+    expect(button.textContent?.trim()).toEqual('Login');
   });
 
   it('should display logout button', () => {
@@ -61,7 +61,7 @@ describe('LoginComponent', () => {
 
     fixture.detectChanges();
 
-    const button: HTMLElement = fixture.nativeElement.querySelector('button');
-    expect(button.textContent).toEqual('Logout');
+    const button: HTMLElement = fixture.nativeElement.querySelector('a[color="accent"]');
+    expect(button.textContent?.trim()).toEqual('Logout');
   });
 });

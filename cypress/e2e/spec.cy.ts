@@ -10,15 +10,15 @@ describe('Custom Reports for YNAB', () => {
   describe('Home', () => {
     it('Should logout', () => {
       cy.visit('/');
-      cy.get('header button').last().should('contain', 'Logout').click();
-      cy.get('header button').should('contain', 'Authenticate');
-      cy.get('header a').should('not.contain', 'Report');
+      cy.get('header a').last().should('contain', 'Logout').click();
+      cy.get('header a').last().should('contain', 'Login');
+      cy.get('header a').last().should('not.contain', 'Report');
     });
 
     it('Should create new issue on GitHub', () => {
       cy.visit('/');
-      cy.get('header a')
-        .last()
+      cy.get('header a.mdc-button:nth-child(1)')
+        .first()
         .should('contain', 'Report')
         .should(
           'have.attr',
@@ -43,11 +43,11 @@ describe('Custom Reports for YNAB', () => {
       cy.get('p a').contains('privacy policy').click();
       cy.location().should((location) => expect(location.pathname).to.eq('/privacy'));
       cy.get('h1').should('contain', 'Privacy Policy');
-      cy.get('div a').should('have.attr', 'href', 'https://api.ynab.com/#terms');
+      cy.get('p a').should('have.attr', 'href', 'https://api.ynab.com/#terms');
     });
 
     it('Should access privacy page when not authenticated', () => {
-      cy.get('header button').last().should('contain', 'Logout').click();
+      cy.get('header a').last().should('contain', 'Logout').click();
       cy.visit('/privacy');
       cy.get('h1').should('contain', 'Privacy Policy');
     });
@@ -63,7 +63,7 @@ describe('Custom Reports for YNAB', () => {
 
     it('Should not be able to visit budgets when not authenticated', () => {
       cy.visit('/');
-      cy.get('header button').last().should('contain', 'Logout').click();
+      cy.get('header a').last().should('contain', 'Logout').click();
       cy.visit('/budgets');
       cy.location().should((location) => expect(location.pathname).to.eq('/'));
     });
