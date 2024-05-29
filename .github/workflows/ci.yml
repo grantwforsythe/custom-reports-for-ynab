@@ -59,8 +59,12 @@ jobs:
         with:
           browser: chrome
           start: npm start
+          # Record the test in Cypress Cloud
+          record: true
         env:
           CYPRESS_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   lint:
     runs-on: ubuntu-latest
