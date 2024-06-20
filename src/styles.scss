@@ -13,6 +13,6 @@
 
   p,
   li {
-    @apply max-w-prose text-lg;
+    @apply max-w-xs sm:max-w-prose sm:text-lg;
   }
 }

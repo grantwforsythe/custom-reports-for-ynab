@@ -4,19 +4,41 @@
     Login
   </a>
 } @else {
-  <div class="flex space-x-4">
-    <a
-      mat-raised-button
-      href="https://github.com/grantwforsythe/custom-reports-for-ynab/issues/new?assignees=grantwforsythe&labels=bug&projects=&template=bug-report.yml&title=%5BBUG%5D"
-      aria-label="Report an Issue"
-      color="warn"
-    >
-      <mat-icon fontIcon="report"></mat-icon>
-      Report
-    </a>
-    <a mat-raised-button (click)="logout()" (keyup.enter)="logout()" color="accent" tabindex="0">
-      <mat-icon fontIcon="logout"></mat-icon>
-      Logout
-    </a>
+  <div class="sm:hidden">
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Report an issue or logout">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="logout()" (keyup.enter)="logout()" color="accent" tabindex="0">
+        <mat-icon fontIcon="logout"></mat-icon>
+        Logout
+      </button>
+      <a
+        href="https://github.com/grantwforsythe/custom-reports-for-ynab/issues/new?assignees=grantwforsythe&labels=bug&projects=&template=bug-report.yml&title=%5BBUG%5D"
+        aria-label="Report an Issue"
+      >
+        <button mat-menu-item>
+          <mat-icon fontIcon="report"></mat-icon>
+          Report
+        </button>
+      </a>
+    </mat-menu>
+  </div>
+  <div class="hidden sm:block">
+    <div class="flex space-x-4 md:block">
+      <a
+        mat-raised-button
+        href="https://github.com/grantwforsythe/custom-reports-for-ynab/issues/new?assignees=grantwforsythe&labels=bug&projects=&template=bug-report.yml&title=%5BBUG%5D"
+        aria-label="Report an Issue"
+        color="warn"
+      >
+        <mat-icon fontIcon="report"></mat-icon>
+        Report
+      </a>
+      <a mat-raised-button (click)="logout()" (keyup.enter)="logout()" color="accent" tabindex="0">
+        <mat-icon fontIcon="logout"></mat-icon>
+        Logout
+      </a>
+    </div>
   </div>
 }
