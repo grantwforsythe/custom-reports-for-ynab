@@ -1,3 +1,10 @@
+## [1.7.0](https://github.com/grantwforsythe/custom-reports-for-ynab/compare/1.6.0...1.7.0) (2024-07-03)
+
+### Features
+
+- add icons to home component ([b13c4dc](https://github.com/grantwforsythe/custom-reports-for-ynab/commit/b13c4dcd9efb327430428752388320bd0084e9d0))
+- reorder form fields; add spacing b/w each ([7b74495](https://github.com/grantwforsythe/custom-reports-for-ynab/commit/7b74495419027bbffb1333ef3b3e67b8e5a1534b))
+
 ## [1.6.0](https://github.com/grantwforsythe/custom-reports-for-ynab/compare/1.5.0...1.6.0) (2024-05-16)
 
 ### Features
