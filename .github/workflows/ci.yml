@@ -15,11 +15,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install node, npm, and dependencies
+      - name: Install node, pnpm, and dependencies
         uses: ./.github/actions/install-dependencies
 
       - name: Build Packages
-        run: npm run build
+        run: pnpm run build
         shell: bash
 
   test:
@@ -30,11 +30,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install node, npm, and dependencies
+      - name: Install node, pnpm, and dependencies
         uses: ./.github/actions/install-dependencies
 
       - name: Run unit tests
-        run: npm run test:ci
+        run: pnpm run test:ci
         shell: bash
 
       - name: Upload coverage reports to Codecov
@@ -51,14 +51,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install node, npm, and dependencies
+      - name: Install node, pnpm, and dependencies
         uses: ./.github/actions/install-dependencies
 
       - name: Run e2e tests
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-          start: npm start
+          start: pnpm start
           # Record the test in Cypress Cloud
           record: true
         env:
@@ -74,9 +74,9 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install node, npm, and dependencies
+      - name: Install node, pnpm, and dependencies
         uses: ./.github/actions/install-dependencies
 
       - name: Lint Packages
-        run: npm run lint
+        run: pnpm run lint
         shell: bash
