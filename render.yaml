@@ -4,7 +4,7 @@ services:
     runtime: static
     repo: https://github.com/grantwforsythe/ynab-custom-reports
     branch: main
-    buildCommand: npm run build
+    buildCommand: pnpm install --frozen-lockfile && pnpm run build
     staticPublishPath: dist/ynab-custom-reports/browser
     buildFilter:
       paths:
@@ -12,5 +12,7 @@ services:
       ignoredPaths:
         - src/**/*.spec.ts
     envVars:
+      - key: SKIP_INSTALL_DEPS
+        value: true
       - key: HUSKY
         value: 0
