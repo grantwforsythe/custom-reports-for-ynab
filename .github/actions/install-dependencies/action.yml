@@ -1,18 +1,20 @@
 name: Install dependencies
-description: Install node and npm, then run npm install
+description: Install node and pnpm, then run pnpm install
 
 runs:
   using: composite
   steps:
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+
     - name: Install Node and dependencies
       uses: actions/setup-node@v4
       with:
         node-version: 20
-        cache: 'npm'
-        cache-dependency-path: package-lock.json
+        cache: 'pnpm'
 
     - name: Install dependencies
-      run: npm ci
+      run: pnpm install
       env:
         HUSKY: '0'
       shell: bash

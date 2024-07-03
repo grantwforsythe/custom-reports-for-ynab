@@ -10,7 +10,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install node, npm, and dependencies
+      - name: Install node, pnpm, and dependencies
         uses: ./.github/actions/install-dependencies
 
       - name: Initialize Git User
@@ -32,7 +32,7 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npm run release --ci
+        run: pnpm run release --ci
 
       - name: Deploy to Render
         env:

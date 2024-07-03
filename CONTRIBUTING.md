@@ -3,8 +3,8 @@
 To get started, ensure both [Node v18.x or the latest LTS version](https://nodejs.org) and npm 8.x are installed, and then install the dependencies.
 
 ```bash
-npm install
-npm start
+pnpm install
+pnpm start
 ```
 
 ### Tech Stack
@@ -18,13 +18,13 @@ npm start
 [Cypress](https://www.cypress.io/) is used for E2E tests.
 
 ```bash
-npm run e2e
+pnpm run e2e
 ```
 
 [Jasmine](https://jasmine.github.io/) and [Karma](https://karma-runner.github.io/6.4/index.html) are used for unit tests.
 
 ```bash
-npm run test
+pnpm run test
 ```
 
 ## Raising Pull Requests

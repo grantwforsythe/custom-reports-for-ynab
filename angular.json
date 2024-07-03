@@ -143,6 +143,7 @@
       "@angular-eslint/schematics",
       "@schematics/angular"
     ],
+    "packageManager": "pnpm",
     "analytics": false
   }
 }
