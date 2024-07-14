@@ -1,11 +1,5 @@
 import { faker } from '@faker-js/faker';
 
-import { Account } from '../services/ynab/interfaces/accounts/account';
-import { BudgetSummary } from '../services/ynab/interfaces/budgets/summary/budgetSummary';
-import { CategoryGroup } from '../services/ynab/interfaces/categories/categoryGroup';
-import { Payee } from '../services/ynab/interfaces/payees/payee';
-import { Transaction } from '../services/ynab/interfaces/transactions/transaction';
-
 const from = '2024-01-01T00:00:00.000Z';
 const to = '2024-12-31T11:59:00.000Z';
 

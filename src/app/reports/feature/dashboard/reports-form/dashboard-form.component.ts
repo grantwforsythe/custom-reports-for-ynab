@@ -10,8 +10,6 @@ import { Store } from '@ngrx/store';
 
 import { Observable, Subject, combineLatest, startWith, takeUntil } from 'rxjs';
 
-import { Account } from '../../../../shared/services/ynab/interfaces/accounts/account';
-import { Category } from '../../../../shared/services/ynab/interfaces/categories/category';
 import { formActions } from '../../../../state/actions/dashboard-form.actions';
 import { FormState } from '../../../../state/app.state';
 import {

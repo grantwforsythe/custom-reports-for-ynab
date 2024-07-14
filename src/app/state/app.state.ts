@@ -1,8 +1,3 @@
-import { Account } from '../shared/services/ynab/interfaces/accounts/account';
-import { BudgetSummary } from '../shared/services/ynab/interfaces/budgets/summary/budgetSummary';
-import { CategoryGroup } from '../shared/services/ynab/interfaces/categories/categoryGroup';
-import { Transaction } from '../shared/services/ynab/interfaces/transactions/transaction';
-
 export interface BudgetState {
   budgets: BudgetSummary[];
 }

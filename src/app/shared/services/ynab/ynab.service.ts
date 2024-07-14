@@ -3,13 +3,6 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable, catchError, map, shareReplay, throwError } from 'rxjs';
 
-import { Account } from './interfaces/accounts/account';
-import { BudgetDetail } from './interfaces/budgets/detail/budgetDetail';
-import { BudgetSummary } from './interfaces/budgets/summary/budgetSummary';
-import { CategoryGroup } from './interfaces/categories/categoryGroup';
-import { Payee } from './interfaces/payees/payee';
-import { Transaction } from './interfaces/transactions/transaction';
-
 const BASE_URL = 'https://api.ynab.com/v1';
 
 // TODO: Refactor in library

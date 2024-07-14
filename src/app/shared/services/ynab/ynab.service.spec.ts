@@ -2,13 +2,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import { mockBudgets, mockCategoryGroups, mockId, mockPayees } from '../../utils/mocks';
-import { Account } from './interfaces/accounts/account';
-import { BudgetDetail } from './interfaces/budgets/detail/budgetDetail';
-import { BudgetSummary } from './interfaces/budgets/summary/budgetSummary';
-import { CategoryGroup } from './interfaces/categories/categoryGroup';
-import { Payee } from './interfaces/payees/payee';
-import { Transaction } from './interfaces/transactions/transaction';
-import { YnabError } from './interfaces/ynabError';
 import { YnabService } from './ynab.service';
 
 // TODO: Refactor out
