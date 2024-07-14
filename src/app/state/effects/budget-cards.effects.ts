@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 
 import { of, switchMap, tap } from 'rxjs';
 
-import { BudgetSummary } from '../../shared/services/ynab/interfaces/budgets/summary/budgetSummary';
 import { YnabService } from '../../shared/services/ynab/ynab.service';
 import { budgetActions } from '../actions/budget-cards.actions';
 

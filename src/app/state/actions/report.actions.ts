@@ -1,9 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
-import { Account } from '../../shared/services/ynab/interfaces/accounts/account';
-import { CategoryGroup } from '../../shared/services/ynab/interfaces/categories/categoryGroup';
-import { Transaction } from '../../shared/services/ynab/interfaces/transactions/transaction';
-
 export const reportActions = createActionGroup({
   source: 'Dashboard Page',
   events: {
