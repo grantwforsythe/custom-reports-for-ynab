@@ -1,4 +1,4 @@
-interface Account {
+declare interface Account {
   id: string;
   name: string;
   type: AccountType;
@@ -61,7 +61,7 @@ interface Account {
 /**
  * The type of account
  */
-type AccountType =
+declare type AccountType =
   | 'checking'
   | 'savings'
   | 'cash'
@@ -76,7 +76,7 @@ type AccountType =
   | 'medicalDebt'
   | 'otherDebt';
 
-interface Payee {
+declare interface Payee {
   id: string;
   name: string;
   /**
@@ -89,7 +89,7 @@ interface Payee {
   deleted: boolean;
 }
 
-interface PayeeLocation {
+declare interface PayeeLocation {
   id: string;
   payeeId: string;
   latitude: string;
@@ -101,7 +101,7 @@ interface PayeeLocation {
   deleted: boolean;
 }
 
-interface CurrencyFormat {
+declare interface CurrencyFormat {
   iso_code: string;
   example_format: string;
   decimal_digits: number;
@@ -112,11 +112,11 @@ interface CurrencyFormat {
   display_symbol: boolean;
 }
 
-interface DateFormat {
+declare interface DateFormat {
   format: string;
 }
 
-interface BudgetSummary {
+declare interface BudgetSummary {
   id: string;
   name: string;
   /**
@@ -139,7 +139,7 @@ interface BudgetSummary {
   accounts?: Account[];
 }
 
-interface MonthSummary {
+declare interface MonthSummary {
   month: string;
   note?: string;
   /**
@@ -172,7 +172,7 @@ interface MonthSummary {
   categories: Category[];
 }
 
-interface BudgetDetail extends BudgetSummary {
+declare interface BudgetDetail extends BudgetSummary {
   payees?: Payee[];
   payeeLocations?: PayeeLocation[];
   categoryGroups?: Omit<CategoryGroup[], 'categories'>;
@@ -184,7 +184,7 @@ interface BudgetDetail extends BudgetSummary {
   scheduledSubTransactions?: ScheduledSubTransaction[];
 }
 
-interface CategoryGroup {
+declare interface CategoryGroup {
   id: string;
   name: string;
   /**
@@ -198,7 +198,7 @@ interface CategoryGroup {
   categories?: Category[];
 }
 
-interface Category {
+declare interface Category {
   id: string;
   category_group_id: string;
   category_group_name?: string;
@@ -278,7 +278,7 @@ interface Category {
   deleted: boolean;
 }
 
-interface ScheduledTransactionSummary {
+declare interface ScheduledTransactionSummary {
   id: string;
   /**
    * The first date for which the Scheduled Transaction was scheduled.
@@ -322,7 +322,7 @@ interface ScheduledTransactionSummary {
   deleted: boolean;
 }
 
-interface TransactionSummary {
+declare interface TransactionSummary {
   id: string;
   /**
    * The transaction date in ISO format (e.g. 2016-12-01)
@@ -386,8 +386,9 @@ interface TransactionSummary {
   deleted: boolean;
 }
 
-type FlagColor = 'red' | 'orange' | 'yellow' | 'green' | 'blue' | 'purple' | 'null';
-interface SubTransaction {
+declare type FlagColor = 'red' | 'orange' | 'yellow' | 'green' | 'blue' | 'purple' | 'null';
+
+declare interface SubTransaction {
   id: string;
   transaction_id: string;
   /**
@@ -413,7 +414,7 @@ interface SubTransaction {
   deleted: boolean;
 }
 
-interface ScheduledSubTransaction {
+declare interface ScheduledSubTransaction {
   id: string;
   scheduled_transaction_id: string;
   /**
@@ -433,14 +434,14 @@ interface ScheduledSubTransaction {
   deleted: boolean;
 }
 
-interface Transaction extends TransactionSummary {
+declare interface Transaction extends TransactionSummary {
   account_name: string;
   payee_name?: string;
   category_name?: string;
   subtransactions?: SubTransaction[];
 }
 
-interface YnabError {
+declare interface YnabError {
   id: string;
   name: string;
   detail: string;
