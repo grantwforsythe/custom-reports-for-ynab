@@ -55,8 +55,10 @@
       "extends": [
         "plugin:@angular-eslint/template/recommended",
         "plugin:@angular-eslint/template/accessibility",
+        "plugin:tailwindcss/recommended",
         "plugin:prettier/recommended"
       ],
+      "parser": "@angular-eslint/template-parser",
       "rules": {
         "prettier/prettier": [
           "error",
