@@ -36,7 +36,7 @@ describe('YnabService', () => {
         },
       };
 
-      service.getBudgets().subscribe((budgets) => {
+      service.getBudgets().subscribe(budgets => {
         expect(budgets).toHaveSize(2);
       });
 
@@ -87,12 +87,12 @@ describe('YnabService', () => {
     it('should fetch a budget', () => {
       const mockResponse: { data: { budget: BudgetDetail; server_knowledge: number } } = {
         data: {
-          budget: mockBudgets.find((budget) => budget.id === mockId)!,
+          budget: mockBudgets.find(budget => budget.id === mockId)!,
           server_knowledge: 0,
         },
       };
 
-      service.getBudgetById(mockId).subscribe((budget) => {
+      service.getBudgetById(mockId).subscribe(budget => {
         expect(budget.id).toEqual(mockId);
       });
 
@@ -146,11 +146,11 @@ describe('YnabService', () => {
       } = {
         data: {
           category_groups: mockCategoryGroups,
-          'server_knowledge': 0,
+          server_knowledge: 0,
         },
       };
 
-      service.getCategoryGroups(id).subscribe((categoryGroups) => {
+      service.getCategoryGroups(id).subscribe(categoryGroups => {
         expect(categoryGroups.length).toBeGreaterThan(0);
       });
 
@@ -206,7 +206,7 @@ describe('YnabService', () => {
         },
       };
 
-      service.getPayees(mockId).subscribe((payees) => {
+      service.getPayees(mockId).subscribe(payees => {
         expect(payees).toBeDefined();
       });
 
@@ -303,7 +303,7 @@ describe('YnabService', () => {
           },
         };
 
-      service.getTransactions(id).subscribe((transactions) => {
+      service.getTransactions(id).subscribe(transactions => {
         expect(transactions).toHaveSize(1);
       });
 
@@ -380,7 +380,7 @@ describe('YnabService', () => {
         },
       };
 
-      service.getAccounts(id).subscribe((transactions) => {
+      service.getAccounts(id).subscribe(transactions => {
         expect(transactions).toHaveSize(1);
       });
 

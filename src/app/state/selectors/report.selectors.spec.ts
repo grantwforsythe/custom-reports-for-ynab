@@ -39,7 +39,7 @@ describe('Report Selectors', () => {
 
     expect(result).not.toHaveSize(mockAccounts.length);
 
-    result.forEach((account) => {
+    result.forEach(account => {
       expect(account.deleted).toBeFalsy();
       expect(account.on_budget).toBeTruthy();
     });
@@ -52,7 +52,7 @@ describe('Report Selectors', () => {
       transactions: mockTransactions,
     });
 
-    result.forEach((category) => {
+    result.forEach(category => {
       expect(category?.category_group_name).toEqual('Internal Master Category');
     });
   });
@@ -67,7 +67,7 @@ describe('Report Selectors', () => {
     expect(result).toBeDefined();
 
     expect(
-      result.filter((category) => category?.category_group_name === 'Internal Master Category'),
+      result.filter(category => category?.category_group_name === 'Internal Master Category'),
     ).toHaveSize(0);
   });
 
@@ -87,7 +87,7 @@ describe('Report Selectors', () => {
       internalCategories,
     );
 
-    result.forEach((transaction) => {
+    result.forEach(transaction => {
       expect(transaction.amount < 0).toBeTruthy();
       expect(transaction.deleted).toBeFalsy();
       expect(transaction.category_id).toBeDefined();
@@ -159,7 +159,7 @@ describe('Report Selectors', () => {
     it('should return transactions with date <= end date if start date is null', () => {
       const endDate = new Date('2024-02-01');
       const filteredTransactions = transactions.filter(
-        (transaction) => new Date(transaction.date) <= endDate,
+        transaction => new Date(transaction.date) <= endDate,
       );
 
       expect(filteredTransactions).not.toEqual(transactions);
@@ -176,7 +176,7 @@ describe('Report Selectors', () => {
     it('should return transactions with date >= start date if end date is null', () => {
       const startDate = new Date('2024-02-01');
       const filteredTransactions = transactions.filter(
-        (transaction) => new Date(transaction.date) >= startDate,
+        transaction => new Date(transaction.date) >= startDate,
       );
 
       expect(filteredTransactions).not.toEqual(mockTransactions);
@@ -194,7 +194,7 @@ describe('Report Selectors', () => {
       const startDate = new Date('2024-01-01');
       const endDate = new Date('2024-12-31');
       const filteredTransactions = transactions.filter(
-        (transaction) =>
+        transaction =>
           new Date(transaction.date) >= startDate && new Date(transaction.date) <= endDate,
       );
 
@@ -242,7 +242,7 @@ describe('Report Selectors', () => {
       });
 
       const expected = transactions.filter(
-        (transaction) => transaction.account_id === mockAccounts[0].id,
+        transaction => transaction.account_id === mockAccounts[0].id,
       );
       expect(result).toEqual(expected);
     });
@@ -280,7 +280,7 @@ describe('Report Selectors', () => {
       });
 
       const expected = transactions.filter(
-        (transaction) => transaction.category_id === mockCategoryGroups[0].id,
+        transaction => transaction.category_id === mockCategoryGroups[0].id,
       );
 
       expect(result).toEqual(expected);

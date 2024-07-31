@@ -12,14 +12,14 @@ export const routes: Routes = [
     path: 'budgets',
     loadComponent: () =>
       import('./reports/feature/budget-cards/budget-cards.component').then(
-        (m) => m.BudgetCardsComponent,
+        m => m.BudgetCardsComponent,
       ),
     canActivate: [authGuard],
   },
   {
     path: 'budgets/:id/dashboard',
     loadComponent: () =>
-      import('./reports/feature/dashboard/dashboard.component').then((m) => m.DashboardComponent),
+      import('./reports/feature/dashboard/dashboard.component').then(m => m.DashboardComponent),
     canActivate: [authGuard],
   },
   { path: '**', redirectTo: '' },

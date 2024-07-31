@@ -18,7 +18,7 @@ export class BudgetEffects {
   loadBudgets$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(budgetActions.initBudgets),
-      switchMap((_action) => {
+      switchMap(_action => {
         return this.ynab.getBudgets();
       }),
       tap((budgets: BudgetSummary[]) => {

@@ -85,13 +85,13 @@ export class DashboardFormComponent implements OnInit, OnDestroy {
     this.minDate$ = this.store.select(selectEarliestTransactionDate);
 
     // Select all the accounts by default
-    this.accounts$.pipe(takeUntil(this.destroy$)).subscribe((accounts) => {
-      this.account.setValue(accounts.map((account) => account.id));
+    this.accounts$.pipe(takeUntil(this.destroy$)).subscribe(accounts => {
+      this.account.setValue(accounts.map(account => account.id));
     });
 
     // Select all the categories by default
-    this.categories$.pipe(takeUntil(this.destroy$)).subscribe((categories) => {
-      this.category.setValue(categories.map((category) => category!.id));
+    this.categories$.pipe(takeUntil(this.destroy$)).subscribe(categories => {
+      this.category.setValue(categories.map(category => category!.id));
     });
 
     // TODO: Think about refactoring this into individual subscriptions

@@ -6,21 +6,21 @@ export const selectFormState = createFeatureSelector<FormState>('form');
 
 export const selectReportState = createFeatureSelector<ReportState>('report');
 
-export const selectChartType = createSelector(selectFormState, (form) => form.chartType);
+export const selectChartType = createSelector(selectFormState, form => form.chartType);
 
 /**
  * Selects accounts from the report state, filtering out deleted accounts.
  *
  * @return {Account[]} The filtered accounts.
  */
-export const selectReportAccounts = createSelector(selectReportState, (report) => {
-  return report.accounts.filter((account) => !account.deleted && account.on_budget);
+export const selectReportAccounts = createSelector(selectReportState, report => {
+  return report.accounts.filter(account => !account.deleted && account.on_budget);
 });
 
-export const selectInternalCategoryGroup = createSelector(selectReportState, (report) => {
+export const selectInternalCategoryGroup = createSelector(selectReportState, report => {
   return report.categoryGroups
-    .filter((categoryGroup) => categoryGroup.name === 'Internal Master Category')
-    .flatMap((categoryGroup) => categoryGroup?.categories);
+    .filter(categoryGroup => categoryGroup.name === 'Internal Master Category')
+    .flatMap(categoryGroup => categoryGroup?.categories);
 });
 
 /**
@@ -30,11 +30,11 @@ export const selectInternalCategoryGroup = createSelector(selectReportState, (re
  * @return {Category[]} The filtered categories.
  */
 // TODO: Add a toggle for delete / hidden categories
-export const selectReportCategories = createSelector(selectReportState, (report) => {
+export const selectReportCategories = createSelector(selectReportState, report => {
   return report.categoryGroups
-    .filter((categoryGroup) => categoryGroup.name !== 'Internal Master Category')
-    .flatMap((categoryGroup) => categoryGroup?.categories)
-    .filter((category) => !!category);
+    .filter(categoryGroup => categoryGroup.name !== 'Internal Master Category')
+    .flatMap(categoryGroup => categoryGroup?.categories)
+    .filter(category => !!category);
 });
 
 /**
@@ -51,14 +51,14 @@ export const selectTransactions = createSelector(
     return (
       transactions
         // Filter out transactions without a category
-        .filter((transaction) => {
+        .filter(transaction => {
           return (
             transaction.amount < 0 &&
             !transaction.deleted &&
             !!transaction.category_id &&
             (transaction.subtransactions === undefined ||
               transaction.subtransactions.length === 0) &&
-            !internalCategories.map((category) => category?.id).includes(transaction.category_id) &&
+            !internalCategories.map(category => category?.id).includes(transaction.category_id) &&
             transaction.category_name !== 'Split'
           );
         })
@@ -66,7 +66,7 @@ export const selectTransactions = createSelector(
   },
 );
 
-export const selectEarliestTransactionDate = createSelector(selectTransactions, (transactions) => {
+export const selectEarliestTransactionDate = createSelector(selectTransactions, transactions => {
   const today = new Date();
 
   if (transactions.length === 0) return today;
@@ -96,14 +96,14 @@ export const selectFilteredTransactionsByDateRange = createSelector(
       return transactions;
     } else if (start === null) {
       return transactions.filter(
-        (transaction) => new Date(transaction.date).getTime() <= new Date(end as string).getTime(),
+        transaction => new Date(transaction.date).getTime() <= new Date(end as string).getTime(),
       );
     } else if (end === null) {
       return transactions.filter(
-        (transaction) => new Date(transaction.date).getTime() >= new Date(start).getTime(),
+        transaction => new Date(transaction.date).getTime() >= new Date(start).getTime(),
       );
     } else {
-      return transactions.filter((transaction) => {
+      return transactions.filter(transaction => {
         return (
           new Date(transaction.date).getTime() >= new Date(start).getTime() &&
           new Date(transaction.date).getTime() <= new Date(end).getTime()
@@ -117,7 +117,7 @@ export const selectTransactionsByAccountAndDate = createSelector(
   selectFilteredTransactionsByDateRange,
   selectFormState,
   (filteredTransactions, { account }) => {
-    return filteredTransactions.filter((transaction) => {
+    return filteredTransactions.filter(transaction => {
       if (account === null) return true;
 
       return account.includes(transaction.account_id);
@@ -129,7 +129,7 @@ export const selectFilterTransactionsByCategory = createSelector(
   selectTransactionsByAccountAndDate,
   selectFormState,
   (transactions, { category }) => {
-    return transactions.filter((transaction) => {
+    return transactions.filter(transaction => {
       if (category === null || transaction.category_id === undefined) return true;
 
       return category.includes(transaction.category_id);
@@ -155,9 +155,9 @@ export interface ReportResults {
  */
 export const selectReportResults = createSelector(
   selectFilterTransactionsByCategory,
-  (transactions) => {
+  transactions => {
     return transactions.reduce((results, transaction) => {
-      const existingResult = results.find((result) => result.name === transaction.category_name);
+      const existingResult = results.find(result => result.name === transaction.category_name);
       const amount = (transaction.amount / 1000) * -1;
 
       if (existingResult) {

@@ -47,7 +47,7 @@ describe('BudgetEffects', () => {
       actions$ = of({ type: '[Budget Page] Init Budgets' });
       ynabSpy.getBudgets.and.returnValue(of(mockBudgets));
 
-      effects.loadBudgets$.subscribe((action) => {
+      effects.loadBudgets$.subscribe(action => {
         expect(action.budgets).toEqual(mockBudgets);
         expect(action).toEqual(budgetActions.setBudgets({ budgets: mockBudgets }));
       });
@@ -61,7 +61,7 @@ describe('BudgetEffects', () => {
       actions$ = of({ type: '[Budget Page] Init Budgets' });
       ynabSpy.getBudgets.and.returnValue(of(mockBudget));
 
-      effects.loadBudgets$.subscribe((action) => {
+      effects.loadBudgets$.subscribe(action => {
         expect(action.budgets).toEqual(mockBudget);
         expect(action).toEqual(budgetActions.setBudgets({ budgets: mockBudget }));
       });

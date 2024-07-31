@@ -126,7 +126,7 @@ describe('ReportEffects', () => {
       ynabSpy.getAccounts.and.returnValue(of(mockAccounts));
       ynabSpy.getTransactions.and.returnValue(of(mockTransactions));
 
-      effects.loadBudgetResources$.subscribe((action) => {
+      effects.loadBudgetResources$.subscribe(action => {
         expect(action).toEqual(
           reportActions.setReportData({
             accounts: mockAccounts,

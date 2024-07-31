@@ -13,7 +13,7 @@ export class AnalyticsService {
    * or an error event if the injection fails.
    */
   injectScript(): Observable<Event> {
-    return new Observable((observer) => {
+    return new Observable(observer => {
       const script = document.createElement('script');
       script.defer = true;
       script.type = 'text/javascript';

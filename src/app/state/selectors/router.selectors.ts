@@ -21,7 +21,7 @@ export const {
 // Beware of using this accumulation technique when two params with the same name exist in the route (e.g. my/:route/:id/with/another/:id).
 // Only the rightmost value is accessible because leftmost values are overwritten by the rightmost one in the traversal.
 // Source: https://ngrx.io/guide/router-store/selectors#extracting-all-params-in-the-current-route
-export const selectRouteNestedParams = createSelector(selectRouter, (router) => {
+export const selectRouteNestedParams = createSelector(selectRouter, router => {
   let currentRoute = router?.state?.root;
   let params: Params = {};
   while (currentRoute?.firstChild) {
@@ -35,4 +35,4 @@ export const selectRouteNestedParams = createSelector(selectRouter, (router) => 
 });
 
 export const selectRouteNestedParam = (param: string) =>
-  createSelector(selectRouteNestedParams, (params) => params && params[param]);
+  createSelector(selectRouteNestedParams, params => params && params[param]);

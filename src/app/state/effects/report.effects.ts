@@ -26,7 +26,7 @@ export class ReportEffects {
           transactions: this.ynab.getTransactions(id),
         });
       }),
-      switchMap((data) => {
+      switchMap(data => {
         return of(reportActions.setReportData(data));
       }),
     );
