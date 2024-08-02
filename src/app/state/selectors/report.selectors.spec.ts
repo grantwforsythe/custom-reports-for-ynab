@@ -1,8 +1,4 @@
-import {
-  mockAccounts,
-  mockCategoryGroups,
-  mockTransactions,
-} from '../../shared/utils/mocks.spec.spec';
+import { mockAccounts, mockCategoryGroups, mockTransactions } from '../../shared/utils/mocks.spec';
 import { AppState } from '../app.state';
 import * as fromSelectors from './report.selectors';
 
