@@ -27,6 +27,7 @@ import { AuthService } from './shared/services/auth/auth.service';
 })
 export class AppComponent implements OnInit {
   auth = inject(AuthService);
+
   analytics = inject(AnalyticsService);
 
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {

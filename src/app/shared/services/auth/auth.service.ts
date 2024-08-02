@@ -12,7 +12,9 @@ export class AuthService implements OnDestroy {
   token$ = new BehaviorSubject<string | null>(localStorage.getItem('accessToken'));
 
   private route = inject(ActivatedRoute);
+
   private router = inject(Router);
+
   private destroy$ = new Subject<void>();
 
   authenticate(): void {

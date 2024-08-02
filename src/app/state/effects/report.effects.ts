@@ -12,23 +12,24 @@ import { selectRouteNestedParam } from '../selectors/router.selectors';
 
 export class ReportEffects {
   actions$ = inject(Actions);
+
   ynab = inject(YnabService);
+
   store = inject(Store);
 
+  /* eslint-disable arrow-body-style */
   loadBudgetResources$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(reportActions.initReportData),
       concatLatestFrom(() => this.store.select(selectRouteNestedParam('id'))),
-      mergeMap(([_action, id]) => {
-        return forkJoin({
+      mergeMap(([_action, id]) =>
+        forkJoin({
           categoryGroups: this.ynab.getCategoryGroups(id),
           accounts: this.ynab.getAccounts(id),
           transactions: this.ynab.getTransactions(id),
-        });
-      }),
-      switchMap(data => {
-        return of(reportActions.setReportData(data));
-      }),
+        }),
+      ),
+      switchMap(data => of(reportActions.setReportData(data))),
     );
   });
 }

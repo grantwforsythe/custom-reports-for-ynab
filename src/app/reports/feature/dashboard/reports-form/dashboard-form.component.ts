@@ -33,6 +33,7 @@ import {
 })
 export class DashboardFormComponent implements OnInit, OnDestroy {
   private store = inject(Store);
+
   private destroy$ = new Subject<void>();
 
   // TODO: Create enums
@@ -68,15 +69,21 @@ export class DashboardFormComponent implements OnInit, OnDestroy {
     start: new FormControl<string | undefined>(undefined),
     end: new FormControl<string | undefined>(undefined),
   });
+
   sort = new FormControl<'desc' | 'asc' | undefined>(undefined);
+
   category = new FormControl<string[]>([]);
+
   account = new FormControl<string[]>([]);
+
   chartType = new FormControl<string>('vertical');
 
   categories$!: Observable<(Category | undefined)[]>;
+
   accounts$!: Observable<Account[]>;
 
   minDate$!: Observable<Date>;
+
   maxDate: Date = new Date();
 
   ngOnInit(): void {

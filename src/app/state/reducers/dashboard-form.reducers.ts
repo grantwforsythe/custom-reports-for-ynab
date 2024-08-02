@@ -13,10 +13,11 @@ const initialState: FormState = {
 
 export const formReducer = createReducer(
   initialState,
-  on(formActions.setFormData, (state, action): FormState => {
-    return {
+  on(
+    formActions.setFormData,
+    (state, action): FormState => ({
       ...state,
       ...action.form,
-    };
-  }),
+    }),
+  ),
 );

@@ -1,4 +1,4 @@
-import { mockAccounts, mockCategoryGroups, mockTransactions } from '../../shared/utils/mocks';
+import { mockAccounts, mockCategoryGroups, mockTransactions } from '../../shared/utils/mocks.spec';
 import { AppState } from '../app.state';
 import * as fromSelectors from './report.selectors';
 
@@ -311,7 +311,7 @@ describe('Report Selectors', () => {
         sort: 'asc',
       });
 
-      for (let i = 0; i < result.length - 1; i++) {
+      for (let i = 0; i < result.length - 1; i += 1) {
         expect(result[i].value).toBeLessThanOrEqual(result[i + 1].value);
       }
     });
@@ -322,7 +322,7 @@ describe('Report Selectors', () => {
         sort: 'desc',
       });
 
-      for (let i = 0; i < result.length - 1; i++) {
+      for (let i = 0; i < result.length - 1; i += 1) {
         expect(result[i].value).toBeGreaterThanOrEqual(result[i + 1].value);
       }
     });

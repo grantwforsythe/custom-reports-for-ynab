@@ -17,6 +17,7 @@ import { selectBudgets } from '../../../state/selectors/budget-cards.selectors';
 })
 export class BudgetCardsComponent implements OnInit {
   private store = inject(Store);
+
   budgets$ = this.store.select(selectBudgets);
 
   ngOnInit(): void {

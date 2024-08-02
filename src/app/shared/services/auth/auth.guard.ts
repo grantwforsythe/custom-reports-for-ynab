@@ -11,6 +11,5 @@ import { AuthService } from './auth.service';
 export const authGuard: CanActivateFn = (
   _route: ActivatedRouteSnapshot,
   _state: RouterStateSnapshot,
-): boolean | Promise<boolean> => {
-  return inject(AuthService).isAuthenticated() ? true : inject(Router).navigate(['/']);
-};
+): boolean | Promise<boolean> =>
+  inject(AuthService).isAuthenticated() ? true : inject(Router).navigate(['/']);
