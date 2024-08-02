@@ -1,4 +1,8 @@
-import { mockAccounts, mockCategoryGroups, mockTransactions } from '../../shared/utils/mocks';
+import {
+  mockAccounts,
+  mockCategoryGroups,
+  mockTransactions,
+} from '../../shared/utils/mocks.spec.spec';
 import { reportActions } from '../actions/report.actions';
 import * as fromReducer from './report.reducers';
 

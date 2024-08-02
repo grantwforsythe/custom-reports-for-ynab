@@ -1,7 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
-import { mockBudgets, mockCategoryGroups, mockId, mockPayees } from '../../utils/mocks';
+import { mockBudgets, mockCategoryGroups, mockId, mockPayees } from '../../utils/mocks.spec';
 import { YnabService } from './ynab.service';
 
 // TODO: Refactor out

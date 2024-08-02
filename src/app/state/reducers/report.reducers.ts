@@ -11,12 +11,13 @@ export const initialState: ReportState = {
 
 export const reportReducer = createReducer(
   initialState,
-  on(reportActions.setReportData, (_state, action): ReportState => {
-    return {
+  on(
+    reportActions.setReportData,
+    (_state, action): ReportState => ({
       categoryGroups: action.categoryGroups,
       accounts: action.accounts,
       transactions: action.transactions,
-    };
-  }),
+    }),
+  ),
   on(reportActions.resetReportData, (): ReportState => initialState),
 );

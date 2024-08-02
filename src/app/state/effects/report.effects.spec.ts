@@ -13,7 +13,7 @@ import {
   mockCategoryGroups,
   mockId,
   mockTransactions,
-} from '../../shared/utils/mocks';
+} from '../../shared/utils/mocks.spec';
 import { reportActions } from '../actions/report.actions';
 import { ReportEffects } from './report.effects';
 
@@ -63,7 +63,7 @@ describe('ReportEffects', () => {
           children: [
             {
               params: {
-                mockId: mockId,
+                mockId,
               },
               data: {},
               url: [

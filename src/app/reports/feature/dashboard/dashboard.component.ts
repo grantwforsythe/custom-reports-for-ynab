@@ -35,6 +35,7 @@ import { DashboardFormComponent } from './reports-form/dashboard-form.component'
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   private store = inject(Store);
+
   chartType$: Observable<string | null> = this.store.select(selectChartType);
 
   ngOnInit(): void {

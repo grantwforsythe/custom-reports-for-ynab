@@ -9,9 +9,10 @@ export const initialState: BudgetState = {
 
 export const budgetsReducers = createReducer(
   initialState,
-  on(budgetActions.setBudgets, (_state, action): BudgetState => {
-    return {
+  on(
+    budgetActions.setBudgets,
+    (_state, action): BudgetState => ({
       budgets: action.budgets,
-    };
-  }),
+    }),
+  ),
 );
