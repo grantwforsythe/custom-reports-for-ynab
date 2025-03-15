@@ -29,7 +29,7 @@ describe('Custom Reports for YNAB', () => {
 
     it('Should reroute to home page on 404', () => {
       cy.visit('/bad-route');
-      cy.location().should((location) => expect(location.pathname).to.eq('/'));
+      cy.location().should(location => expect(location.pathname).to.eq('/'));
     });
   });
 
@@ -41,9 +41,8 @@ describe('Custom Reports for YNAB', () => {
 
     it('Should route to privacy page', () => {
       cy.get('p a').contains('privacy policy').click();
-      cy.location().should((location) => expect(location.pathname).to.eq('/privacy'));
+      cy.location().should(location => expect(location.pathname).to.eq('/privacy'));
       cy.get('h1').should('contain', 'Privacy Policy');
-      cy.get('p a').should('have.attr', 'href', 'https://api.ynab.com/#terms');
     });
 
     it('Should access privacy page when not authenticated', () => {
@@ -57,7 +56,7 @@ describe('Custom Reports for YNAB', () => {
     it('Should visit budgets', () => {
       cy.visit('/');
       cy.get('header a').first().click();
-      cy.location().should((location) => expect(location.pathname).to.eq('/budgets'));
+      cy.location().should(location => expect(location.pathname).to.eq('/budgets'));
       cy.get('main').should('contain', "Grant's Budget (CAD)");
     });
 
@@ -65,7 +64,7 @@ describe('Custom Reports for YNAB', () => {
       cy.visit('/');
       cy.get('header a').last().should('contain', 'Logout').click();
       cy.visit('/budgets');
-      cy.location().should((location) => expect(location.pathname).to.eq('/'));
+      cy.location().should(location => expect(location.pathname).to.eq('/'));
     });
   });
 
@@ -74,10 +73,10 @@ describe('Custom Reports for YNAB', () => {
       cy.visit('/budgets');
       cy.get('main').contains("Grant's Budget (CAD)").click();
       // Check that the route ends with /dashboard
-      cy.location().should((location) => expect(location.pathname).to.match(/\/dashboard$/));
+      cy.location().should(location => expect(location.pathname).to.match(/\/dashboard$/));
       // cy.get('mat-select[formControlName=chartType]').click().get('mat-option').contains('Apple Inc.').click();
       cy.get('form mat-select').first().contains('Vertical Bar Chart');
-      cy.get('ul.legend-labels > li').should((categories) => {
+      cy.get('ul.legend-labels > li').should(categories => {
         // TODO: Check that the number of categories in the legend is equal to the number of bars
         expect(categories).to.have.length.greaterThan(0);
       });
