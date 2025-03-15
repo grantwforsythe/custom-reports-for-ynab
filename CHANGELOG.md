@@ -1,3 +1,7 @@
+
+
+## 1.7.1 (2025-03-15)
+
 ## [1.7.0](https://github.com/grantwforsythe/custom-reports-for-ynab/compare/1.6.0...1.7.0) (2024-07-03)
 
 ### Features
