@@ -7,7 +7,6 @@ import { AuthService } from '../shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
   imports: [MatButtonModule, MatIconModule, MatMenuModule],
   templateUrl: './login.component.html',
 })

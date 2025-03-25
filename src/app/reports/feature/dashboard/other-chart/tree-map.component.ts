@@ -10,7 +10,6 @@ import { selectSortedResults } from '../../../../state/selectors/report.selector
 
 @Component({
   selector: 'app-charts-tree-map',
-  standalone: true,
   imports: [AsyncPipe, TreeMapModule],
   templateUrl: './tree-map.component.html',
 })

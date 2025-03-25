@@ -20,7 +20,6 @@ import {
 
 @Component({
   selector: 'app-reports-dashboard-form',
-  standalone: true,
   templateUrl: './dashboard-form.component.html',
   imports: [
     MatSelectModule,

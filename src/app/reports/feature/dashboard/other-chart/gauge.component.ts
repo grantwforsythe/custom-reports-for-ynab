@@ -10,7 +10,6 @@ import { selectSortedResults } from '../../../../state/selectors/report.selector
 
 @Component({
   selector: 'app-charts-gauge',
-  standalone: true,
   imports: [AsyncPipe, GaugeModule],
   templateUrl: './gauge.component.html',
 })

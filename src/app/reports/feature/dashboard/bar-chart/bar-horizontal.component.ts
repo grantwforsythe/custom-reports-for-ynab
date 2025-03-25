@@ -10,7 +10,6 @@ import { selectSortedResults } from '../../../../state/selectors/report.selector
 
 @Component({
   selector: 'app-charts-bar-horizontal',
-  standalone: true,
   imports: [AsyncPipe, BarChartModule],
   templateUrl: './bar-horizontal.component.html',
 })
