@@ -20,7 +20,6 @@ import { DashboardFormComponent } from './reports-form/dashboard-form.component'
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  standalone: true,
   imports: [
     RouterOutlet,
     DashboardFormComponent,

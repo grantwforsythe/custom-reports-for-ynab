@@ -10,7 +10,6 @@ import { selectSortedResults } from '../../../../state/selectors/report.selector
 
 @Component({
   selector: 'app-charts-number-cards',
-  standalone: true,
   imports: [AsyncPipe, NumberCardModule],
   templateUrl: './number-cards.component.html',
 })

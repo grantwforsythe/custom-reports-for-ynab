@@ -10,8 +10,10 @@ import { authGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 
 describe('authGuard', () => {
-  let mockRoute: jasmine.SpyObj<ActivatedRouteSnapshot>;
-  let mockState: jasmine.SpyObj<RouterStateSnapshot>;
+  const mockRoute: jasmine.SpyObj<ActivatedRouteSnapshot> =
+    {} as jasmine.SpyObj<ActivatedRouteSnapshot>;
+  const mockState: jasmine.SpyObj<RouterStateSnapshot> = {} as jasmine.SpyObj<RouterStateSnapshot>;
+
   let authServiceSpy: jasmine.SpyObj<AuthService>;
   let routerSpy: jasmine.SpyObj<Router>;
 

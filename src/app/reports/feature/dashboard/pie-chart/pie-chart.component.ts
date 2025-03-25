@@ -10,7 +10,6 @@ import { selectSortedResults } from '../../../../state/selectors/report.selector
 
 @Component({
   selector: 'app-charts-pie-chart',
-  standalone: true,
   imports: [AsyncPipe, PieChartModule],
   templateUrl: './pie-chart.component.html',
 })

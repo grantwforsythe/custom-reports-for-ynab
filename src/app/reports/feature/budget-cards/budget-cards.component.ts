@@ -11,7 +11,6 @@ import { selectBudgets } from '../../../state/selectors/budget-cards.selectors';
 
 @Component({
   selector: 'app-budgets',
-  standalone: true,
   imports: [CommonModule, MatCardModule, MatRippleModule, DatePipe, RouterModule],
   templateUrl: './budget-cards.component.html',
 })
